@@ -24,11 +24,15 @@
             font-weight: 600;
             color: #1b2a4a;
             cursor: pointer;
-            
+
             &:hover {
                 box-shadow: 0 0 10px 2px #f5efe6;
                 transform: translateY(-4px);
             }
+        }
+
+        span.highlight {
+            color: #e8613c;
         }
 
         .title {
@@ -57,49 +61,154 @@
 
         .content {
             width: 80%;
+            padding: 100px 0;
         }
 
         .section-banner {
             height: 100vh;
-            background-image: url(./img/banner-taipei.jpg);
+            background-image: url('./img/banner-taipei.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            position: relative;
+
+            .mask {
+                width: 100%;
+                height: 100%;
+                background-color: #1b2a4a;
+                opacity: 0.5;
+            }
+
+            .content {
+                /* background-color: #b7b7b7; */
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+
+                .header {
+                    margin-bottom: 8px;
+                    font-size: 66px;
+                    color: #FFFFFF;
+                }
+
+                .describe {
+                    width: 42%;
+                    color: white;
+                    font-size: 18px;
+                    line-height: 1.6;
+                }
+            }
         }
 
         .section-highlight {
-            height: 160px;
+            /* height: 160px; */
             background: #f5efe6;
+
+            .content {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 60px;
+                padding: 40px 0;
+
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 4px;
+
+                    .number {
+                        color: #1b2a4a;
+                        font-size: 36px;
+                        font-weight: 600;
+                    }
+
+                    .describe {
+                        color: #505050;
+                        font-size: 14px;
+                    }
+                }
+            }
         }
 
         .section-explore {
-            height: 400px;
+            /* height: 400px; */
             background-color: #FFFFFF;
 
             .card-zone {
                 display: flex;
-                justify-content: space-between;
-                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
                 width: 100%;
                 height: 100%;
                 /* background-color: #b7b7b7; */
 
                 .card {
-                    width: 120px;
-                    height: 120px;
+                    /* width: 120px;
+                    height: 120px; */
                     border: 2px solid #e8e8e8;
-                    border-radius: 12px;
+                    border-radius: 20px;
                     background-color: #FFFFFF;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    gap: 10px;
+                    gap: 16px;
+                    padding: 24px 30px;
+                    cursor: pointer;
+
+                    &:hover {
+                        border: 2px solid #e8613c;
+                        box-shadow: 0 0 10px 2px #e3c3ae;
+                        transform: translateY(-4px);
+                    }
 
                     .card-text {
                         color: #1b2a4a;
-                        font-size: 12px;
+                        font-size: 14px;
                         font-weight: 600;
+                    }
+
+                    .card-icon {
+                        width: 60px;
+                        height: 60px;
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    }
+
+                    .outdoor {
+                        background-image: url('./img/explore-outdoor.png');
+                    }
+
+                    .art {
+                        background-image: url('./img/explore-art.png');
+                    }
+
+                    .food {
+                        background-image: url('./img/explore-food.png');
+                    }
+
+                    .history {
+                        background-image: url('./img/explore-history.png');
+                    }
+
+                    .water {
+                        background-image: url('./img/explore-water.png');
+                    }
+
+                    .farm {
+                        background-image: url('./img/explore-farm.png');
+                    }
+
+                    .trandition {
+                        background-image: url('./img/explore-trandition.png');
+                    }
+
+                    .photography {
+                        background-image: url('./img/explore-photography.png');
                     }
                 }
             }
@@ -107,11 +216,11 @@
 
         .section-hot {
             height: 1200px;
-            background-color: #b7b7b7;
+            background-color: #f5efe6;
         }
 
         .section-apply {
-            height: 300px;
+            /* height: 300px; */
             background-color: #1b2a4a;
             display: flex;
             flex-direction: row;
@@ -147,18 +256,16 @@
         }
 
         .section-review {
-            height: 500px;
+            /* height: 500px; */
             background-color: #FFFFFF;
 
             .review-all {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 10px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
 
                 .review {
-                    width: 360px;
-                    height: auto;
+                    /* width: 360px; */
                     background-color: #f5efe6;
                     border-radius: 20px;
                     padding: 32px;
@@ -219,43 +326,71 @@
     <!-- ========= NAV ========= -->
 
     <div class="section section-banner">
-        <div class="text-zone">
-            <div class="title"></div>
-            <div class="header"></div>
-            <div class="describe"></div>
+        <div class="mask"></div>
+        <div class="content">
+            <div class="title"> — EXPLORE BY THEME </div>
+            <div class="header">與台灣這片土地，<br><span class="highlight">真實相遇</span></div>
+            <div class="describe"> 超過 200 個在地嚮導帶路的深度體驗，從山頂到海岸，從廚房到工坊，找到屬於你的那一場旅途。 </div>
+            <div class="select-bar"></div>
         </div>
-        <div class="select-bar"></div>
     </div>
 
-    <div class="section section-highlight"></div>
+    <div class="section section-highlight">
+        <div class="content">
+            <div class="item">
+                <div class="number">200<span class="highlight">+</span></div>
+                <div class="describe">精選在地體驗</div>
+            </div>
+            <div class="item">
+                <div class="number">98<span class="highlight">%</span></div>
+                <div class="describe">旅客好評</div>
+            </div>
+            <div class="item">
+                <div class="number">150<span class="highlight">+</span></div>
+                <div class="describe">認證在地嚮導</div>
+            </div>
+            <div class="item">
+                <div class="number">22</div>
+                <div class="describe">縣市全台覆蓋</div>
+            </div>
+        </div>
+    </div>
 
     <div class="section section-explore">
         <div class="content">
-            <div class="title"><span> — EXPLORE BY THEME </span></div>
-            <div class="header"><span> 找到你的體驗類型 </span></div>
+            <div class="title"> — EXPLORE BY THEME </div>
+            <div class="header"> 找到你的體驗類型 </div>
             <div class="card-zone">
                 <div class="card">
+                    <div class="card-icon outdoor"></div>
                     <div class="card-text">戶外冒險</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon art"></div>
                     <div class="card-text">手作工藝</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon food"></div>
                     <div class="card-text">美食料理</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon history"></div>
                     <div class="card-text">文化歷史</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon water"></div>
                     <div class="card-text">水上活動</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon farm"></div>
                     <div class="card-text">農村生活</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon trandition"></div>
                     <div class="card-text">傳統藝術</div>
                 </div>
                 <div class="card">
+                    <div class="card-icon photography"></div>
                     <div class="card-text">攝影旅拍</div>
                 </div>
 
@@ -280,8 +415,8 @@
 
     <div class="section section-review">
         <div class="content">
-            <div class="title"><span> — TRAVELER REVIEWS </span></div>
-            <div class="header"><span> 旅人的真實心聲 </span></div>
+            <div class="title"> — TRAVELER REVIEWS </div>
+            <div class="header"> 旅人的真實心聲 </div>
             <div class="review-all">
                 <div class="review">
                     <div class="star">★★★★★</div>
