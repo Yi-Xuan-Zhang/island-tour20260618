@@ -4,13 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+        
+        .section {
+            width: 100%;
+        }
+
+        .section-banner {
+            height: 100vh;
+            background-color: #b7b7b7;
+        }
+
+        .section-highlight {
+            height: 160px;
+            background: #f5efe6;
+        }
+
+        .section-explore {
+            height: 400px;
+            background-color: #FFFFFF;
+        }
+
+        .section-hot {
+            height: 1200px;
+            background-color: #b7b7b7;
+        }
+
+        .section-apply {
+            height: 300px;
+            background-color: #1b2a4a;
+        }
+
+        .section-review {
+            height: 500px;
+            background-color: #FFFFFF;
+        }
+
+    </style>
 </head>
 <body>
-    <div class="section-banner"></div>
-    <div class="section-highlight"></div>
-    <div class="section-explore"></div>
-    <div class="section-hot"></div>
-    <div class="section-apply"></div>
-    <div class="section-review"></div>
+    <div class="section section-banner">
+        <div class="photo-zone"></div>
+        <div class="text-zone">
+            <div class="title"></div>
+            <div class="header"></div>
+            <div class="describe"></div>
+        </div>
+        <div class="select-bar"></div>
+    </div>
+    <div class="section section-highlight"></div>
+    <div class="section section-explore"></div>
+    <div class="section section-hot"></div>
+    <div class="section section-apply"></div>
+    <div class="section section-review"></div>
 </body>
 </html>
