@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,58 @@
         body {
             margin: 0;
         }
-        
+
+        button {
+            width: auto;
+            height: auto;
+            padding: 16px 32px;
+            border-radius: 99px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1b2a4a;
+            cursor: pointer;
+            
+            &:hover {
+                box-shadow: 0 0 10px 2px #f5efe6;
+                transform: translateY(-4px);
+            }
+        }
+
+        .title {
+            color: #e8613c;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+        }
+
+        .header {
+            color: #1b2a4a;
+            font-size: 36px;
+            font-weight: 600;
+
+            margin-bottom: 36px;
+        }
+
         .section {
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            width: 80%;
         }
 
         .section-banner {
             height: 100vh;
-            background-color: #b7b7b7;
+            background-image: url(./img/banner-taipei.jpg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .section-highlight {
@@ -30,6 +75,34 @@
         .section-explore {
             height: 400px;
             background-color: #FFFFFF;
+
+            .card-zone {
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+                width: 100%;
+                height: 100%;
+                /* background-color: #b7b7b7; */
+
+                .card {
+                    width: 120px;
+                    height: 120px;
+                    border: 2px solid #e8e8e8;
+                    border-radius: 12px;
+                    background-color: #FFFFFF;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+
+                    .card-text {
+                        color: #1b2a4a;
+                        font-size: 12px;
+                        font-weight: 600;
+                    }
+                }
+            }
         }
 
         .section-hot {
@@ -40,18 +113,112 @@
         .section-apply {
             height: 300px;
             background-color: #1b2a4a;
+            display: flex;
+            flex-direction: row;
+
+            .content {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .text-zone {
+                    width: 40%;
+
+                    .header {
+                        color: #FFFFFF;
+                    }
+
+                    .describe {
+                        color: #FFFFFF;
+                    }
+                }
+
+                .btn-zone {
+                    display: flex;
+                    align-items: center;
+                    gap: 32px;
+
+                    .btn-apply {
+                        background-color: #e8613c;
+                        color: white;
+                    }
+                }
+            }
         }
 
         .section-review {
             height: 500px;
             background-color: #FFFFFF;
-        }
 
+            .review-all {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 10px;
+
+                .review {
+                    width: 360px;
+                    height: auto;
+                    background-color: #f5efe6;
+                    border-radius: 20px;
+                    padding: 32px;
+
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    .star {
+                        color: #e8613c;
+                        letter-spacing: 2px;
+                    }
+
+                    .review-word {
+                        color: #505050;
+                        font-size: 16px;
+                    }
+
+                    .user {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 10px;
+
+                        .profile {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            /* background-color: black; */
+                            background-image: url('./img/user-profile.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+
+                        .information {
+
+                            .name {
+                                color: #505050;
+                                font-size: 14px;
+                                font-weight: 500;
+                            }
+
+                            .info {
+                                color: #505050;
+                                font-size: 12px;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
     </style>
 </head>
+
 <body>
+    <!-- ========= NAV ========= -->
+
     <div class="section section-banner">
-        <div class="photo-zone"></div>
         <div class="text-zone">
             <div class="title"></div>
             <div class="header"></div>
@@ -59,10 +226,101 @@
         </div>
         <div class="select-bar"></div>
     </div>
+
     <div class="section section-highlight"></div>
-    <div class="section section-explore"></div>
+
+    <div class="section section-explore">
+        <div class="content">
+            <div class="title"><span> — EXPLORE BY THEME </span></div>
+            <div class="header"><span> 找到你的體驗類型 </span></div>
+            <div class="card-zone">
+                <div class="card">
+                    <div class="card-text">戶外冒險</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">手作工藝</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">美食料理</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">文化歷史</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">水上活動</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">農村生活</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">傳統藝術</div>
+                </div>
+                <div class="card">
+                    <div class="card-text">攝影旅拍</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="section section-hot"></div>
-    <div class="section section-apply"></div>
-    <div class="section section-review"></div>
+
+    <div class="section section-apply">
+        <div class="content">
+            <div class="text-zone">
+                <div class="header">成為在地嚮導，<br>分享你的台灣故事</div>
+                <div class="describe">你是本地達人嗎？無論是山林秘徑、漁村廚藝還是傳統技藝，都可以化為獨一無二的體驗，與來自世界各地的旅人分享。</div>
+            </div>
+            <div class="btn-zone">
+                <button class="btn-apply" type="button">立即申請嚮導</button>
+                <button class="btn-more" type="button">了解更多</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-review">
+        <div class="content">
+            <div class="title"><span> — TRAVELER REVIEWS </span></div>
+            <div class="header"><span> 旅人的真實心聲 </span></div>
+            <div class="review-all">
+                <div class="review">
+                    <div class="star">★★★★★</div>
+                    <div class="review-word">「清水斷崖的獨木舟體驗讓我終生難忘，嚮導非常專業，安全又刺激。這是我在台灣最棒的一天！」</div>
+                    <div class="user">
+                        <div class="profile"></div>
+                        <div class="information">
+                            <div class="name">陳佳穎</div>
+                            <div class="info">來自台北 · 2025.03</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="star">★★★★★</div>
+                    <div class="review-word">「台南古蹟導覽讓我對這座城市有了全新的認識，嚮導的故事講解生動有趣，強烈推薦給每一位旅人！」</div>
+                    <div class="user">
+                        <div class="profile"></div>
+                        <div class="information">
+                            <div class="name">林大偉</div>
+                            <div class="info">來自高雄 · 2025.04</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="star">★★★★☆</div>
+                    <div class="review-word">「九份的陶藝體驗非常療癒，老師耐心指導，做出了自己的第一個茶杯，會帶著這份記憶回家。」</div>
+                    <div class="user">
+                        <div class="profile"></div>
+                        <div class="information">
+                            <div class="name">山田あかり</div>
+                            <div class="info">來自日本 · 2025.05</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========= FOOTER ========= -->
 </body>
+
 </html>
