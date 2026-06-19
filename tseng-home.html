@@ -24,10 +24,12 @@
             font-weight: 600;
             color: #1b2a4a;
             cursor: pointer;
+            transition: 0.5s;
 
             &:hover {
                 box-shadow: 0 0 10px 2px #f5efe6;
                 transform: translateY(-4px);
+                transition: 0.5s;
             }
         }
 
@@ -92,10 +94,34 @@
                 }
 
                 .describe {
-                    width: 42%;
+                    width: 500px;
                     color: white;
                     font-size: 18px;
                     line-height: 1.6;
+                    margin-bottom: 40px;
+                }
+
+                .select-bar {
+                    width: 500px;
+                    height: auto;
+                    border-radius: 99px;
+                    background-color: #FFFFFF;
+                    padding: 8px;
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+
+                    button.search {
+                        background-color: #e8613c;
+                        color: #FFFFFF;
+                        padding: 12px 24px;
+
+                        &:hover {
+                            transform: none;
+                            box-shadow: none;
+                            background-color: #ee8366;
+                        }
+                    }
                 }
             }
         }
@@ -163,6 +189,7 @@
                         border: 2px solid #e8613c;
                         box-shadow: 0 0 10px 2px #e3c3ae;
                         transform: translateY(-4px);
+                        transition: 0.5s;
                     }
 
                     .card-text {
@@ -215,8 +242,153 @@
         }
 
         .section-hot {
-            height: 1200px;
+            /* height: 1200px; */
             background-color: #f5efe6;
+
+            .content-top {
+                display: flex;
+                justify-content: space-between;
+
+                .see-all {
+                    background-color: transparent;
+                    border: 2px solid #1b2a4a;
+
+                    &:hover {
+                        transform: none;
+                        background-color: #1b2a4a;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .content-main {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                /* flex-wrap: wrap; */
+                justify-content: center;
+                gap: 20px;
+
+                .hot-card {
+                    width: auto;
+                    height: auto;
+                    background-color: #FFFFFF;
+                    border-radius: 20px;
+                    box-shadow: 0 0 8px 2px #e2e2e2;
+                    transition: 0.5s;
+
+                    &:hover {
+                        transform: translateY(-10px);
+                        box-shadow: 0 0 8px 2px #e3c3ae;
+                        transition: 0.5s;
+                    }
+
+                    .card-img {
+                        height: 180px;
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        border-top-left-radius: 20px;
+                        border-top-right-radius: 20px;
+                        position: relative;
+
+                        button.like {
+                            padding: 8px 10px;
+                            box-shadow: 0 0 4px 0 #505050;
+                            position: absolute;
+                            right: 12px;
+                            top: 12px;
+
+                            &:hover {
+                                transform: scale(1.1);
+                                box-shadow: 0 0 4px 0 #505050;
+                            }
+                        }
+                    }
+
+                    .card-1 {
+                        background-image: url('./img/card-img-1.jpg');
+                    }
+
+                    .card-2 {
+                        background-image: url('./img/card-img-2.jpg');
+                    }
+
+                    .card-3 {
+                        background-image: url('./img/card-img-3.jpg');
+                    }
+
+                    .card-4 {
+                        background-image: url('./img/card-img-4.jpg');
+                    }
+
+                    .card-5 {
+                        background-image: url('./img/card-img-5.jpg');
+                    }
+
+                    .card-6 {
+                        background-image: url('./img/card-img-6.jpg');
+                    }
+
+                    .card-7 {
+                        background-image: url('./img/card-img-7.jpg');
+                    }
+
+                    .card-8 {
+                        background-image: url('./img/card-img-8.jpg');
+                    }
+
+                    .card-text {
+                        height: auto;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 10px;
+                        /* background-color: #505050; */
+                        padding: 24px;
+
+                        .hashtag {
+                            align-self: flex-start; 
+                            background-color: #e8f5e1;
+                            color: #578b39;
+                            font-size: 12px;
+                            font-weight: 600;
+                            border-radius: 99px;
+                            padding: 4px 12px;
+                        }
+
+                        .activity-title {
+                            color: #1b2a4a;
+                            font-size: 20px;
+                            font-weight: 600;
+                        }
+
+                        .location-time {
+                            color: #505050;
+                            font-size: 12px;
+                        }
+
+                        .price {
+                            color: #505050;
+                            font-size: 14px;
+
+                            span.highlight {
+                                font-size: 20px;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .rating {
+                            color: #505050;
+                            font-size: 12px;
+
+                            span.star {
+                                color: #ee8366;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         .section-apply {
@@ -331,7 +503,10 @@
             <div class="title"> — EXPLORE BY THEME </div>
             <div class="header">與台灣這片土地，<br><span class="highlight">真實相遇</span></div>
             <div class="describe"> 超過 200 個在地嚮導帶路的深度體驗，從山頂到海岸，從廚房到工坊，找到屬於你的那一場旅途。 </div>
-            <div class="select-bar"></div>
+            <div class="select-bar">
+                <!-- selector - destination / calendar -->
+                <button class="search" type="button">搜尋體驗</button>
+            </div>
         </div>
     </div>
 
@@ -398,7 +573,118 @@
         </div>
     </div>
 
-    <div class="section section-hot"></div>
+    <div class="section section-hot">
+        <div class="content">
+            <div class="content-top">
+                <div class="content-top-left">
+                    <div class="title"> — HOT THIS WEEK </div>
+                    <div class="header"> 本週熱門體驗 </div>
+                </div>
+                <div class="content-top-right">
+                    <button class="see-all" type="button">查看全部</button>
+                </div>
+            </div>
+            <div class="content-main">
+                <div class="hot-card">
+                    <div class="card-img card-1">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">戶外冒險</div>
+                        <div class="activity-title">清水斷崖獨木舟探險</div>
+                        <div class="location-time">📍 花蓮市 ． 🕑 半天</div>
+                        <div class="price"><span class="highlight">NT$ 1,800</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (312)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-2">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">手作工藝</div>
+                        <div class="activity-title">九份老街手捏陶藝體驗</div>
+                        <div class="location-time">📍 新北市 ． 🕑 3小時</div>
+                        <div class="price"><span class="highlight">NT$ 980</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (205)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-3">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">美食料理</div>
+                        <div class="activity-title">台中市場私廚料理課</div>
+                        <div class="location-time">📍 台中市 ． 🕑 4小時</div>
+                        <div class="price"><span class="highlight">NT$ 1,500</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (189)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-4">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">自然探索</div>
+                        <div class="activity-title">阿里山日出觀星嚮導</div>
+                        <div class="location-time">📍 嘉義縣 ． 🕑 全天</div>
+                        <div class="price"><span class="highlight">NT$ 2,200</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★★</span> (98)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-5">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">手作工藝</div>
+                        <div class="activity-title">淡水老街藍染拼布工作坊</div>
+                        <div class="location-time">📍 新北市 ． 🕑 3小時</div>
+                        <div class="price"><span class="highlight">NT$ 1,200</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (147)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-6">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">文化歷史</div>
+                        <div class="activity-title">台南府城古蹟深度導覽</div>
+                        <div class="location-time">📍 台南市 ． 🕑 半天</div>
+                        <div class="price"><span class="highlight">NT$ 800</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (261)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-7">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">自然探索</div>
+                        <div class="activity-title">宜蘭稻田生態農遊體驗</div>
+                        <div class="location-time">📍 宜蘭縣 ． 🕑 半天</div>
+                        <div class="price"><span class="highlight">NT$ 1,100</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (173)</div>
+                    </div>
+                </div>
+                <div class="hot-card">
+                    <div class="card-img card-8">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">美食料理</div>
+                        <div class="activity-title">高雄旗津老漁村料理日</div>
+                        <div class="location-time">📍 高雄市 ． 🕑 4小時</div>
+                        <div class="price"><span class="highlight">NT$ 1,350</span> 起 / 人</div>
+                        <div class="rating"><span class="star">★★★★☆</span> (142)</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <div class="section section-apply">
         <div class="content">
