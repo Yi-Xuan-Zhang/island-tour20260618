@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>關於我們-島嶼旅跡</title>
 </head>
 <style>
     * {
@@ -27,7 +27,7 @@
     .small-title {
         color: #e8613c;
         font-weight: bold;
-        margin: 20px;
+        margin-top: 50px;
     }
 
     /* ======================nav======================== */
@@ -156,7 +156,8 @@
         border-radius: 20px;
         margin-bottom: 50px;
         padding: 40px;
-        border-top: 5px solid #e8613c box-shadow:0 5px 15px rgba(0, 0, 0, .08);
+        border-top: 5px solid #e8613c;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
     }
 
     .value-card h3 {
@@ -176,14 +177,26 @@
 
     .team-card {
         width: 300px;
-        border-radius: 20px;
+        border-radius: 25px;
         overflow: hidden;
         position: relative;
     }
 
     .team-card img {
+        width: 100%;
         height: 300px;
+
         object-fit: cover;
+    }
+
+    .team-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+        z-index: 1;
     }
 
     .team-info {
@@ -191,15 +204,31 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        padding: 20px;
+        padding: 30px;
+        z-index: 2;
         color: white;
-        background: linear-gradient(transparent, rgba(0, 0, 0, .8));
+        transition: .5s;
+    }
+
+    .team-info small {
+        color: #e8613c;
+        font-size: 14px;
+        display: block;
+    }
+
+    .team-info p {
+        line-height: 1.8;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: .5s;
+
     }
 
     /* ================數據==================== */
     .numbers {
         background: #172b59;
         color: white;
+
     }
 
     .number-group {
@@ -235,6 +264,7 @@
         justify-content: space-between;
         align-items: flex-start;
         gap: 150px;
+        margin-top: 50px;
     }
 
     .footer-brand {
@@ -242,7 +272,7 @@
     }
 
     .footer-brand h2 {
-        font-size: 32px;
+        font-size: 24px;
         margin-bottom: 20px;
     }
 
@@ -252,10 +282,11 @@
     }
 
     .footer-right {
-        width: 55%;
-
         display: flex;
-        justify-content: space-between;
+        gap: 300px;
+        /* 控制三欄之間距離 */
+        margin-right: 180px;
+
     }
 
     .footer-menu {
@@ -270,7 +301,7 @@
 
     .footer-menu a {
         color: rgba(255, 255, 255, .8);
-        transition: .3s;
+        font-size: 14px;
     }
 
     .footer-menu a:hover {
@@ -283,9 +314,11 @@
     }
 
     .footer-bottom {
-        padding-top: 40px;
+        font-size: 13px;
+        padding-top: 30px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         color: rgba(255, 255, 255, .8);
 
     }
@@ -420,7 +453,7 @@
         <div class="footer-top">
             <!-- 品牌 -->
             <div class="footer-brand">
-                <h2>島嶼旅跡<span>·</span></h2>
+                <h2>島嶼旅跡 <span class="orange">·</span></h2>
                 <p>
                     深入台灣每一條小徑，<br>
                     遇見最在地的感動體驗。<br>
@@ -488,45 +521,36 @@
             {
                 name: "陳建峰",
                 position: "共同創辦人、執行長",
-                image: "https://randomuser.me/api/portraits/men/32.jpg"
+                image: "https://randomuser.me/api/portraits/men/32.jpg",
+                text: "在台灣踢壞了三隻登山鞋，走遍300條秘境步道。相信每一條小路都藏著一個故事。"
             },
 
             {
-                name: "林宜庭",
+                name: "林芷瑄",
                 position: "共同創辦人、體驗總監",
-                image: "https://randomuser.me/api/portraits/women/44.jpg"
+                image: "https://randomuser.me/api/portraits/women/44.jpg",
+                text: "前旅遊雜誌主編，走訪超過40個國家後，回到臺灣才發現家鄉是最神奇的地方。"
             },
 
             {
                 name: "黃俊宏",
                 position: "技術長",
-                image: "https://randomuser.me/api/portraits/men/68.jpg"
+                image: "https://randomuser.me/api/portraits/men/68.jpg",
+                text: "熱愛跑步與程式碼，用技術讓每個旅人與嚮導之間的連結更流暢、更溫暖。"
             },
             {
                 name: "許雅婷",
                 position: "嚮導關係經理",
-                image: "https://randomuser.me/api/portraits/women/65.jpg"
+                image: "https://randomuser.me/api/portraits/women/65.jpg",
+                text: "負責發掘與培訓臺灣的各地嚮導，讓每個在地達人的故事都能被旅人聽見。"
             }
         ];
         /*========================統計數據========================*/
         const numbers = [
-            {
-                number: "30,000+",
-                text: "服務旅客人數"
-            },
-            {
-                number: "150+",
-                text: "精選在地體驗"
-            },
-            {
-                number: "200+",
-                text: "精選體驗項目"
-            },
-
-            {
-                number: "98%",
-                text: "旅客滿意度"
-            }
+            { number: "30,000+", text: "服務旅客人數" },
+            { number: "150+", text: "精選在地體驗" },
+            { number: "200+", text: "精選體驗項目" },
+            { number: "98%", text: "旅客滿意度" }
         ];
         /*
        ========================產生核心價值========================*/
@@ -546,6 +570,7 @@
                 <div class="team-info">
                     <small>${item.position}</small>
                     <h3>${item.name}</h3>
+                    <p>${item.text}</p>
                 </div>
             </div>
         `).join("");
