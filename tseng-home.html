@@ -37,6 +37,10 @@
             color: #e8613c;
         }
 
+        a {
+            text-decoration: none;
+        }
+
         .title {
             color: #e8613c;
             font-size: 12px;
@@ -108,10 +112,33 @@
                     background-color: #FFFFFF;
                     padding: 8px;
                     display: flex;
-                    justify-content: end;
+                    justify-content: space-between;
                     align-items: center;
 
-                    button.search {
+                    #select-destination {
+                        width: 35%;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                        font-size: 16px;
+                        color: #1b2a4a;
+                        cursor: pointer;
+                        padding-left: 16px;
+                    }
+
+                    #select-date {
+                        width: 35%;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                        font-size: 16px;
+                        color: #1b2a4a;
+                        cursor: pointer;
+                        padding-left: 16px;
+                        border-left: 1px solid #e8e8e8;
+                    }
+
+                    #btn-search {
                         background-color: #e8613c;
                         color: #FFFFFF;
                         padding: 12px 24px;
@@ -249,7 +276,7 @@
                 display: flex;
                 justify-content: space-between;
 
-                .see-all {
+                #btn-see-all {
                     background-color: transparent;
                     border: 2px solid #1b2a4a;
 
@@ -305,38 +332,6 @@
                         }
                     }
 
-                    .card-1 {
-                        background-image: url('./img/card-img-1.jpg');
-                    }
-
-                    .card-2 {
-                        background-image: url('./img/card-img-2.jpg');
-                    }
-
-                    .card-3 {
-                        background-image: url('./img/card-img-3.jpg');
-                    }
-
-                    .card-4 {
-                        background-image: url('./img/card-img-4.jpg');
-                    }
-
-                    .card-5 {
-                        background-image: url('./img/card-img-5.jpg');
-                    }
-
-                    .card-6 {
-                        background-image: url('./img/card-img-6.jpg');
-                    }
-
-                    .card-7 {
-                        background-image: url('./img/card-img-7.jpg');
-                    }
-
-                    .card-8 {
-                        background-image: url('./img/card-img-8.jpg');
-                    }
-
                     .card-text {
                         height: auto;
                         display: flex;
@@ -347,7 +342,7 @@
                         padding: 24px;
 
                         .hashtag {
-                            align-self: flex-start; 
+                            align-self: flex-start;
                             background-color: #e8f5e1;
                             color: #578b39;
                             font-size: 12px;
@@ -419,7 +414,7 @@
                     align-items: center;
                     gap: 32px;
 
-                    .btn-apply {
+                    #btn-apply {
                         background-color: #e8613c;
                         color: white;
                     }
@@ -504,8 +499,13 @@
             <div class="header">與台灣這片土地，<br><span class="highlight">真實相遇</span></div>
             <div class="describe"> 超過 200 個在地嚮導帶路的深度體驗，從山頂到海岸，從廚房到工坊，找到屬於你的那一場旅途。 </div>
             <div class="select-bar">
-                <!-- selector - destination / calendar -->
-                <button class="search" type="button">搜尋體驗</button>
+                <select id="select-destination">
+                    <!-- 下拉式選單，預設文字(還沒有選擇時)為：選擇目的地 -->
+                    <option value="" disabled selected>選擇目的地</option>
+                </select>
+                <!-- 預設樣式的寫法 -->
+                <input type="date" id="select-date">
+                <button id="btn-search" type="button">搜尋體驗</button>
             </div>
         </div>
     </div>
@@ -536,39 +536,38 @@
             <div class="title"> — EXPLORE BY THEME </div>
             <div class="header"> 找到你的體驗類型 </div>
             <div class="card-zone">
-                <div class="card">
+                <a href="#" class="card" id="outdoor">
                     <div class="card-icon outdoor"></div>
                     <div class="card-text">戶外冒險</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="art">
                     <div class="card-icon art"></div>
                     <div class="card-text">手作工藝</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="food">
                     <div class="card-icon food"></div>
                     <div class="card-text">美食料理</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="history">
                     <div class="card-icon history"></div>
                     <div class="card-text">文化歷史</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="water">
                     <div class="card-icon water"></div>
                     <div class="card-text">水上活動</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="farm">
                     <div class="card-icon farm"></div>
                     <div class="card-text">農村生活</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="trandition">
                     <div class="card-icon trandition"></div>
                     <div class="card-text">傳統藝術</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="#" class="card" id="photography">
                     <div class="card-icon photography"></div>
                     <div class="card-text">攝影旅拍</div>
-                </div>
-
+                </a>
             </div>
         </div>
     </div>
@@ -581,108 +580,11 @@
                     <div class="header"> 本週熱門體驗 </div>
                 </div>
                 <div class="content-top-right">
-                    <button class="see-all" type="button">查看全部</button>
+                    <button id="btn-see-all" type="button">查看全部</button>
                 </div>
             </div>
-            <div class="content-main">
-                <div class="hot-card">
-                    <div class="card-img card-1">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">戶外冒險</div>
-                        <div class="activity-title">清水斷崖獨木舟探險</div>
-                        <div class="location-time">📍 花蓮市 ． 🕑 半天</div>
-                        <div class="price"><span class="highlight">NT$ 1,800</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (312)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-2">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">手作工藝</div>
-                        <div class="activity-title">九份老街手捏陶藝體驗</div>
-                        <div class="location-time">📍 新北市 ． 🕑 3小時</div>
-                        <div class="price"><span class="highlight">NT$ 980</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (205)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-3">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">美食料理</div>
-                        <div class="activity-title">台中市場私廚料理課</div>
-                        <div class="location-time">📍 台中市 ． 🕑 4小時</div>
-                        <div class="price"><span class="highlight">NT$ 1,500</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (189)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-4">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">自然探索</div>
-                        <div class="activity-title">阿里山日出觀星嚮導</div>
-                        <div class="location-time">📍 嘉義縣 ． 🕑 全天</div>
-                        <div class="price"><span class="highlight">NT$ 2,200</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★★</span> (98)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-5">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">手作工藝</div>
-                        <div class="activity-title">淡水老街藍染拼布工作坊</div>
-                        <div class="location-time">📍 新北市 ． 🕑 3小時</div>
-                        <div class="price"><span class="highlight">NT$ 1,200</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (147)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-6">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">文化歷史</div>
-                        <div class="activity-title">台南府城古蹟深度導覽</div>
-                        <div class="location-time">📍 台南市 ． 🕑 半天</div>
-                        <div class="price"><span class="highlight">NT$ 800</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (261)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-7">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">自然探索</div>
-                        <div class="activity-title">宜蘭稻田生態農遊體驗</div>
-                        <div class="location-time">📍 宜蘭縣 ． 🕑 半天</div>
-                        <div class="price"><span class="highlight">NT$ 1,100</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (173)</div>
-                    </div>
-                </div>
-                <div class="hot-card">
-                    <div class="card-img card-8">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">美食料理</div>
-                        <div class="activity-title">高雄旗津老漁村料理日</div>
-                        <div class="location-time">📍 高雄市 ． 🕑 4小時</div>
-                        <div class="price"><span class="highlight">NT$ 1,350</span> 起 / 人</div>
-                        <div class="rating"><span class="star">★★★★☆</span> (142)</div>
-                    </div>
-                </div>
-            </div>
-
+            <div class="content-main" id="hot-card-container"></div>
+            <!-- 卡片內容寫在script裡 -->
         </div>
     </div>
 
@@ -693,8 +595,8 @@
                 <div class="describe">你是本地達人嗎？無論是山林秘徑、漁村廚藝還是傳統技藝，都可以化為獨一無二的體驗，與來自世界各地的旅人分享。</div>
             </div>
             <div class="btn-zone">
-                <button class="btn-apply" type="button">立即申請嚮導</button>
-                <button class="btn-more" type="button">了解更多</button>
+                <button id="btn-apply" type="button">立即申請嚮導</button>
+                <button id="btn-more" type="button">了解更多</button>
             </div>
         </div>
     </div>
@@ -742,6 +644,86 @@
     </div>
 
     <!-- ========= FOOTER ========= -->
+
+    <script>
+        // ========= 下拉選單-選擇目的地 =========
+        // 1. 定義一個純縣市名稱的字串陣列
+        const cities = ['台北市', '新北市', '桃園市', '台中市', '彰化縣', '嘉義縣', '台南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣'];
+
+        // 2. 透過 ID 抓取 HTML 裡面的 <select> 元素
+        const destSelect = document.getElementById('select-destination');
+
+        // 3. 跑迴圈，把陣列裡的每個縣市依序做成 <option> 塞入選單
+        cities.forEach(city => {
+            // (1) 在記憶體中建立一個空的 <option> 標籤
+            const option = document.createElement('option');
+
+            // (2) 設定這個 option 的 value 屬性（傳送給後端或 JS 判斷用的值，例如：value="台北"）
+            option.value = city;
+
+            // (3) 設定這個 option 畫面上顯示的文字（使用者看到的字，例如：台北）
+            option.textContent = city;
+
+            // (4) 把這個設定好的 option 標籤，塞進 <select> 裡面當作子元素
+            destSelect.appendChild(option);
+        });
+
+        // ========= hot-card每張卡片的內容陣列 =========
+        // 1. 定義卡片資料陣列
+        const hotActivities = [
+            { id: 1, imgUrl: './img/card-img-1.jpg', category: '戶外冒險', title: '清水斷崖獨木舟探險', location: '花蓮市', duration: '半天', price: '1,800', rating: '★★★★☆', reviews: 312 },
+            { id: 2, imgUrl: './img/card-img-2.jpg', category: '手作工藝', title: '九份老街手捏陶藝體驗', location: '新北市', duration: '3小時', price: '980', rating: '★★★★☆', reviews: 205 },
+            { id: 3, imgUrl: './img/card-img-3.jpg', category: '美食料理', title: '台中市場私廚料理課', location: '台中市', duration: '4小時', price: '1,500', rating: '★★★★☆', reviews: 189 },
+            { id: 4, imgUrl: './img/card-img-4.jpg', category: '自然探索', title: '阿里山日出觀星嚮導', location: '嘉義縣', duration: '全天', price: '2,200', rating: '★★★★★', reviews: 98 },
+            { id: 5, imgUrl: './img/card-img-5.jpg', category: '手作工藝', title: '淡水老街藍染拼布工作坊', location: '新北市', duration: '3小時', price: '1,200', rating: '★★★★☆', reviews: 147 },
+            { id: 6, imgUrl: './img/card-img-6.jpg', category: '文化歷史', title: '台南府城古蹟深度導覽', location: '台南市', duration: '半天', price: '800', rating: '★★★★☆', reviews: 261 },
+            { id: 7, imgUrl: './img/card-img-7.jpg', category: '自然探索', title: '宜蘭稻田生態農遊體驗', location: '宜蘭縣', duration: '半天', price: '1,100', rating: '★★★★☆', reviews: 173 },
+            { id: 8, imgUrl: './img/card-img-8.jpg', category: '美食料理', title: '高雄旗津老漁村料理日', location: '高雄市', duration: '4小時', price: '1,350', rating: '★★★★☆', reviews: 142 }
+        ];
+
+        // 2. 抓取 HTML 的卡片容器
+        const container = document.getElementById('hot-card-container');
+
+        // 3. 跑迴圈，將資料動態組成完整的 HTML 並塞入網頁
+        hotActivities.forEach(activity => {
+            const cardHTML = `
+                <div class="hot-card">
+                    <div class="card-img" style="background-image: url('${activity.imgUrl}')">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">${activity.category}</div>
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                        <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                        <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
+                    </div>
+                </div>
+            `;
+            // 將動態產生的卡片推入網頁容器
+            container.innerHTML += cardHTML;
+        });
+
+        // ========= 點擊hot-card內的like-btn會變換顏色 =========
+        // 1. 抓取卡片區塊的父層
+        const contentMain = document.querySelector('.content-main');
+
+        // 2. 在父層綁定點擊事件
+        contentMain.addEventListener('click', function (event) {
+
+            // 3. 判斷使用者點擊的是不是「愛心按鈕」（檢查 class 是否包含 'like'）
+            // 使用 .closest() 可以確保點到愛心圖案本身或按鈕邊緣都能精準觸發
+            const likeBtn = event.target.closest('.like');
+            if (likeBtn) {
+                // 4. 切換愛心的狀態
+                if (likeBtn.textContent === '🤍') {
+                    likeBtn.textContent = '❤️';
+                } else {
+                    likeBtn.textContent = '🤍';
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
