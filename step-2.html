@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島嶼旅跡 - 填寫資料</title>
+    <link rel="stylesheet" href="css/step-2.css">
+</head>
+
+<body>
+
+    <header
+        style="background: var(--brand-primary); color: white; padding: 20px; text-align: center; font-weight: bold;">
+        【導覽列預留區塊】
+    </header>
+
+    <div class="booking-container">
+
+        <section class="progress-bar">
+            <div class="step completed">
+                <div class="step-circle">✓</div>
+                <div class="step-label">選擇日期</div>
+            </div>
+            <div class="step-line active"></div>
+            <div class="step active">
+                <div class="step-circle">2</div>
+                <div class="step-label">填寫資料</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-circle">3</div>
+                <div class="step-label">預訂完成</div>
+            </div>
+        </section>
+
+        <form id="booking-form-element" onsubmit="handleFormSubmit(event)">
+            <div class="main-layout">
+
+                <main class="booking-form">
+                    <section class="card">
+                        <h2 class="card-title">
+                            <span style="font-size: 20px;">👤</span> 聯絡人資料
+                        </h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>姓名<span class="required-star">*</span></label>
+                                <input type="text" id="name-input" name="contact_name" placeholder="請輸入真實姓名" required>
+                            </div>
+                            <div class="form-group">
+                                <label>手機號碼<span class="required-star">*</span></label>
+                                <input type="tel" name="contact_phone" placeholder="09XX-XXX-XXX" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>電子信箱<span class="required-star">*</span></label>
+                                <input type="email" name="contact_email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>備註 (選填)</label>
+                                <textarea name="contact_note" placeholder="有任何特殊需求或問題，請在此告知導遊..."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="card">
+                        <h2 class="card-title">
+                            <span style="font-size: 20px;">💳</span> 付款方式
+                        </h2>
+                        <div class="payment-options">
+                            <label class="payment-method active">
+                                <input type="radio" name="payment_type" value="credit-card" checked>
+                                信用卡 / 金融卡線上刷卡
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="payment_type" value="line-pay">
+                                LINE Pay
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="payment_type" value="apple-pay">
+                                Apple Pay
+                            </label>
+                        </div>
+
+                        <div id="credit-card-section" class="credit-card-inputs">
+                            <div class="form-group">
+                                <label>卡號<span class="required-star">*</span></label>
+                                <input type="text" id="card-num-input" name="card_number"
+                                    placeholder="0000 0000 0000 0000" required>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>有效日期<span class="required-star">*</span></label>
+                                    <input type="text" id="card-date-input" name="card_expiry" placeholder="MM / YY"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label>安全碼<span class="required-star">*</span></label>
+                                    <input type="text" id="card-cvv-input" name="card_cvv" placeholder="CVC / CVV"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+
+                <aside class="order-summary">
+                    <div class="card summary-card">
+                        <h3>訂單摘要</h3>
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
+                            alt="清水斷崖獨木舟探險">
+                        <div class="activity-title">清水斷崖獨木舟探險</div>
+
+                        <ul class="summary-details">
+                            <li><span>日期</span><span class="highlighting">2026-06-17</span></li>
+                            <li><span>場次</span><span class="highlighting">上午場 09:00</span></li>
+                            <li><span>人數</span><span style="font-weight: bold; color: var(--text-dark);">1 人</span></li>
+                        </ul>
+
+                        <hr>
+
+                        <div class="total-price">
+                            <span>總金額</span>
+                            <span class="price">NT$ 1,800</span>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+
+            <div class="action-area">
+                <button type="submit" class="btn-submit">確認預訂並付款 🔒</button>
+                <p class="terms-text">點擊後即代表您同意我們的服務條款與隱私政策</p>
+            </div>
+        </form>
+
+    </div>
+
+    <footer style="background: #111E33; color: #888; padding: 40px; text-align: center; margin-top: 60px;">
+        【頁尾預留區塊】
+    </footer>
+
+    <script src="js/step-2.js"></script>
+</body>
+
+</html>

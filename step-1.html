@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島嶼旅跡 - 選擇日期</title>
+    <link rel="stylesheet" href="css/step-1.css">
+</head>
+
+<body>
+
+    <header
+        style="background: var(--brand-primary); color: white; padding: 20px; text-align: center; font-weight: bold;">
+        【導覽列預留區塊】
+    </header>
+
+    <div class="booking-container">
+
+        <section class="progress-bar">
+            <div class="step active">
+                <div class="step-circle">1</div>
+                <div class="step-label">選擇日期</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-circle">2</div>
+                <div class="step-label">填寫資料</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-circle">3</div>
+                <div class="step-label">預訂完成</div>
+            </div>
+        </section>
+
+        <div class="main-layout">
+
+            <main class="left-column-flow">
+
+                <div class="card">
+                    <div class="calendar-header">
+                        <button class="cal-btn" id="prev-month-btn">&lt;</button>
+
+                        <div id="calendar-title-wrapper">
+                            <div class="calendar-title-container" id="title-text-mode">
+                                <h3 class="calendar-title" id="calendar-title-display">2026 年 六月</h3>
+                                <span style="font-size: 12px; color: var(--text-muted);">▼</span>
+                            </div>
+                        </div>
+
+                        <button class="cal-btn" id="next-month-btn">&gt;</button>
+                    </div>
+
+                    <div class="calendar-grid">
+                        <div class="weekday">日</div>
+                        <div class="weekday">一</div>
+                        <div class="weekday">二</div>
+                        <div class="weekday">三</div>
+                        <div class="weekday">四</div>
+                        <div class="weekday">五</div>
+                        <div class="weekday">六</div>
+
+                        <div id="dynamic-dates-container" style="display: contents;"></div>
+                    </div>
+                </div>
+
+                <div class="session-section">
+                    <h4 class="section-title">選擇場次</h4>
+                    <div class="session-options">
+                        <button class="session-btn" data-session="上午場 09:00">
+                            <span class="time">09:00</span>
+                            <span class="period">上午場</span>
+                        </button>
+                        <button class="session-btn" data-session="下午場 14:00">
+                            <span class="time">14:00</span>
+                            <span class="period">下午場</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="next-step-btn" id="next-step-btn">下一步：填寫旅客資料 &rarr;</button>
+            </main>
+
+            <aside class="sidebar-summary">
+                <div class="card summary-card">
+                    <h3>預訂摘要</h3>
+                    <img class="product-img"
+                        src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
+                        alt="宜蘭稻田生態農遊體驗">
+                    <div class="activity-title">宜蘭稻田生態農遊體驗</div>
+
+                    <ul class="summary-details">
+                        <li><span>目的地</span><span>宜蘭</span></li>
+                        <li><span>時間長度</span><span>半天</span></li>
+                        <li><span>選擇日期</span><span class="highlighting" id="summary-date">尚未選擇</span></li>
+                        <li><span>選擇場次</span><span class="highlighting" id="summary-session">尚未選擇</span></li>
+                    </ul>
+
+                    <hr>
+
+                    <div class="total-price">
+                        <span>價格</span>
+                        <span class="price">NT$ 1,100 <small>/ 人</small></span>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <footer style="background: #111E33; color: #888; padding: 40px; text-align: center; margin-top: 60px;">
+        【頁尾預留區塊】
+    </footer>
+
+    <script src="js/step-1.js"></script>
+</body>
+
+</html>
