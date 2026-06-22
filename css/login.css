@@ -91,8 +91,8 @@ body {
     background-color: #ffffff;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 40px;
+    align-items:flex-start;
+    padding:80px 40px 40px 40px;
     overflow-y: auto; /* 若內容超出，右側內部可捲動 */
 }
 
