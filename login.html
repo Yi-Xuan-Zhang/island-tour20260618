@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島嶼旅跡 - 登入 / 註冊</title>
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+<body>
+<div class="login-container">
+        
+        <div class="login-left">
+            <a href="#" class="logo">島嶼旅跡<span>.</span></a>
+            <div class="slogan-box">
+                <h2 class="slogan-title">每一趟旅程，<br>都是<span>全新</span>的自己</h2>
+                <p class="slogan-desc">加入島嶼旅跡，開啟你的台灣深度之旅</p>
+            </div>
+        </div>
+
+        <div class="login-right">
+            <div class="form-wrapper">
+                
+                <div class="toggle-tabs">
+                    <button class="tab-btn active" data-target="login-box">登入</button>
+                    <button class="tab-btn" data-target="register-box">註冊</button>
+                </div>
+
+                <div class="auth-box" id="login-box">
+                    <div class="welcome-header">
+                        <h2>歡迎回來 👋</h2>
+                        <p>登入帳號以管理你的旅行體驗</p>
+                    </div>
+
+                    <form class="login-form">
+                        <div class="input-group">
+                            <label for="login-email">電子信箱</label>
+                            <input type="email" id="login-email" placeholder="your@email.com" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="login-password">密碼</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="login-password" placeholder="輸入密碼" required>
+                                <span class="toggle-eye">👁️</span>
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <a href="#" class="forgot-password">忘記密碼？</a>
+                        </div>
+
+                        <button type="submit" class="btn-submit">登入</button>
+                    </form>
+
+                    <div class="divider">
+                        <span>或使用</span>
+                    </div>
+
+                    <div class="social-login">
+                        <button class="btn-social google">
+                            <span class="icon">🌐</span> 使用 Google 帳號登入
+                        </button>
+                        <button class="btn-social facebook">
+                            <span class="icon">📘</span> 使用 Facebook 帳號登入
+                        </button>
+                    </div>
+
+                    <p class="form-footer">
+                        還沒有帳號嗎？ <a href="#" id="go-register">點此免費註冊</a>
+                    </p>
+                </div>
+
+                <div class="auth-box" id="register-box" style="display: none;">
+                    <div class="welcome-header">
+                        <h2>建立帳號 🎉</h2>
+                        <p>加入我們，開啟你的台灣在地體驗</p>
+                    </div>
+
+                    <form class="login-form">
+                        <div class="flex-row">
+                        <div class="input-group">
+                            <label for="reg-name">姓名</label>
+                            <input type="text" id="reg-name" placeholder="您的名字" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="reg-phone">手機號碼</label>
+                            <input type="tel" id="reg-phone" placeholder="09XX-XXXXXX" required>
+                        </div>
+                        </div></br>
+                        <div class="input-group">
+                            <label for="reg-email">電子信箱</label>
+                            <input type="email" id="reg-email" placeholder="your@email.com" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="reg-password">設定密碼</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="reg-password" placeholder="至少8個字元" required>
+                                <span class="toggle-eye">👁️</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">建立帳號</button>
+                    </form>
+
+                    <p class="form-footer">
+                        註冊即表示您同意我們的 <a href="#">服務條款</a> 與 <a href="#">隱私政策</a>
+                    </p>
+                    <p class="form-footer" style="margin-top: 10px;">
+                        已有帳號？ <a href="#" id="go-login">點此登入</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. 抓取 DOM 元素
+        const tabs = document.querySelectorAll('.tab-btn');
+        const authBoxes = document.querySelectorAll('.auth-box');
+        const goRegister = document.getElementById('go-register');
+        const goLogin = document.getElementById('go-login');
+
+        // 公用切換函式
+        function switchTab(targetId) {
+            // 切換下方內容顯示/隱藏
+            authBoxes.forEach(box => {
+                if (box.id === targetId) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+
+            // 同步切換上方 Tab 按鈕的 active 樣式
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-target') === targetId) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+
+        // 2. 綁定 Tab 按鈕點擊事件
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-target');
+                switchTab(targetId);
+            });
+        });
+
+        // 3. 綁定底部文字超連結點擊事件 (連動切換)
+        goRegister.addEventListener('click', (e) => {
+            e.preventDefault(); // 防止網頁重整
+            switchTab('register-box');
+        });
+
+        goLogin.addEventListener('click', (e) => {
+            e.preventDefault(); // 防止網頁重整
+            switchTab('login-box');
+        });
+
+        // 4. 加碼功能：密碼眼睛「顯示 / 隱藏」切換
+        const toggleEyes = document.querySelectorAll('.toggle-eye');
+        toggleEyes.forEach(eye => {
+            eye.addEventListener('click', () => {
+                // 找到同層的 input 欄位
+                const passwordInput = eye.parentElement.querySelector('input');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eye.textContent = '🔒'; // 變成鎖頭或開眼符號，可依喜好調整
+                } else {
+                    passwordInput.type = 'password';
+                    eye.textContent = '👁️';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
