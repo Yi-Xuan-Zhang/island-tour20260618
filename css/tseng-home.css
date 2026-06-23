@@ -508,13 +508,39 @@ a {
     }
 }
 
+@media (max-width:550px) {
+    .section-banner .content .header {
+        font-size: 48px;
+    }
+
+    .section-banner .content .select-bar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px 40px;
+        border-radius: 20px;
+    }
+
+    .section-banner .content .select-bar #select-date {
+        border: none;
+        padding: 0;
+    }
+}
+
 @media (max-width:375px) {
+    .section-hot .content-top {
+        flex-direction: column;
+        margin-bottom: 40px;
+    }
+
     .section-hot .content-main {
         grid-template-columns: repeat(1, 1fr);
     }
 
     .section-apply .content .btn-zone {
+        padding-left: 0;
         flex-direction: column;
+        gap: 16px;
+        align-items: start;
     }
     
 }

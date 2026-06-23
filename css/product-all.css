@@ -61,6 +61,7 @@
             padding: 100px 0;
         }
 
+        /* ============ SECTION-PRODUCT ============ */
         .section-product {
             .content {
                 display: flex;
@@ -361,16 +362,63 @@
         }
 
         /* ============ RWD ============ */
+        @media (max-width:1200px) {
+            .section-product .content-right-block .content-main {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width:950px) {
-            
+            .section-product .content-filter {
+                width: 200px;
+            }
+
+            .section-product .content-filter .filter-container .filter-tag .tag-content button.tag {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .section-product .content-filter .filter-container .filter-tag .tag-content .price-select {
+                flex-direction: column;
+            }
         }
 
         @media (max-width:768px) {
-            
+            .section-product .content-right-block .content-main {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .section-product .content {
+                flex-direction: column;
+            }
+
+            .section-product .content-right-block {
+                width: 100%;
+            }
+
+            .section-product .content-filter {
+                width: 100%;
+            }
+
+            .section-product .content-filter .filter-container {
+                gap: 20px;
+            }
+
+            .section-product .content-filter .filter-container #dynamic-filter-groups {
+                gap: 20px;
+            }
+
+            .section-product .content-filter .filter-container .filter-tag .tag-content .price-select {
+                flex-direction: row;
+                justify-content: start;
+                gap: 10px;
+            }
         }
 
         @media (max-width:375px) {
-            
+            .section-product .content-right-block .content-main {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
         }
 
         /* ============ NAV & FOOTER ============ */

@@ -154,7 +154,8 @@
         }
 
         .price-group {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
 
@@ -317,15 +318,39 @@
 
         /* ============ RWD ============ */
         @media (max-width:950px) {
-            
+            .details-container {
+                flex-direction: column;
+                gap: 60px;
+            }
+
+            .details-right {
+                width: 100%;
+            }
         }
 
         @media (max-width:768px) {
-            
+            .main-photo {
+                height: 360px;
+            }
         }
 
-        @media (max-width:375px) {
-            
+        @media (max-width:550px) {
+            .main-photo {
+                height: 280px;
+            }
+
+            .thumb-group {
+                width: 100%;
+                margin-top: 20px;
+                display: flex;
+                gap: 4x;
+            }
+
+            .price-group {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+            }
         }
 
         /* ============ NAV & FOOTER ============ */
