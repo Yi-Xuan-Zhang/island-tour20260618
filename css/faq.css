@@ -314,6 +314,7 @@ body nav .container {
     color: white;
     text-decoration: none;
     transition: .3s;
+    align-content: center;
 }
 
 .menu a:hover {
