@@ -28,7 +28,7 @@
      position: sticky;
      top: 0;
      z-index: 1000;
-     
+
  }
 
  nav .container {
@@ -47,6 +47,10 @@
  .menu {
      display: flex;
      gap: 40px;
+ }
+
+ .orange {
+     color: #e8613c;
  }
 
  .menu a {
