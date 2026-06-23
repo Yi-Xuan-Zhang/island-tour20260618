@@ -1,0 +1,565 @@
+/* ==========================================
+   1. 基礎設定與變數
+   ========================================== */
+:root {
+    --primary-color: #e05936;    /* 橘紅 */
+    --primary-light: #fdf3f0;   /* 淺橘背景 */
+    --dark-blue: #162447;        /* 深藍 */
+    --bg-light: #ffffff;         /* 網頁底色 */
+    --text-main: #333333;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --status-upcoming-bg: #fff1f0;
+    --status-upcoming-text: #e05936;
+    --status-completed-bg: #e6f7ed;
+    --status-completed-text: #2e7d32;
+    --max-content-width: 1920px; /* 或設定 1920px，依你視覺稿比例決定 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/* ==========================================
+    Main 左右分欄佈局
+   ========================================== */
+.profile-container {
+    display: flex;
+    width: 80%;
+    max-width: var(--max-content-width);
+    margin: 40px auto; /* 上下留空，左右置中 */
+    gap: 40px; /* 側邊欄與主內容的間距 */
+    align-items: flex-start;
+}
+
+/* ── 左側：Sidebar ── */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px 20px;
+}
+
+.user-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.avatar-wrapper {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-light);
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.username {
+    font-size: 1.15rem;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.email {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: rgb(242, 255, 242);
+    color: var( --status-completed-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+/* Sidebar 選單 */
+.sidebar-menu {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 15px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 800;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.2s;
+}
+
+.menu-item .icon { font-size: 1.1rem; }
+
+.menu-item:hover, .menu-item.active {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.menu-divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 10px 0;
+}
+
+.menu-item.logout { color: #e53e3e; }
+.menu-item.logout:hover { background-color: #fff5f5; color: #e53e3e; }
+
+/* ── 右側：Main Content ── */
+.main-content {
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    min-height: 500px; /* 給予基本高度，確保空狀態或短表單時畫面不突兀 */
+}
+
+.content-title {
+    font-size: 1.4rem;
+    color: var(--dark-blue);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* ── 訂單清單（類表格設計） ── */
+.order-list { width: 100%; }
+
+.order-header-row, 
+.order-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px 10px;
+    border-bottom: 1px solid #eeeeee;
+    box-sizing: border-box;
+}
+.order-header-row {
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.order-item {
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.95rem;
+}
+
+.col-info {
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+    gap: 15px;      /* 圖片與文字之間的固定間距 */
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+/* 【第二欄：日期與場次】 佔 25% */
+.col-date {
+    flex: 0 0 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;       /* 日期與時間垂直的間距 */
+}
+
+/* 【第三欄：金額】 佔 15% */
+.col-price {
+    flex: 0 0 15%;
+    font-size: 16px;
+    color: #e65933; /* 呼應你的主題橘紅色 */
+    font-weight: 600;
+}
+
+/* 【第四欄：狀態與按鈕】 佔 20% */
+.col-status {
+    flex: 0 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 讓狀態與按鈕靠左，維持緊湊但有間距 */
+    gap: 15px;      /* 標籤與取消訂單按鈕之間的間距 */
+}
+
+/* 訂單體驗細節 */
+.item-img-placeholder, 
+.order-item img {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0; /* 絕對不允許縮放 */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.item-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 1.4;
+    /* 防止極端情況下文字爆開 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+/* 清除內層 p 標籤可能自帶的預設外距，避免垂直方向歪掉 */
+.col-date p {
+    margin: 0;
+    line-height: 1.4;
+}
+.location-tag {
+    font-size: 0.75rem;
+    color: #a0aec0;
+}
+
+.date-text { color: var(--text-main); font-weight: 500; }
+.time-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+/* 狀態標籤 */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-upcoming {
+    background-color: var(--status-upcoming-bg);
+    color: var(--status-upcoming-text);
+}
+
+.status-completed {
+    background-color: var(--status-completed-bg);
+    color: var(--status-completed-text);
+}
+
+/* 取消按鈕 */
+.btn-cancel {
+    background: transparent;
+    border: 1px solid #e53e3e;
+    color: #e53e3e;
+    padding: 5px 12px;
+    font-weight: 800;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    color: #fff5f5;
+    background-color: #e53e3e;
+}
+/* ==========================================
+   💡 我的收藏 - 空狀態樣式 (新增)
+   ========================================== */
+.empty-state-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* 碎裂的愛心符號 */
+.empty-heart-icon {
+    font-size: 4.5rem;
+    margin-bottom: 25px;
+    animation: heartbeat 1.5s infinite ease-in-out; /* 加個微動態效果 */
+}
+
+.empty-title {
+    font-size: 1.3rem;
+    color: var(--dark-blue);
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.empty-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+/* 橘色去探索按鈕 */
+.btn-explore {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 35px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(224, 89, 54, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-explore:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(224, 89, 54, 0.4);
+}
+
+/* 愛心微跳動動畫 */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+/* ==========================================
+   💡 個人資料頁面專屬樣式 (新增)
+   ========================================== */
+
+/* 資料白底卡片容器 */
+.profile-info-card {
+    background-color: #ffffff;
+    /* 這裡可以維持外層的大外框，或者單獨給予微調 */
+}
+
+/* 讓表單欄位成對並列 */
+.form-flex-row {
+    display: flex;
+    gap: 30px; /* 左右欄位的間距 */
+    margin-bottom: 25px;
+}
+
+.info-input-group {
+    flex: 1; /* 平分左右 50% 寬度 */
+    display: flex;
+    flex-direction: column;
+}
+
+.info-input-group label, .preference-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin-bottom: 12px;
+}
+
+/* 輸入框質感提升 */
+.info-input-group input[type="text"],
+.info-input-group input[type="tel"],
+.info-input-group input[type="email"],
+.info-input-group input[type="date"] {
+    width: 100%;
+    padding: 14px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px; /* 呼應原圖的圓角感 */
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* 聚焦時的磚紅橘邊框 */
+.info-input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(224, 89, 54, 0.1);
+}
+
+/* ── 旅遊偏好 複選標籤樣式 ── */
+.preference-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+/* 隱藏原生 checkbox，用外層 label 做漂亮的按鈕外觀 */
+.pref-tag {
+    cursor: pointer;
+}
+
+.pref-tag input[type="checkbox"] {
+    display: none; /* 隱藏原本醜醜的勾選框 */
+}
+
+.pref-tag span {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+/* 當被勾選（checked）時的精緻視覺回饋（可自由選擇要純文字還是高亮背景） */
+/* 這裡實作符合原圖的純文字與稍微加深的質感，或者你也可以讓它亮起橘色 */
+.pref-tag input[type="checkbox"]:checked + span {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ── 儲存更改按鈕 ── */
+.btn-save-profile {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 25px; /* 膠囊形狀按鈕 */
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(224, 89, 54, 0.3);
+    transition: all 0.2s ease;
+    margin-top: 15px;
+}
+
+.btn-save-profile:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(224, 89, 54, 0.4);
+}
+/* ==========================================
+    RWD 響應式切版
+   ========================================== */
+   @media (max-width: 768px) {
+    .profile-container { flex-direction: column; }
+    .sidebar { width: 100%; }
+    .order-header-row, 
+    .order-item {
+        display: flex !important;
+        flex-direction: row !important; /* 強制橫向，覆蓋手機版的直排 */
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100%;
+        padding: 16px 0 !important; /* 調整上下內距 */
+        border-bottom: 1px solid #eeeeee;
+        box-sizing: border-box;
+    }
+
+    /* 2. 確保平板版必須看得到文字標頭（體驗、日期/場次、金額、狀態） */
+    .order-header-row {
+        display: flex !important;
+        font-size: 14px;
+        font-weight: bold;
+        color: #666666;
+        padding-bottom: 12px !important;
+    }
+
+    /* ── 📐 平板黃金比例分配 (35% | 25% | 15% | 25%) ── */
+
+    /* 【第一欄：體驗名稱與圖片】 */
+    .col-info {
+        flex: 0 0 35% !important; /* 分配 35% 寬度 */
+        display: flex !important;
+        flex-direction: row !important; /* 圖片與文字橫排 */
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    /* 平板版圖片大小（維持 50px 精緻比例） */
+    .item-img-placeholder,
+    .order-item img {
+        width: 50px !important;
+        height: 50px !important;
+        flex-shrink: 0 !important;
+        border-radius: 8px;
+    }
+
+    .item-name {
+        font-size: 14px !important;
+        font-weight: 600;
+        color: #222222;
+        white-space: normal !important; /* 允許正常換行 */
+        line-height: 1.4;
+    }
+
+    /* 【第二欄：日期 / 場次】 */
+    .col-date {
+        flex: 0 0 25% !important; /* 分配 25% 寬度 */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px;
+        text-align: left !important;
+        font-size: 14px !important;
+        color: #555555;
+    }
+
+    /* 【第三欄：金額】 */
+    .col-price {
+        flex: 0 0 15% !important; /* 分配 15% 寬度 */
+        text-align: left !important;
+        font-size: 15px !important;
+        font-weight: 600;
+        color: #e65933; /* 呼應主題橘紅色 */
+    }
+
+    /* 【第四欄：狀態與按鈕】 */
+    /* 💡 平板寬度足夠，狀態與按鈕一定要強制改回橫向 row 並排 */
+    .col-status {
+        flex: 0 0 25% !important; /* 分配 25% 寬度 */
+        display: flex !important;
+        flex-direction: row !important; /* 強制橫向並排 */
+        align-items: center !important;
+        justify-content: flex-start !important; /* 整組靠左對齊 */
+        gap: 12px !important; /* 標籤與取消按鈕的間距 */
+    }
+
+    /* 狀態標籤（未出發 / 已完成） */
+    .status-tag {
+        padding: 6px 12px !important;
+        border-radius: 20px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+
+    /* 取消訂單按鈕 */
+    .btn-cancel {
+        /* padding: 6px 12px !important; */
+        /* border: 1px solid #dddddd !important; */
+        /* border-radius: 20px !important; */
+        /* background-color: transparent !important; */
+        /* font-size: 13px !important; */
+        white-space: nowrap !important;
+        /* cursor: pointer; */
+    }
+}
+

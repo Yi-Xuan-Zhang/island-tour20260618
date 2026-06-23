@@ -1,0 +1,267 @@
+/* ==========================================
+    變數與基礎重設 Base Styles
+   ========================================== */
+:root {
+    --primary-color: #e05936;    /* 磚紅橘色 */
+    --dark-blue: #162447;        /* 深藍色 */
+    --bg-light: #fff7e4;         /* 溫暖米色背景 */
+    --text-main: #333333;        /* 主要內文色 */
+    --text-muted: #4f5153;      /* 灰字 */
+    --border-color: #c8cbce;    /* 線條顏色 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================
+   頁首區 FAQ Header
+   ========================================== */
+.faq-header {
+    background-color: var(--bg-light);
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.faq-header .sub-title {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.faq-header .main-title {
+    color: var(--dark-blue);
+    font-size: 2.2rem;
+    margin: 10px 0;
+    font-weight: 700;
+}
+
+.faq-header .desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================
+    主要內容與 Tabs
+   ========================================== */
+.main-content {
+    max-width: 760px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+}
+
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.tab-btn {
+    background-color: #ffffff;
+    border: 3px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border-color: var(--primary-color);
+}
+
+/* ==========================================
+    FAQ 手風琴樣式 Accordion
+   ========================================== */
+.section-category {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border-color);
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+summary::-webkit-details-marker { display: none; }
+summary { list-style: none; }
+
+.faq-question {
+    padding: 20px 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    color: var(--dark-blue);
+}
+
+/* 右側圖標預設（加號） */
+.faq-toggle-icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.faq-toggle-icon::before,
+.faq-toggle-icon::after {
+    content: "";
+    position: absolute;
+    background-color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+/* 橫線 */
+.faq-toggle-icon::before {
+    width: 10px;
+    height: 2px;
+}
+/* 直線 */
+.faq-toggle-icon::after {
+    width: 2px;
+    height: 10px;
+}
+
+/* ---------- 展開時的狀態 details[open] ---------- */
+details[open] {
+    background-color: #ffffff;
+}
+
+details[open] .faq-question {
+    color: var(--primary-color);
+}
+
+/* 展開時圖標樣式（轉為叉叉，背景變橘） */
+details[open] .faq-toggle-icon {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: rotate(45deg);
+}
+
+details[open] .faq-toggle-icon::before,
+details[open] .faq-toggle-icon::after {
+    background-color: #ffffff;
+}
+
+/* 回答區塊 */
+.faq-answer {
+    padding: 0 10px 20px 10px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+    底部客服區 CTA Section
+   ========================================== */
+.cta-section {
+    background-color: var(--bg-light);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.cta-section h3 {
+    color: var(--dark-blue);
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.cta-section p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-cta {
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mail-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.354);
+}
+
+.mail-btn:hover {
+    background-color: #c94a28;
+    transform: translateY(-3px);
+}
+
+.chat-btn {
+    background-color: transparent;
+    border: 3px solid var(--dark-blue);
+    color: var(--dark-blue);
+}
+
+.chat-btn:hover {
+    background-color: var(--dark-blue);
+    color: #ffffff;
+}
+
+/* ==========================================
+ 響應式手機版調整 Mobile RWD
+   ========================================== */
+@media (max-width: 768px) {
+    .nav-links { display: none; } /* 簡化手機版導覽，實務上可改漢堡選單 */
+    .footer-top { flex-direction: column; }
+    .footer-links-group { gap: 30px; justify-content: space-between; width: 100%; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .btn-cta { width: 100%; justify-content: center; }
+    .tabs-container { flex-wrap: wrap; }
+}
