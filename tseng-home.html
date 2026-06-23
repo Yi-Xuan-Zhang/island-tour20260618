@@ -220,54 +220,93 @@
     </div>
 
     <script>
-        // ========= 下拉選單-選擇目的地 =========
-        const cities = ['台北市', '新北市', '桃園市', '台中市', '彰化縣', '嘉義縣', '台南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣'];
-        const destSelect = document.getElementById('select-destination');
-
-        cities.forEach(city => {
-            const option = document.createElement('option');
-            option.value = city;
-            option.textContent = city;
-            destSelect.appendChild(option);
-        });
-
-        // ========= hot-card每張卡片的內容陣列 =========
-        const hotActivities = [
-            { id: 1, imgUrl: './img/card-img-1.jpg', category: '戶外冒險', title: '清水斷崖獨木舟探險', location: '花蓮縣', duration: '半天', price: '1,800', rating: '★★★★☆', reviews: 312 },
-            { id: 2, imgUrl: './img/card-img-2.jpg', category: '手作工藝', title: '九份老街手捏陶藝體驗', location: '新北市', duration: '3小時', price: '980', rating: '★★★★☆', reviews: 205 },
-            { id: 3, imgUrl: './img/card-img-3.jpg', category: '美食料理', title: '台中市場私廚料理課', location: '台中市', duration: '4小時', price: '1,500', rating: '★★★★☆', reviews: 189 },
-            { id: 4, imgUrl: './img/card-img-4.jpg', category: '自然探索', title: '阿里山日出觀星嚮導', location: '嘉義縣', duration: '全天', price: '2,200', rating: '★★★★★', reviews: 98 },
-            { id: 5, imgUrl: './img/card-img-5.jpg', category: '手作工藝', title: '淡水老街藍染拼布工作坊', location: '新北市', duration: '3小時', price: '1,200', rating: '★★★★☆', reviews: 147 },
-            { id: 6, imgUrl: './img/card-img-6.jpg', category: '文化歷史', title: '台南府城古蹟深度導覽', location: '台南市', duration: '半天', price: '800', rating: '★★★★☆', reviews: 261 },
-            { id: 7, imgUrl: './img/card-img-7.jpg', category: '自然探索', title: '宜蘭稻田生態農遊體驗', location: '宜蘭縣', duration: '半天', price: '1,100', rating: '★★★★☆', reviews: 173 },
-            { id: 8, imgUrl: './img/card-img-8.jpg', category: '美食料理', title: '高雄旗津老漁村料理日', location: '高雄市', duration: '4小時', price: '1,350', rating: '★★★★☆', reviews: 142 }
-        ];
-
         const container = document.getElementById('hot-card-container');
+        let hotActivities = [];
 
-        hotActivities.forEach(activity => {
-            const cardHTML = `
-                <div class="hot-card">
-                    <div class="card-img" style="background-image: url('${activity.imgUrl}')">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">${activity.category}</div>
-                        <div class="activity-title">${activity.title}</div>
-                        <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
-                        <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
-                        <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
+        // ========= 1. 產品卡片渲染功能 =========
+        function renderHomeCards(activitiesList) {
+            container.innerHTML = '';
+
+            activitiesList.forEach(activity => {
+                const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
+
+                // 【核心修改】動態抓取 JSON 內的 ratingStars 與 reviewCount，並設定預設防呆值
+                const ratingStars = activity.ratingStars || '★★★★★';
+                const reviewCount = activity.reviewCount || 0;
+
+                const cardHTML = `
+                    <a href="./product-detail.html?id=${activity.id}" class="hot-card" style="text-decoration: none; color: inherit;">
+                        <div class="card-img" style="background-image: url('${displayImg}')">
+                            <button class="like" type="button">🤍</button>
+                        </div>
+                        <div class="card-text">
+                            <div class="hashtag">${activity.category}</div>
+                            <div class="activity-title">${activity.title}</div>
+                            <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                            <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                            <div class="rating"><span class="star">${ratingStars}</span> (${reviewCount})</div>
+                        </div>
+                    </a>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // ========= 2. 條件搜尋篩選功能 =========
+        const selectLocation = document.getElementById('select-location');
+        const selectCategory = document.getElementById('select-category');
+        const btnSearch = document.getElementById('btn-search');
+
+        btnSearch.addEventListener('click', function() {
+            const locValue = selectLocation.value;
+            const catValue = selectCategory.value;
+
+            const filtered = hotActivities.filter(activity => {
+                const matchLocation = (locValue === 'all' || activity.location === locValue);
+                const matchCategory = (catValue === 'all' || activity.category === catValue);
+                return matchLocation && matchCategory;
+            });
+
+            renderHomeCards(filtered);
         });
 
-        // ========= 點擊hot-card內的like-btn會變換顏色 =========
+        // ========= 3. 非同步從 JSON 讀取資料並初始化頁面 =========
+        async function initHomeProducts() {
+            try {
+                // 讀取外部 JSON
+                const response = await fetch('./product-detail.json');
+                if (!response.ok) throw new Error('無法讀取 JSON 資料');
+                const rawData = await response.json();
+
+                // 加工資料：補上 id 欄位 (index + 1) 以利與內頁正確連動
+                hotActivities = rawData.map((item, index) => {
+                    return {
+                        ...item,
+                        id: index + 1
+                    };
+                });
+
+                // 首頁通常展示前 8 筆熱門體驗，你可以自由調整 slice 的數量
+                const homeDisplayList = hotActivities.slice(0, 8);
+
+                // 渲染卡片到畫面上
+                renderHomeCards(homeDisplayList);
+
+            } catch (error) {
+                console.error('首頁資料初始化失敗:', error);
+                container.innerHTML = `<div style=\"grid-column: span 4; text-align: center; color: red; padding: 40px;\">熱門活動資料加載失敗</div>`;
+            }
+        }
+
+        // ========= 4. 點擊 hot-card 內的 like-btn 會變換顏色 =========
         const contentMain = document.querySelector('.content-main');
         contentMain.addEventListener('click', function (event) {
             const likeBtn = event.target.closest('.like');
             if (likeBtn) {
+                // 防止點擊愛心時觸發外層 <a> 標籤的頁面跳轉
+                event.preventDefault();
+                event.stopPropagation();
+                
                 if (likeBtn.textContent === '🤍') {
                     likeBtn.textContent = '❤️';
                 } else {
@@ -275,6 +314,14 @@
                 }
             }
         });
+
+        // 「查看全部」按鈕的跳轉功能
+        document.getElementById('btn-see-all').addEventListener('click', function() {
+            window.location.href = './product-all.html';
+        });
+
+        // 啟動程式
+        initHomeProducts();
     </script>
 </body>
 
