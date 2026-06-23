@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島嶼旅跡</title>
+    <link rel="stylesheet" href="./css/tseng-home.css">
+</head>
+
+<body>
+    <div class="home-nav-wrapper">
+        <nav>
+            <div class="container">
+                <div class="logo">島嶼旅跡
+                    <span class="orange">·</span>
+                </div>
+                <div class="menu">
+                    <a href="">探索體驗</a>
+                    <a href="">關於我們</a>
+                    <a href="">常見問題</a>
+                    <a href="">我的訂單</a>
+                    <a href="" class="login-btn">登入 / 註冊</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="section section-banner">
+        <div class="mask"></div>
+        <div class="content">
+            <div class="title"> — EXPLORE BY THEME </div>
+            <div class="header">與台灣這片土地，<br><span class="highlight">真實相遇</span></div>
+            <div class="describe"> 超過 200 個在地嚮導帶路的深度體驗，從山頂到海岸，從廚房到工坊，找到屬於你的那一場旅途。 </div>
+            <div class="select-bar">
+                <select id="select-destination">
+                    <option value="" disabled selected>選擇目的地</option>
+                </select>
+                <input type="date" id="select-date">
+                <button id="btn-search" type="button">搜尋體驗</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-highlight">
+        <div class="content">
+            <div class="item">
+                <div class="number">200<span class="highlight">+</span></div>
+                <div class="describe">精選在地體驗</div>
+            </div>
+            <div class="item">
+                <div class="number">98<span class="highlight">%</span></div>
+                <div class="describe">旅客好評</div>
+            </div>
+            <div class="item">
+                <div class="number">150<span class="highlight">+</span></div>
+                <div class="describe">認證在地嚮導</div>
+            </div>
+            <div class="item">
+                <div class="number">22</div>
+                <div class="describe">縣市全台覆蓋</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-explore">
+        <div class="content">
+            <div class="title"> — EXPLORE BY THEME </div>
+            <div class="header"> 找到你的體驗類型 </div>
+            <div class="card-zone">
+                <a href="#" class="card" id="outdoor">
+                    <div class="card-icon outdoor"></div>
+                    <div class="card-text">戶外冒險</div>
+                </a>
+                <a href="#" class="card" id="art">
+                    <div class="card-icon art"></div>
+                    <div class="card-text">手作工藝</div>
+                </a>
+                <a href="#" class="card" id="food">
+                    <div class="card-icon food"></div>
+                    <div class="card-text">美食料理</div>
+                </a>
+                <a href="#" class="card" id="history">
+                    <div class="card-icon history"></div>
+                    <div class="card-text">文化歷史</div>
+                </a>
+                <a href="#" class="card" id="water">
+                    <div class="card-icon water"></div>
+                    <div class="card-text">水上活動</div>
+                </a>
+                <a href="#" class="card" id="nature">
+                    <div class="card-icon nature"></div>
+                    <div class="card-text">自然探索</div>
+                </a>
+                <a href="#" class="card" id="trandition">
+                    <div class="card-icon trandition"></div>
+                    <div class="card-text">傳統藝術</div>
+                </a>
+                <a href="#" class="card" id="photography">
+                    <div class="card-icon photography"></div>
+                    <div class="card-text">攝影旅拍</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-hot">
+        <div class="content">
+            <div class="content-top">
+                <div class="content-top-left">
+                    <div class="title"> — HOT THIS WEEK </div>
+                    <div class="header"> 本週熱門體驗 </div>
+                </div>
+                <div class="content-top-right">
+                    <button id="btn-see-all" type="button">查看全部</button>
+                </div>
+            </div>
+            <div class="content-main" id="hot-card-container"></div>
+            </div>
+    </div>
+
+    <div class="section section-apply">
+        <div class="content">
+            <div class="text-zone">
+                <div class="header">成為在地嚮導，<br>分享你的台灣故事</div>
+                <div class="describe">你是本地達人嗎？無論是山林秘徑、漁村廚藝還是傳統技藝，都可以化為獨一無二的體驗，與來自世界各地的旅人分享。</div>
+            </div>
+            <div class="btn-zone">
+                <button id="btn-apply" type="button">立即申請嚮導</button>
+                <button id="btn-more" type="button">了解更多</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-review">
+        <div class="content">
+            <div class="title"> — TRAVELER REVIEWS </div>
+            <div class="header"> 旅人的真實心聲 </div>
+            <div class="review-all">
+                <div class="review">
+                    <div class="star">★★★★★</div>
+                    <div class="review-word">「清水斷崖的獨木舟體驗讓我終生難忘，嚮導非常專業，安全又刺激。這是我在台灣最棒的一天！」</div>
+                    <div class="user">
+                        <div class="profile"></div>
+                        <div class="information">
+                            <div class="name">陳佳穎</div>
+                            <div class="info">來自台北 · 2025.03</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="star">★★★★★</div>
+                    <div class="review-word">「台南古蹟導覽讓我對這座城市有了全新的認識，嚮導的故事講解生動有趣，強烈推薦給每一位旅人！」</div>
+                    <div class="user">
+                        <div class="profile"></div>
+                        <div class="information">
+                            <div class="name">林大偉</div>
+                            <div class="info">來自高雄 · 2025.04</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="star">★★★★☆</div>
+                    <div class="review-word">「九份的陶藝體驗非常療癒，老師耐心指導，做出了自己的第一個茶杯，會帶著這份記憶回家。」</div>
+                    <div class="user">
+                        <div class="profile"></div>
+                        <div class="information">
+                            <div class="name">山田あかり</div>
+                            <div class="info">來自日本 · 2025.05</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-footer-wrapper">
+        <footer>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>島嶼旅跡 <span class="orange">·</span></h2>
+                    <p>
+                        深入台灣每一條小徑，<br>
+                        遇見最在地的感動體驗。<br>
+                        我們相信，旅行不只是到達目的地，<br>
+                        而是與這片土地真實相遇。
+                    </p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-menu">
+                        <h3>探索</h3>
+                        <a href="">所有體驗</a>
+                        <a href="">戶外冒險</a>
+                        <a href="">手作工藝</a>
+                        <a href="">美食料理</a>
+                        <a href="">文化歷史</a>
+                    </div>
+                    <div class="footer-menu">
+                        <h3>公司</h3>
+                        <a href="">關於我們</a>
+                        <a href="">常見問題</a>
+                        <a href="">旅遊嚮導招募</a>
+                        <a href="">媒體合作</a>
+                    </div>
+                    <div class="footer-menu">
+                        <h3>支援</h3>
+                        <a href="">退款政策</a>
+                        <a href="">隱私政策</a>
+                        <a href="">服務條款</a>
+                        <a href="">查看訂單</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"></div>
+            <div class="footer-bottom">
+                <div>© 2025 島嶼旅跡 IslandTrace. All rights reserved.</div>
+                <div>用心丈量台灣每一寸土地</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ========= 下拉選單-選擇目的地 =========
+        const cities = ['台北市', '新北市', '桃園市', '台中市', '彰化縣', '嘉義縣', '台南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣'];
+        const destSelect = document.getElementById('select-destination');
+
+        cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            destSelect.appendChild(option);
+        });
+
+        // ========= hot-card每張卡片的內容陣列 =========
+        const hotActivities = [
+            { id: 1, imgUrl: './img/card-img-1.jpg', category: '戶外冒險', title: '清水斷崖獨木舟探險', location: '花蓮縣', duration: '半天', price: '1,800', rating: '★★★★☆', reviews: 312 },
+            { id: 2, imgUrl: './img/card-img-2.jpg', category: '手作工藝', title: '九份老街手捏陶藝體驗', location: '新北市', duration: '3小時', price: '980', rating: '★★★★☆', reviews: 205 },
+            { id: 3, imgUrl: './img/card-img-3.jpg', category: '美食料理', title: '台中市場私廚料理課', location: '台中市', duration: '4小時', price: '1,500', rating: '★★★★☆', reviews: 189 },
+            { id: 4, imgUrl: './img/card-img-4.jpg', category: '自然探索', title: '阿里山日出觀星嚮導', location: '嘉義縣', duration: '全天', price: '2,200', rating: '★★★★★', reviews: 98 },
+            { id: 5, imgUrl: './img/card-img-5.jpg', category: '手作工藝', title: '淡水老街藍染拼布工作坊', location: '新北市', duration: '3小時', price: '1,200', rating: '★★★★☆', reviews: 147 },
+            { id: 6, imgUrl: './img/card-img-6.jpg', category: '文化歷史', title: '台南府城古蹟深度導覽', location: '台南市', duration: '半天', price: '800', rating: '★★★★☆', reviews: 261 },
+            { id: 7, imgUrl: './img/card-img-7.jpg', category: '自然探索', title: '宜蘭稻田生態農遊體驗', location: '宜蘭縣', duration: '半天', price: '1,100', rating: '★★★★☆', reviews: 173 },
+            { id: 8, imgUrl: './img/card-img-8.jpg', category: '美食料理', title: '高雄旗津老漁村料理日', location: '高雄市', duration: '4小時', price: '1,350', rating: '★★★★☆', reviews: 142 }
+        ];
+
+        const container = document.getElementById('hot-card-container');
+
+        hotActivities.forEach(activity => {
+            const cardHTML = `
+                <div class="hot-card">
+                    <div class="card-img" style="background-image: url('${activity.imgUrl}')">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">${activity.category}</div>
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                        <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                        <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
+        });
+
+        // ========= 點擊hot-card內的like-btn會變換顏色 =========
+        const contentMain = document.querySelector('.content-main');
+        contentMain.addEventListener('click', function (event) {
+            const likeBtn = event.target.closest('.like');
+            if (likeBtn) {
+                if (likeBtn.textContent === '🤍') {
+                    likeBtn.textContent = '❤️';
+                } else {
+                    likeBtn.textContent = '🤍';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

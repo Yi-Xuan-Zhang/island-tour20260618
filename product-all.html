@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島嶼旅跡－探索體驗</title>
+    <link rel="stylesheet" href="./css/product-all.css">
+
+</head>
+
+<body>
+    <div class="home-nav-wrapper">
+        <nav>
+            <div class="container">
+                <div class="logo">島嶼旅跡
+                    <span class="orange">·</span>
+                </div>
+                <div class="menu">
+                    <a href="">探索體驗</a>
+                    <a href="">關於我們</a>
+                    <a href="">常見問題</a>
+                    <a href="">我的訂單</a>
+                    <a href="" class="login-btn">登入 / 註冊</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <div class="section section-product">
+        <div class="content">
+            <div class="content-filter">
+                <div class="filter-container">
+                    <div class="filter-header">
+                        <div class="header-text">篩選條件</div>
+                        <button id="clear-all" type="button">清除全部</button>
+                    </div>
+
+                    <div id="dynamic-filter-groups"></div>
+
+                    <div class="filter-tag" style="margin-top: 40px;">
+                        <div class="tag-title">價格區間 (NT$)</div>
+                        <div class="tag-content">
+                            <div class="price-select" style="width: 100%;">
+                                <input type="number" id="price-min" min="0" placeholder="最低">
+                                <span>-</span>
+                                <input type="number" id="price-max" min="0" placeholder="最高">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-right-block">
+                <div class="content-header">
+                    <div class="header-left">
+                        <div class="breadcrumb">
+                            <a href="#">首頁</a><span class="separator">›</span>探索體驗
+                        </div>
+                        <div class="result-count">
+                            共找到<span class="count-num" id="total-count">0</span>個體驗
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <select class="sort-select" id="sort-select">
+                            <option value="default">預設排序</option>
+                            <option value="price-asc">價格由低至高</option>
+                            <option value="price-desc">價格由高至低</option>
+                            <option value="rating-desc">評分最高</option>
+                            <option value="reviews-desc">最多評論</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="content-main" id="hot-card-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-footer-wrapper">
+        <footer>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>島嶼旅跡 <span class="orange">·</span></h2>
+                    <p>
+                        深入台灣每一條小徑，<br>
+                        遇見最在地的感動體驗。<br>
+                        我們相信，旅行不只是到達目的地，<br>
+                        而是與這片土地真實相遇。
+                    </p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-menu">
+                        <h3>探索</h3>
+                        <a href="">所有體驗</a>
+                        <a href="">戶外冒險</a>
+                        <a href="">手作工藝</a>
+                        <a href="">美食料理</a>
+                        <a href="">文化歷史</a>
+                    </div>
+                    <div class="footer-menu">
+                        <h3>公司</h3>
+                        <a href="">關於我們</a>
+                        <a href="">常見問題</a>
+                        <a href="">旅遊嚮導招募</a>
+                        <a href="">媒體合作</a>
+                    </div>
+                    <div class="footer-menu">
+                        <h3>支援</h3>
+                        <a href="">退款政策</a>
+                        <a href="">隱私政策</a>
+                        <a href="">服務條款</a>
+                        <a href="">查看訂單</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"></div>
+            <div class="footer-bottom">
+                <div>© 2025 島嶼旅跡 IslandTrace. All rights reserved.</div>
+                <div>用心丈量台灣每一寸土地</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ========= 1. 定義篩選按鈕的資料陣列 =========
+        const filterGroupsData = [
+            {
+                title: '地區',
+                type: 'location',
+                tags: ['台北市', '新北市', '桃園市', '台中市', '彰化縣', '嘉義縣', '台南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣']
+            },
+            {
+                title: '主題分類',
+                type: 'category',
+                tags: ['戶外冒險', '手作工藝', '美食料理', '文化歷史', '水上活動', '自然探索', '傳統藝術', '攝影旅拍']
+            },
+            {
+                title: '時間',
+                type: 'duration',
+                tags: ['全天', '半天', '4小時', '3小時', '2小時']
+            }
+        ];
+
+        // ========= 2. 定義卡片資料陣列 =========
+        const hotActivities = [
+            { id: 1, imgUrl: './img/card-img-1.jpg', category: '戶外冒險', title: '清水斷崖獨木舟探險', location: '花蓮縣', duration: '半天', price: '1,800', rating: '★★★★☆', reviews: 312 },
+            { id: 2, imgUrl: './img/card-img-2.jpg', category: '手作工藝', title: '九份老街手捏陶藝體驗', location: '新北市', duration: '3小時', price: '980', rating: '★★★★☆', reviews: 205 },
+            { id: 3, imgUrl: './img/card-img-3.jpg', category: '美食料理', title: '台中市場私廚料理課', location: '台中市', duration: '4小時', price: '1,500', rating: '★★★★☆', reviews: 189 },
+            { id: 4, imgUrl: './img/card-img-4.jpg', category: '自然探索', title: '阿里山日出觀星嚮導', location: '嘉義縣', duration: '全天', price: '2,200', rating: '★★★★★', reviews: 98 },
+            { id: 5, imgUrl: './img/card-img-5.jpg', category: '手作工藝', title: '淡水老街藍染拼布工作坊', location: '新北市', duration: '3小時', price: '1,200', rating: '★★★★☆', reviews: 147 },
+            { id: 6, imgUrl: './img/card-img-6.jpg', category: '文化歷史', title: '台南府城古蹟深度導覽', location: '台南市', duration: '半天', price: '800', rating: '★★★★☆', reviews: 261 },
+            { id: 7, imgUrl: './img/card-img-7.jpg', category: '自然探索', title: '宜蘭稻田生態農遊體驗', location: '宜蘭縣', duration: '半天', price: '1,100', rating: '★★★★☆', reviews: 173 },
+            { id: 8, imgUrl: './img/card-img-8.jpg', category: '美食料理', title: '高雄旗津老漁村料理日', location: '高雄市', duration: '4小時', price: '1,350', rating: '★★★★☆', reviews: 142 },
+            { id: 9, imgUrl: './img/card-img-9.jpg', category: '戶外冒險', title: '太魯閣峽谷健行之旅', location: '花蓮縣', duration: '全天', price: '2,500', rating: '★★★★☆', reviews: 287 },
+            { id: 10, imgUrl: './img/card-img-10.jpg', category: '文化歷史', title: '彰化扇形車庫鐵道文化探索', location: '彰化縣', duration: '2小時', price: '700', rating: '★★★★☆', reviews: 118 },
+            { id: 11, imgUrl: './img/card-img-11.jpg', category: '戶外冒險', title: '墾丁珊瑚礁浮潛體驗', location: '屏東縣', duration: '半天', price: '1,650', rating: '★★★★☆', reviews: 234 },
+            { id: 12, imgUrl: './img/card-img-12.jpg', category: '文化歷史', title: '台北茶道文化靜心體驗', location: '台北市', duration: '2小時', price: '1,200', rating: '★★★★☆', reviews: 196 }
+        ];
+
+        // 全域變數，用來存放目前通過篩選的資料清單
+        let currentFilteredActivities = [...hotActivities];
+
+        // ========= 3. 動態產生 HTML 篩選按鈕 =========
+        const filterWrapper = document.getElementById('dynamic-filter-groups');
+
+        filterGroupsData.forEach(group => {
+            let tagsHTML = '';
+            group.tags.forEach(tag => {
+                tagsHTML += `<button class="tag" data-type="${group.type}" data-value="${tag}" type="button">${tag}</button>`;
+            });
+
+            const groupHTML = `
+                <div class="filter-tag">
+                    <div class="tag-title">${group.title}</div>
+                    <div class="tag-content">
+                        ${tagsHTML}
+                    </div>
+                </div>
+            `;
+            filterWrapper.innerHTML += groupHTML;
+        });
+
+
+        // ========= 4. 產品卡片渲染功能 (加入綁定數量更新) =========
+        const cardContainer = document.getElementById('hot-card-container');
+        const totalCountSpan = document.getElementById('total-count');
+
+        function renderCards(activitiesList) {
+            cardContainer.innerHTML = '';
+            // 連動更新 header 的計數數值
+            totalCountSpan.textContent = activitiesList.length;
+
+            if (activitiesList.length === 0) {
+                cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #505050; padding: 40px;">暫無符合條件的活動</div>`;
+                return;
+            }
+            activitiesList.forEach(activity => {
+                const cardHTML = `
+                    <div class="hot-card">
+                        <div class="card-img" style="background-image: url('${activity.imgUrl}')">
+                            <button class="like" type="button">🤍</button>
+                        </div>
+                        <div class="card-text">
+                            <div class="hashtag">${activity.category}</div>
+                            <div class="activity-title">${activity.title}</div>
+                            <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                            <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                            <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
+                        </div>
+                    </div>
+                `;
+                cardContainer.innerHTML += cardHTML;
+            });
+        }
+
+
+        // ========= 5. 複選與價格區間篩選核心邏輯 =========
+        const allTags = document.querySelectorAll('button.tag');
+        const priceMinInput = document.getElementById('price-min');
+        const priceMaxInput = document.getElementById('price-max');
+        const sortSelect = document.getElementById('sort-select');
+
+        // 監聽按鈕點擊
+        allTags.forEach(tagBtn => {
+            tagBtn.addEventListener('click', function () {
+                tagBtn.classList.toggle('active');
+                executeMultiFilter();
+            });
+        });
+
+        // 監聽價格輸入框
+        [priceMinInput, priceMaxInput].forEach(input => {
+            input.addEventListener('input', function () {
+                if (this.value < 0) {
+                    this.value = 0;
+                }
+                executeMultiFilter();
+            });
+        });
+
+        // 監聽排序選單變更
+        sortSelect.addEventListener('change', function () {
+            executeSortAndRender();
+        });
+
+        // 萬能多條件篩選器（標籤複選 + 價格區間）
+        function executeMultiFilter() {
+            const activeTags = document.querySelectorAll('button.tag.active');
+            const selectedFilters = {};
+
+            activeTags.forEach(tag => {
+                const type = tag.dataset.type;
+                const value = tag.dataset.value;
+                if (!selectedFilters[type]) {
+                    selectedFilters[type] = [];
+                }
+                selectedFilters[type].push(value);
+            });
+
+            const minPrice = priceMinInput.value !== '' ? parseFloat(priceMinInput.value) : 0;
+            const maxPrice = priceMaxInput.value !== '' ? parseFloat(priceMaxInput.value) : Infinity;
+
+            currentFilteredActivities = hotActivities.filter(activity => {
+                for (let type in selectedFilters) {
+                    const allowedValues = selectedFilters[type];
+                    if (!allowedValues.includes(activity[type])) {
+                        return false;
+                    }
+                }
+
+                const activityPrice = parseFloat(activity.price.replace(/,/g, ''));
+
+                if (activityPrice < minPrice || activityPrice > maxPrice) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            // 篩選完後，套用當前的排序規則並渲染
+            executeSortAndRender();
+        }
+
+        // 排序處理邏輯
+        function executeSortAndRender() {
+            const sortValue = sortSelect.value;
+            let sortedList = [...currentFilteredActivities];
+
+            if (sortValue === 'price-asc') {
+                // 價格由低至高
+                sortedList.sort((a, b) => parseFloat(a.price.replace(/,/g, '')) - parseFloat(b.price.replace(/,/g, '')));
+            } else if (sortValue === 'price-desc') {
+                // 價格由高至低
+                sortedList.sort((a, b) => parseFloat(b.price.replace(/,/g, '')) - parseFloat(a.price.replace(/,/g, '')));
+            } else if (sortValue === 'rating-desc') {
+                // 評分最高（計算實心星號數數量）
+                const getStars = (str) => (str.match(/★/g) || []).length;
+                sortedList.sort((a, b) => getStars(b.rating) - getStars(a.rating));
+            } else if (sortValue === 'reviews-desc') {
+                // 最多評論
+                sortedList.sort((a, b) => b.reviews - a.reviews);
+            } else {
+                // 預設排序（依資料陣列原始 id 排序）
+                sortedList.sort((a, b) => a.id - b.id);
+            }
+
+            renderCards(sortedList);
+        }
+
+        // 清除全部按鈕
+        document.getElementById('clear-all').addEventListener('click', function () {
+            allTags.forEach(tag => tag.classList.remove('active'));
+            priceMinInput.value = '';
+            priceMaxInput.value = '';
+            sortSelect.value = 'default'; // 排序還原預設
+            currentFilteredActivities = [...hotActivities];
+            renderCards(hotActivities);
+        });
+
+
+        // ========= 6. 價格輸入框防呆機制 =========
+        const priceInputs = document.querySelectorAll('.price-select input');
+        priceInputs.forEach(input => {
+            input.addEventListener('input', function () {
+                if (this.value < 0) {
+                    this.value = 0;
+                }
+            });
+        });
+
+
+        // ========= 7. 愛心收藏功能 =========
+        const contentMain = document.querySelector('.content-main');
+        contentMain.addEventListener('click', function (event) {
+            const likeBtn = event.target.closest('.like');
+            if (likeBtn) {
+                likeBtn.textContent = (likeBtn.textContent === '🤍') ? '❤️' : '🤍';
+            }
+        });
+
+        // 頁面初始載入渲染
+        renderCards(hotActivities);
+    </script>
+</body>
+
+</html>
