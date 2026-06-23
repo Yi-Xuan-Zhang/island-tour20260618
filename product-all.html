@@ -46,7 +46,6 @@
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 2px;
-
             margin-bottom: 8px;
         }
 
@@ -54,7 +53,6 @@
             color: #1b2a4a;
             font-size: 36px;
             font-weight: 600;
-
             margin-bottom: 36px;
         }
 
@@ -71,7 +69,6 @@
         }
 
         .section-product {
-
             .content {
                 display: flex;
                 gap: 40px;
@@ -85,11 +82,9 @@
                 .filter-container {
                     position: sticky;
                     top: 100px;
-
                     padding: 36px 30px;
                     border-radius: 20px;
                     box-shadow: 0 0 10px 4px #f5efe6;
-
                     display: flex;
                     flex-direction: column;
                     gap: 40px;
@@ -116,6 +111,12 @@
                                 box-shadow: none;
                             }
                         }
+                    }
+
+                    #dynamic-filter-groups {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 40px;
                     }
 
                     .filter-tag {
@@ -147,11 +148,18 @@
                                     transform: none;
                                     box-shadow: none;
                                 }
+
+                                &.active {
+                                    border: 2px solid #e8613c;
+                                    background-color: #e8613c;
+                                    color: #FFFFFF;
+                                }
                             }
 
                             .price-select {
                                 display: flex;
                                 justify-content: space-between;
+                                align-items: center;
                             }
                         }
                     }
@@ -167,13 +175,13 @@
                 color: #505050;
                 font-size: 14px;
                 font-weight: 400;
+                outline: none;
             }
 
             .content-main {
                 width: 75%;
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                /* flex-wrap: wrap; */
                 justify-content: center;
                 gap: 20px;
 
@@ -183,6 +191,13 @@
                     box-shadow: 0 0 8px 2px #e2e2e2;
                     transition: 0.5s;
 
+                    /* 1. 設定固定的總高度，確保每張卡片高矮完全一致 */
+                    height: 420px;
+
+                    /* 2. 讓卡片內部用 flex 佈局，把剩餘空間撐滿 */
+                    display: flex;
+                    flex-direction: column;
+
                     &:hover {
                         transform: translateY(-10px);
                         box-shadow: 0 0 8px 2px #e3c3ae;
@@ -190,6 +205,7 @@
                     }
 
                     .card-img {
+                        /* 圖片固定高度（保持不變） */
                         height: 180px;
                         background-size: cover;
                         background-position: center;
@@ -197,6 +213,8 @@
                         border-top-left-radius: 20px;
                         border-top-right-radius: 20px;
                         position: relative;
+                        flex-shrink: 0;
+                        /* 防止圖片被壓縮 */
 
                         button.like {
                             padding: 8px 10px;
@@ -213,12 +231,13 @@
                     }
 
                     .card-text {
-                        height: auto;
+                        /* 3. 將原本的 height: auto 改為 flex: 1，自動填滿卡片下半部 */
+                        flex: 1;
                         display: flex;
                         flex-direction: column;
-                        justify-content: center;
+                        justify-content: space-between;
+                        /* 讓內容（如標題和價格）能均勻分佈，更美觀 */
                         gap: 10px;
-                        /* background-color: #505050; */
                         padding: 24px;
 
                         .hashtag {
@@ -235,6 +254,10 @@
                             color: #1b2a4a;
                             font-size: 20px;
                             font-weight: 600;
+                            /* 避免標題太長衝出卡片 */
+                            white-space: nowrap;      /* 強制文字不換行，只排成單行 */
+                            overflow: hidden;         /* 超出方框的部分隱藏 */
+                            text-overflow: ellipsis;
                         }
 
                         .location-time {
@@ -263,7 +286,6 @@
                     }
                 }
             }
-
         }
     </style>
 </head>
@@ -277,64 +299,47 @@
                         <div class="header-text">篩選條件</div>
                         <button id="clear-all" type="button">清除全部</button>
                     </div>
-                    <div class="filter-tag">
-                        <div class="tag-title">地區</div>
-                        <div class="tag-content">
-                            <button class="tag" id="taipei" type="button">台北市</button>
-                            <button class="tag" id="newtaipei" type="button">新北市</button>
-                            <button class="tag" id="taoyuan" type="button">桃園市</button>
-                            <button class="tag" id="taichung" type="button">台中市</button>
-                            <button class="tag" id="changhua" type="button">彰化縣</button>
-                            <button class="tag" id="chiayi" type="button">嘉義縣</button>
-                            <button class="tag" id="tainan" type="button">台南市</button>
-                            <button class="tag" id="kaohsiung" type="button">高雄市</button>
-                            <button class="tag" id="pingtung" type="button">屏東縣</button>
-                            <button class="tag" id="yilan" type="button">宜蘭縣</button>
-                            <button class="tag" id="hualien" type="button">花蓮縣</button>
-                        </div>
-                    </div>
-                    <div class="filter-tag">
-                        <div class="tag-title">主題分類</div>
-                        <div class="tag-content">
-                            <button class="tag" id="outdoor" type="button">戶外冒險</button>
-                            <button class="tag" id="art type=" button">手作工藝</button>
-                            <button class="tag" id="food" type="button">美食料理</button>
-                            <button class="tag" id="history" type="button">文化歷史</button>
-                            <button class="tag" id="water" type="button">水上活動</button>
-                            <button class="tag" id="nature" type="button">自然探索</button>
-                            <button class="tag" id="trandition" type="button">傳統藝術</button>
-                            <button class="tag" id="photography" type="button">攝影旅拍</button>
-                        </div>
-                    </div>
-                    <div class="filter-tag">
-                        <div class="tag-title">時間</div>
-                        <div class="tag-content">
-                            <button class="tag" id="all-day" type="button">全天</button>
-                            <button class="tag" id="half-day" type="button">半天</button>
-                            <button class="tag" id="four-hours" type="button">4小時</button>
-                            <button class="tag" id="three-hours" type="button">3小時</button>
-                            <button class="tag" id="two-hours" type="button">2小時</button>
-                        </div>
-                    </div>
-                    <div class="filter-tag">
+
+                    <div id="dynamic-filter-groups"></div>
+
+                    <div class="filter-tag" style="margin-top: 40px;">
                         <div class="tag-title">價格區間 (NT$)</div>
-                        <div class="price-select">
-                            <input type="number" placeholder="最低">
-                            <span>-</span>
-                            <input type="number" placeholder="最高">
+                        <div class="tag-content">
+                            <div class="price-select" style="width: 100%;">
+                                <input type="number" id="price-min" min="0" placeholder="最低">
+                                <span>-</span>
+                                <input type="number" id="price-max" min="0" placeholder="最高">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="content-main" id="hot-card-container"></div>
-            <!-- 卡片內容寫在script裡 -->
         </div>
     </div>
 
 
     <script>
-        // ========= procuct每張卡片的內容陣列 =========
-        // 1. 定義卡片資料陣列
+        // ========= 1. 定義篩選按鈕的資料陣列 =========
+        const filterGroupsData = [
+            {
+                title: '地區',
+                type: 'location',
+                tags: ['台北市', '新北市', '桃園市', '台中市', '彰化縣', '嘉義縣', '台南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣']
+            },
+            {
+                title: '主題分類',
+                type: 'category',
+                tags: ['戶外冒險', '手作工藝', '美食料理', '文化歷史', '水上活動', '自然探索', '傳統藝術', '攝影旅拍']
+            },
+            {
+                title: '時間',
+                type: 'duration',
+                tags: ['全天', '半天', '4小時', '3小時', '2小時']
+            }
+        ];
+
+        // ========= 2. 定義卡片資料陣列 =========
         const hotActivities = [
             { id: 1, imgUrl: './img/card-img-1.jpg', category: '戶外冒險', title: '清水斷崖獨木舟探險', location: '花蓮縣', duration: '半天', price: '1,800', rating: '★★★★☆', reviews: 312 },
             { id: 2, imgUrl: './img/card-img-2.jpg', category: '手作工藝', title: '九份老街手捏陶藝體驗', location: '新北市', duration: '3小時', price: '980', rating: '★★★★☆', reviews: 205 },
@@ -350,46 +355,156 @@
             { id: 12, imgUrl: './img/card-img-12.jpg', category: '文化歷史', title: '台北茶道文化靜心體驗', location: '台北市', duration: '2小時', price: '1,200', rating: '★★★★☆', reviews: 196 }
         ];
 
-        // 2. 抓取 HTML 的卡片容器
-        const container = document.getElementById('hot-card-container');
+        // ========= 3. 動態產生 HTML 篩選按鈕 =========
+        const filterWrapper = document.getElementById('dynamic-filter-groups');
 
-        // 3. 跑迴圈，將資料動態組成完整的 HTML 並塞入網頁
-        hotActivities.forEach(activity => {
-            const cardHTML = `
-                <div class="hot-card">
-                    <div class="card-img" style="background-image: url('${activity.imgUrl}')">
-                        <button class="like" type="button">🤍</button>
-                    </div>
-                    <div class="card-text">
-                        <div class="hashtag">${activity.category}</div>
-                        <div class="activity-title">${activity.title}</div>
-                        <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
-                        <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
-                        <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
+        filterGroupsData.forEach(group => {
+            let tagsHTML = '';
+            group.tags.forEach(tag => {
+                tagsHTML += `<button class="tag" data-type="${group.type}" data-value="${tag}" type="button">${tag}</button>`;
+            });
+
+            const groupHTML = `
+                <div class="filter-tag">
+                    <div class="tag-title">${group.title}</div>
+                    <div class="tag-content">
+                        ${tagsHTML}
                     </div>
                 </div>
             `;
-            // 將動態產生的卡片推入網頁容器
-            container.innerHTML += cardHTML;
+            filterWrapper.innerHTML += groupHTML;
         });
 
-        // ========= 點擊hot-card內的like-btn會變換顏色 =========
-        // 1. 抓取卡片區塊的父層
+
+        // ========= 4. 產品卡片渲染功能 =========
+        const cardContainer = document.getElementById('hot-card-container');
+
+        function renderCards(activitiesList) {
+            cardContainer.innerHTML = '';
+            if (activitiesList.length === 0) {
+                cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #505050; padding: 40px;">暫無符合條件的活動</div>`;
+                return;
+            }
+            activitiesList.forEach(activity => {
+                const cardHTML = `
+                    <div class="hot-card">
+                        <div class="card-img" style="background-image: url('${activity.imgUrl}')">
+                            <button class="like" type="button">🤍</button>
+                        </div>
+                        <div class="card-text">
+                            <div class="hashtag">${activity.category}</div>
+                            <div class="activity-title">${activity.title}</div>
+                            <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                            <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                            <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
+                        </div>
+                    </div>
+                `;
+                cardContainer.innerHTML += cardHTML;
+            });
+        }
+
+        renderCards(hotActivities);
+
+
+        // ========= 5. 複選與價格區間篩選核心邏輯 =========
+        const allTags = document.querySelectorAll('button.tag');
+        const priceMinInput = document.getElementById('price-min');
+        const priceMaxInput = document.getElementById('price-max');
+
+        // 監聽按鈕點擊
+        allTags.forEach(tagBtn => {
+            tagBtn.addEventListener('click', function () {
+                tagBtn.classList.toggle('active');
+                executeMultiFilter();
+            });
+        });
+
+        // 監聽價格輸入框（當輸入時 input，或離開時 change，立即動態篩選）
+        [priceMinInput, priceMaxInput].forEach(input => {
+            input.addEventListener('input', function () {
+                // 防呆：輸入負數時強制歸零
+                if (this.value < 0) {
+                    this.value = 0;
+                }
+                // 執行包含價格的多重篩選
+                executeMultiFilter();
+            });
+        });
+
+        // 萬能多條件篩選器（同時處理：標籤複選 + 價格區間）
+        function executeMultiFilter() {
+            // ---- A. 處理標籤篩選條件 ----
+            const activeTags = document.querySelectorAll('button.tag.active');
+            const selectedFilters = {};
+
+            activeTags.forEach(tag => {
+                const type = tag.dataset.type;
+                const value = tag.dataset.value;
+                if (!selectedFilters[type]) {
+                    selectedFilters[type] = [];
+                }
+                selectedFilters[type].push(value);
+            });
+
+            // ---- B. 處理價格篩選條件 ----
+            // 取得輸入框數值，若沒輸入則給予預設值（最小值預設 0，最大值預設無限大）
+            const minPrice = priceMinInput.value !== '' ? parseFloat(priceMinInput.value) : 0;
+            const maxPrice = priceMaxInput.value !== '' ? parseFloat(priceMaxInput.value) : Infinity;
+
+            // ---- C. 開始過濾資料 ----
+            const filteredActivities = hotActivities.filter(activity => {
+
+                // 1. 檢查標籤條件（地區、分類、時間）
+                for (let type in selectedFilters) {
+                    const allowedValues = selectedFilters[type];
+                    if (!allowedValues.includes(activity[type])) {
+                        return false; // 不符合標籤，淘汰
+                    }
+                }
+
+                // 2. 檢查價格條件
+                // 先把資料裡的千分位逗號拿掉，轉成純數字（例如 "1,800" -> 1800）
+                const activityPrice = parseFloat(activity.price.replace(/,/g, ''));
+
+                if (activityPrice < minPrice || activityPrice > maxPrice) {
+                    return false; // 不在價格區間內，淘汰
+                }
+
+                return true; // 通過所有關卡，保留！
+            });
+
+            // ---- D. 渲染畫面 ----
+            renderCards(filteredActivities);
+        }
+
+        // 清除全部按鈕
+        document.getElementById('clear-all').addEventListener('click', function () {
+            allTags.forEach(tag => tag.classList.remove('active'));
+            priceMinInput.value = '';
+            priceMaxInput.value = '';
+            renderCards(hotActivities);
+        });
+
+
+        // ========= 6. 價格輸入框防呆機制 =========
+        const priceInputs = document.querySelectorAll('.price-select input');
+        priceInputs.forEach(input => {
+            // 當使用者手動輸入或離開輸入框時觸發
+            input.addEventListener('input', function () {
+                if (this.value < 0) {
+                    this.value = 0; // 強制歸零
+                }
+            });
+        });
+
+
+        // ========= 7. 愛心收藏功能 =========
         const contentMain = document.querySelector('.content-main');
-
-        // 2. 在父層綁定點擊事件
         contentMain.addEventListener('click', function (event) {
-
-            // 3. 判斷使用者點擊的是不是「愛心按鈕」（檢查 class 是否包含 'like'）
-            // 使用 .closest() 可以確保點到愛心圖案本身或按鈕邊緣都能精準觸發
             const likeBtn = event.target.closest('.like');
             if (likeBtn) {
-                // 4. 切換愛心的狀態
-                if (likeBtn.textContent === '🤍') {
-                    likeBtn.textContent = '❤️';
-                } else {
-                    likeBtn.textContent = '🤍';
-                }
+                likeBtn.textContent = (likeBtn.textContent === '🤍') ? '❤️' : '🤍';
             }
         });
     </script>
