@@ -1,11 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        button {
+            width: auto;
+            height: auto;
+            padding: 16px 32px;
+            border-radius: 99px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1b2a4a;
+            cursor: pointer;
+            transition: 0.5s;
+
+            &:hover {
+                box-shadow: 0 0 10px 2px #f5efe6;
+                transform: translateY(-4px);
+                transition: 0.5s;
+            }
+        }
+
+        span.highlight {
+            color: #e8613c;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .title {
+            color: #e8613c;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+        }
+
+        .header {
+            color: #1b2a4a;
+            font-size: 36px;
+            font-weight: 600;
+
+            margin-bottom: 36px;
+        }
+
+        .section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            width: 80%;
+            padding: 100px 0;
+        }
+
+        .section-product {
+
+            .content {
+                display: flex;
+                gap: 40px;
+            }
+
+            .content-filter {
+                width: 300px;
+                position: relative;
+                color: #505050;
+
+                .filter-container {
+                    position: sticky;
+                    top: 100px;
+
+                    padding: 36px 30px;
+                    border-radius: 20px;
+                    box-shadow: 0 0 10px 4px #f5efe6;
+
+                    display: flex;
+                    flex-direction: column;
+                    gap: 40px;
+
+                    .filter-header {
+                        display: flex;
+                        justify-content: space-between;
+
+                        .header-text {
+                            color: #1b2a4a;
+                            font-size: 18px;
+                            font-weight: 500;
+                        }
+
+                        button#clear-all {
+                            padding: 0;
+                            background-color: transparent;
+                            color: #e8613c;
+                            font-size: 14px;
+                            font-weight: 400;
+
+                            &:hover {
+                                transform: none;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+
+                    .filter-tag {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .tag-title {
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+
+                        .tag-content {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 8px;
+
+                            button.tag {
+                                background-color: transparent;
+                                border: 2px solid #e2e2e2;
+                                padding: 8px 12px;
+                                color: #505050;
+                                font-size: 14px;
+                                font-weight: 400;
+
+                                &:hover {
+                                    border: 2px solid #e8613c;
+                                    color: #e8613c;
+                                    transform: none;
+                                    box-shadow: none;
+                                }
+                            }
+
+                            .price-select {
+                                display: flex;
+                                justify-content: space-between;
+                            }
+                        }
+                    }
+                }
+            }
+
+            input {
+                width: 100px;
+                border-radius: 20px;
+                background-color: transparent;
+                border: 2px solid #e2e2e2;
+                padding: 8px 12px;
+                color: #505050;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+            .content-main {
+                width: 75%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                /* flex-wrap: wrap; */
+                justify-content: center;
+                gap: 20px;
+
+                .hot-card {
+                    background-color: #FFFFFF;
+                    border-radius: 20px;
+                    box-shadow: 0 0 8px 2px #e2e2e2;
+                    transition: 0.5s;
+
+                    &:hover {
+                        transform: translateY(-10px);
+                        box-shadow: 0 0 8px 2px #e3c3ae;
+                        transition: 0.5s;
+                    }
+
+                    .card-img {
+                        height: 180px;
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        border-top-left-radius: 20px;
+                        border-top-right-radius: 20px;
+                        position: relative;
+
+                        button.like {
+                            padding: 8px 10px;
+                            box-shadow: 0 0 4px 0 #505050;
+                            position: absolute;
+                            right: 12px;
+                            top: 12px;
+
+                            &:hover {
+                                transform: scale(1.1);
+                                box-shadow: 0 0 4px 0 #505050;
+                            }
+                        }
+                    }
+
+                    .card-text {
+                        height: auto;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 10px;
+                        /* background-color: #505050; */
+                        padding: 24px;
+
+                        .hashtag {
+                            align-self: flex-start;
+                            background-color: #e8f5e1;
+                            color: #578b39;
+                            font-size: 12px;
+                            font-weight: 600;
+                            border-radius: 99px;
+                            padding: 4px 12px;
+                        }
+
+                        .activity-title {
+                            color: #1b2a4a;
+                            font-size: 20px;
+                            font-weight: 600;
+                        }
+
+                        .location-time {
+                            color: #505050;
+                            font-size: 12px;
+                        }
+
+                        .price {
+                            color: #505050;
+                            font-size: 14px;
+
+                            span.highlight {
+                                font-size: 20px;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .rating {
+                            color: #505050;
+                            font-size: 12px;
+
+                            span.star {
+                                color: #ee8366;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="section section-product">
+        <div class="content">
+            <div class="content-filter">
+                <div class="filter-container">
+                    <div class="filter-header">
+                        <div class="header-text">篩選條件</div>
+                        <button id="clear-all" type="button">清除全部</button>
+                    </div>
+                    <div class="filter-tag">
+                        <div class="tag-title">地區</div>
+                        <div class="tag-content">
+                            <button class="tag" id="taipei" type="button">台北市</button>
+                            <button class="tag" id="newtaipei" type="button">新北市</button>
+                            <button class="tag" id="taoyuan" type="button">桃園市</button>
+                            <button class="tag" id="taichung" type="button">台中市</button>
+                            <button class="tag" id="changhua" type="button">彰化縣</button>
+                            <button class="tag" id="chiayi" type="button">嘉義縣</button>
+                            <button class="tag" id="tainan" type="button">台南市</button>
+                            <button class="tag" id="kaohsiung" type="button">高雄市</button>
+                            <button class="tag" id="pingtung" type="button">屏東縣</button>
+                            <button class="tag" id="yilan" type="button">宜蘭縣</button>
+                            <button class="tag" id="hualien" type="button">花蓮縣</button>
+                        </div>
+                    </div>
+                    <div class="filter-tag">
+                        <div class="tag-title">主題分類</div>
+                        <div class="tag-content">
+                            <button class="tag" id="outdoor" type="button">戶外冒險</button>
+                            <button class="tag" id="art type=" button">手作工藝</button>
+                            <button class="tag" id="food" type="button">美食料理</button>
+                            <button class="tag" id="history" type="button">文化歷史</button>
+                            <button class="tag" id="water" type="button">水上活動</button>
+                            <button class="tag" id="farm" type="button">農村生活</button>
+                            <button class="tag" id="trandition" type="button">傳統藝術</button>
+                            <button class="tag" id="photography" type="button">攝影旅拍</button>
+                        </div>
+                    </div>
+                    <div class="filter-tag">
+                        <div class="tag-title">時間</div>
+                        <div class="tag-content">
+                            <button class="tag" id="all-day" type="button">全天</button>
+                            <button class="tag" id="half-day" type="button">半天</button>
+                            <button class="tag" id="four-hours" type="button">4小時</button>
+                            <button class="tag" id="three-hours" type="button">3小時</button>
+                            <button class="tag" id="two-hours" type="button">2小時</button>
+                        </div>
+                    </div>
+                    <div class="filter-tag">
+                        <div class="tag-title">價格區間 (NT$)</div>
+                        <div class="price-select">
+                            <input type="number" placeholder="最低">
+                            <span>-</span>
+                            <input type="number" placeholder="最高">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-main" id="hot-card-container"></div>
+            <!-- 卡片內容寫在script裡 -->
+        </div>
+    </div>
+
+
+    <script>
+        // ========= procuct每張卡片的內容陣列 =========
+        // 1. 定義卡片資料陣列
+        const hotActivities = [
+            { id: 1, imgUrl: './img/card-img-1.jpg', category: '戶外冒險', title: '清水斷崖獨木舟探險', location: '花蓮縣', duration: '半天', price: '1,800', rating: '★★★★☆', reviews: 312 },
+            { id: 2, imgUrl: './img/card-img-2.jpg', category: '手作工藝', title: '九份老街手捏陶藝體驗', location: '新北市', duration: '3小時', price: '980', rating: '★★★★☆', reviews: 205 },
+            { id: 3, imgUrl: './img/card-img-3.jpg', category: '美食料理', title: '台中市場私廚料理課', location: '台中市', duration: '4小時', price: '1,500', rating: '★★★★☆', reviews: 189 },
+            { id: 4, imgUrl: './img/card-img-4.jpg', category: '自然探索', title: '阿里山日出觀星嚮導', location: '嘉義縣', duration: '全天', price: '2,200', rating: '★★★★★', reviews: 98 },
+            { id: 5, imgUrl: './img/card-img-5.jpg', category: '手作工藝', title: '淡水老街藍染拼布工作坊', location: '新北市', duration: '3小時', price: '1,200', rating: '★★★★☆', reviews: 147 },
+            { id: 6, imgUrl: './img/card-img-6.jpg', category: '文化歷史', title: '台南府城古蹟深度導覽', location: '台南市', duration: '半天', price: '800', rating: '★★★★☆', reviews: 261 },
+            { id: 7, imgUrl: './img/card-img-7.jpg', category: '自然探索', title: '宜蘭稻田生態農遊體驗', location: '宜蘭縣', duration: '半天', price: '1,100', rating: '★★★★☆', reviews: 173 },
+            { id: 8, imgUrl: './img/card-img-8.jpg', category: '美食料理', title: '高雄旗津老漁村料理日', location: '高雄市', duration: '4小時', price: '1,350', rating: '★★★★☆', reviews: 142 },
+            { id: 9, imgUrl: './img/card-img-9.jpg', category: '戶外冒險', title: '太魯閣峽谷健行之旅', location: '花蓮縣', duration: '全天', price: '2,500', rating: '★★★★☆', reviews: 287 },
+            { id: 10, imgUrl: './img/card-img-10.jpg', category: '文化歷史', title: '彰化扇形車庫鐵道文化探索', location: '彰化縣', duration: '2小時', price: '700', rating: '★★★★☆', reviews: 118 },
+            { id: 11, imgUrl: './img/card-img-11.jpg', category: '戶外冒險', title: '墾丁珊瑚礁浮潛體驗', location: '屏東縣', duration: '半天', price: '1,650', rating: '★★★★☆', reviews: 234 },
+            { id: 12, imgUrl: './img/card-img-12.jpg', category: '文化歷史', title: '台北茶道文化靜心體驗', location: '台北市', duration: '2小時', price: '1,200', rating: '★★★★☆', reviews: 196 }
+        ];
+
+        // 2. 抓取 HTML 的卡片容器
+        const container = document.getElementById('hot-card-container');
+
+        // 3. 跑迴圈，將資料動態組成完整的 HTML 並塞入網頁
+        hotActivities.forEach(activity => {
+            const cardHTML = `
+                <div class="hot-card">
+                    <div class="card-img" style="background-image: url('${activity.imgUrl}')">
+                        <button class="like" type="button">🤍</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">${activity.category}</div>
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                        <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                        <div class="rating"><span class="star">${activity.rating}</span> (${activity.reviews})</div>
+                    </div>
+                </div>
+            `;
+            // 將動態產生的卡片推入網頁容器
+            container.innerHTML += cardHTML;
+        });
+
+        // ========= 點擊hot-card內的like-btn會變換顏色 =========
+        // 1. 抓取卡片區塊的父層
+        const contentMain = document.querySelector('.content-main');
+
+        // 2. 在父層綁定點擊事件
+        contentMain.addEventListener('click', function (event) {
+
+            // 3. 判斷使用者點擊的是不是「愛心按鈕」（檢查 class 是否包含 'like'）
+            // 使用 .closest() 可以確保點到愛心圖案本身或按鈕邊緣都能精準觸發
+            const likeBtn = event.target.closest('.like');
+            if (likeBtn) {
+                // 4. 切換愛心的狀態
+                if (likeBtn.textContent === '🤍') {
+                    likeBtn.textContent = '❤️';
+                } else {
+                    likeBtn.textContent = '🤍';
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>
