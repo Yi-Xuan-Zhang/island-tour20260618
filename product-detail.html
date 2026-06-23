@@ -13,15 +13,15 @@
     <div class="home-nav-wrapper">
         <nav>
             <div class="container">
-                <div class="logo">島嶼旅跡
-                    <span class="orange">·</span>
+                <div class="logo"><a href="./tseng-home.html">島嶼旅跡
+                        <span class="orange">·</span></a>
                 </div>
                 <div class="menu">
-                    <a href="">探索體驗</a>
-                    <a href="">關於我們</a>
-                    <a href="">常見問題</a>
-                    <a href="">我的訂單</a>
-                    <a href="" class="login-btn">登入 / 註冊</a>
+                    <a href="./product-all.html">探索體驗</a>
+                    <a href="./about.html">關於我們</a>
+                    <a href="./faq.html">常見問題</a>
+                    <a href="./profile.html">我的訂單</a>
+                    <a href="./login.html" class="login-btn">登入 / 註冊</a>
                 </div>
             </div>
         </nav>
@@ -30,7 +30,7 @@
     <div class="photo-section">
         <div class="content">
             <div class="breadcrumb">
-                <a href="#">首頁</a><span class="separator">›</span><a href="#">探索體驗</a><span
+                <a href="./tseng-home.html">首頁</a><span class="separator">›</span><a href="./product-all.html">探索體驗</a><span
                     class="separator">›</span><span class="current-page" id="page-title-crumb">載入中...</span>
             </div>
 
@@ -156,37 +156,8 @@
         // ========= 動態讀取網頁 Title 並寫入麵包屑最後一層 =========
         document.getElementById('page-title-crumb').textContent = document.title;
 
-        // ========= photo-section照片切換 =========
-        const images = [
-            './img/card-img-1.jpg',
-            './img/card-img-2.jpg',
-            './img/card-img-3.jpg',
-            './img/card-img-4.jpg'
-        ];
-
-        const mainPhoto = document.getElementById('mainPhoto');
-        const thumbs = document.querySelectorAll('#thumbGroup .thumb-photo');
-
-        images.forEach((url, index) => {
-            if (thumbs[index]) {
-                thumbs[index].style.backgroundImage = `url('${url}')`;
-            }
-        });
-        mainPhoto.style.backgroundImage = `url('${images[0]}')`;
-
-        thumbs.forEach(thumb => {
-            thumb.addEventListener('click', function () {
-                const currentActive = document.querySelector('#thumbGroup .thumb-photo.active');
-                if (currentActive) {
-                    currentActive.classList.remove('active');
-                }
-                this.classList.add('active');
-                mainPhoto.style.backgroundImage = this.style.backgroundImage;
-            });
-        });
-
         // ========= shopping-cart的quantity增減、計算總和 =========
-        const PRICE_PER_PERSON = 1800;
+        window.PRICE_PER_PERSON = 0; // 改為全域掛載，初始設為 0，等待 JSON 動態傳入價格
         let quantity = 1;
 
         const btnMinus = document.getElementById('minus');
@@ -196,12 +167,11 @@
 
         function updateCart() {
             txtQuantity.textContent = quantity;
-            const total = PRICE_PER_PERSON * quantity;
+            // 根據當前活動的動態價格來計算總額
+            const total = window.PRICE_PER_PERSON * quantity;
             txtTotalPrice.textContent = `NT$ ${total.toLocaleString()}`;
             btnMinus.disabled = (quantity === 1);
         }
-
-        updateCart();
 
         btnMinus.addEventListener('click', () => {
             if (quantity > 1) {
@@ -216,29 +186,103 @@
         });
 
 
-        // ========= 新增：從 JSON 非同步讀取資料並綁定到左側區塊 =========
+        // ========= 從網址參數讀取 ID，並從 JSON 篩選綁定所有資料（含圖片） =========
         async function fetchProductDetails() {
             try {
-                // 讀取同目錄下的 product.json 檔案
+                // 1. 獲取網址上的 id 參數 (例如: ?id=2)
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('id'); 
+                
+                // 2. 讀取總商品 JSON 檔案
                 const response = await fetch('./product-detail.json');
                 if (!response.ok) {
                     throw new Error('無法讀取 JSON 資料');
                 }
-                const data = await response.json();
+                const productsArray = await response.json();
 
-                // 1. 綁定基本標題與基本資訊
+                // 3. 根據 id 尋找對應的資料
+                let data = productsArray[0]; 
+                if (productId) {
+                    const index = parseInt(productId) - 1;
+                    if (index >= 0 && index < productsArray.length) {
+                        data = productsArray[index];
+                    }
+                }
+
+                // 4. 動態修改瀏覽器分頁標題與麵包屑
+                document.title = data.title;
+                document.getElementById('page-title-crumb').textContent = data.title;
+
+                // 5. 綁定左側基本標題與基本資訊
                 document.getElementById('activityTitle').textContent = data.title;
                 document.getElementById('activityInfo').innerHTML = `📍 ${data.location} ｜ 🕑 ${data.duration} ｜ 🏷️ ${data.category} ｜ <span class="highlight">${data.ratingStars}</span> (${data.reviewCount}則評論)`;
 
-                // 2. 綁定體驗介紹
+                // 6. 動態變更主圖與縮略圖 (從 JSON 取出圖片陣列)
+                const productImages = data.images || [
+                    './img/card-img-1.jpg',
+                    './img/card-img-2.jpg',
+                    './img/card-img-3.jpg',
+                    './img/card-img-4.jpg'
+                ];
+
+                const mainPhoto = document.getElementById('mainPhoto');
+                const thumbs = document.querySelectorAll('#thumbGroup .thumb-photo');
+
+                // 渲染主圖
+                mainPhoto.style.backgroundImage = `url('${productImages[0]}')`;
+
+                // 渲染四張小縮略圖，並重置第一張為 active 狀態
+                productImages.forEach((url, index) => {
+                    if (thumbs[index]) {
+                        thumbs[index].style.backgroundImage = `url('${url}')`;
+                        if (index === 0) {
+                            thumbs[index].classList.add('active');
+                        } else {
+                            thumbs[index].classList.remove('active');
+                        }
+                    }
+                });
+
+                // 為縮略圖綁定「點擊切換大圖」事件
+                thumbs.forEach(thumb => {
+                    thumb.onclick = function () {
+                        const currentActive = document.querySelector('#thumbGroup .thumb-photo.active');
+                        if (currentActive) {
+                            currentActive.classList.remove('active');
+                        }
+                        this.classList.add('active');
+                        mainPhoto.style.backgroundImage = this.style.backgroundImage;
+                    };
+                });
+
+
+                // 7. 動態綁定右側購物車價格與評分欄位（修正跑掉的問題）
+                // 【修正點】將 "1,800" 轉為數字 1800，避免計算時產生非數值錯誤
+                const rawPrice = data.price || "1800";
+                const currentPrice = typeof rawPrice === 'string' ? parseInt(rawPrice.replace(/,/g, ''), 10) : rawPrice; 
+                window.PRICE_PER_PERSON = currentPrice; 
+
+                // 渲染購物車內顯示的單價
+                document.querySelector('.shopping-cart .price-info .highlight').textContent = `NT$ ${currentPrice.toLocaleString()}`;
+                
+                // 【修正】精準獲取第一個 .cart-row（即評分列），只修改它內部的星星與評論數，不碰觸到人數與總金額結構
+                const ratingRow = document.querySelector('.shopping-cart .cart-row');
+                if (ratingRow) {
+                    ratingRow.innerHTML = `<span class="highlight">${data.ratingStars}</span> 4.9 (${data.reviewCount})`;
+                }
+
+                // 立即觸發一次計算，更新 Total Price 總金額
+                updateCart(); 
+
+                // 8. 綁定體驗介紹
                 document.getElementById('activityIntro').textContent = data.introduction;
 
-                // 3. 綁定行程亮點 (使用 map 與 join 加上 ✦ 符號與換行)
+                // 9. 綁定行程亮點
                 document.getElementById('activityHighlights').innerHTML = data.highlights
                     .map(item => `✦ ${item}`)
                     .join('<br>');
 
-                // 4. 綁定費用包含與不包含 (使用 ． 符號與換行)
+                // 10. 綁定費用包含與不包含
                 document.getElementById('priceIncludes').innerHTML = data.priceIncludes
                     .map(item => `．${item}`)
                     .join('<br>');
@@ -246,7 +290,7 @@
                     .map(item => `．${item}`)
                     .join('<br>');
 
-                // 5. 動態產生旅客評論 HTML
+                // 11. 動態產生旅客評論 HTML
                 const reviewsContainer = document.getElementById('reviewsContainer');
                 reviewsContainer.innerHTML = data.reviews.map(review => `
                     <div class="review">

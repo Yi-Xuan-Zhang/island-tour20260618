@@ -2,10 +2,17 @@
     {
         "title": "清水斷崖獨木舟探險",
         "location": "花蓮縣",
+        "price": "1,800",
         "duration": "半天",
         "category": "戶外冒險",
         "ratingStars": "★★★★☆",
         "reviewCount": 312,
+        "images": [
+            "./img/card-img-1.jpg",
+            "./img/card-img-2.jpg",
+            "./img/card-img-3.jpg",
+            "./img/card-img-4.jpg"
+        ],
         "introduction": "這是一場深入花蓮在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索花蓮最具代表性的自然與人文景觀",
@@ -51,10 +58,17 @@
     {
         "title": "九份老街手捏陶藝體驗",
         "location": "新北市",
+        "price": "980",
         "duration": "3小時",
         "category": "手作工藝",
         "ratingStars": "★★★★☆",
         "reviewCount": 205,
+        "images": [
+            "./img/card-img-2.jpg",
+            "./img/card-img-3.jpg",
+            "./img/card-img-4.jpg",
+            "./img/card-img-5.jpg"
+        ],
         "introduction": "這是一場深入新北在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索新北最具代表性的自然與人文景觀",
@@ -100,10 +114,17 @@
     {
         "title": "台中市場私廚料理課",
         "location": "台中市",
+        "price": "1,500",
         "duration": "4小時",
         "category": "美食料理",
         "ratingStars": "★★★★☆",
         "reviewCount": 189,
+        "images": [
+            "./img/card-img-3.jpg",
+            "./img/card-img-4.jpg",
+            "./img/card-img-5.jpg",
+            "./img/card-img-6.jpg"
+        ],
         "introduction": "這是一場深入台中在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索新北最具代表性的自然與人文景觀",
@@ -149,10 +170,17 @@
     {
         "title": "阿里山日出觀星嚮導",
         "location": "嘉義縣",
+        "price": "2,200",
         "duration": "全天",
         "category": "自然探索",
         "ratingStars": "★★★★★",
         "reviewCount": 98,
+        "images": [
+            "./img/card-img-4.jpg",
+            "./img/card-img-5.jpg",
+            "./img/card-img-6.jpg",
+            "./img/card-img-7.jpg"
+        ],
         "introduction": "這是一場深入嘉義在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索嘉義最具代表性的自然與人文景觀",
@@ -198,10 +226,17 @@
     {
         "title": "淡水老街藍染拼布工作坊",
         "location": "新北市",
+        "price": "1,200",
         "duration": "3小時",
         "category": "手作工藝",
         "ratingStars": "★★★★☆",
         "reviewCount": 147,
+        "images": [
+            "./img/card-img-5.jpg",
+            "./img/card-img-6.jpg",
+            "./img/card-img-7.jpg",
+            "./img/card-img-8.jpg"
+        ],
         "introduction": "這是一場深入新北在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索新北最具代表性的自然與人文景觀",
@@ -247,10 +282,17 @@
     {
         "title": "台南府城古蹟深度導覽",
         "location": "台南市",
+        "price": "800",
         "duration": "半天",
         "category": "文化歷史",
         "ratingStars": "★★★★☆",
         "reviewCount": 147,
+        "images": [
+            "./img/card-img-6.jpg",
+            "./img/card-img-7.jpg",
+            "./img/card-img-8.jpg",
+            "./img/card-img-9.jpg"
+        ],
         "introduction": "這是一場深入台南在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索台南最具代表性的自然與人文景觀",
@@ -296,10 +338,17 @@
     {
         "title": "宜蘭稻田生態農遊體驗",
         "location": "宜蘭縣",
+        "price": "1,100",
         "duration": "半天",
         "category": "自然探索",
         "ratingStars": "★★★★☆",
         "reviewCount": 173,
+        "images": [
+            "./img/card-img-7.jpg",
+            "./img/card-img-8.jpg",
+            "./img/card-img-9.jpg",
+            "./img/card-img-10.jpg"
+        ],
         "introduction": "這是一場深入宜蘭在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索宜蘭最具代表性的自然與人文景觀",
@@ -345,10 +394,17 @@
     {
         "title": "高雄旗津老漁村料理日",
         "location": "高雄市",
+        "price": "1,350",
         "duration": "4小時",
         "category": "美食料理",
         "ratingStars": "★★★★☆",
         "reviewCount": 142,
+        "images": [
+            "./img/card-img-8.jpg",
+            "./img/card-img-9.jpg",
+            "./img/card-img-10.jpg",
+            "./img/card-img-11.jpg"
+        ],
         "introduction": "這是一場深入高雄在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索高雄最具代表性的自然與人文景觀",
@@ -394,10 +450,17 @@
     {
         "title": "太魯閣峽谷健行之旅",
         "location": "花蓮縣",
+        "price": "2,500",
         "duration": "全天",
         "category": "戶外冒險",
         "ratingStars": "★★★★☆",
         "reviewCount": 287,
+        "images": [
+            "./img/card-img-9.jpg",
+            "./img/card-img-10.jpg",
+            "./img/card-img-11.jpg",
+            "./img/card-img-12.jpg"
+        ],
         "introduction": "這是一場深入花蓮在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索花蓮最具代表性的自然與人文景觀",
@@ -443,10 +506,17 @@
     {
         "title": "彰化扇形車庫鐵道文化探索",
         "location": "彰化縣",
+        "price": "700",
         "duration": "2小時",
         "category": "文化歷史",
         "ratingStars": "★★★★☆",
         "reviewCount": 118,
+        "images": [
+            "./img/card-img-10.jpg",
+            "./img/card-img-11.jpg",
+            "./img/card-img-12.jpg",
+            "./img/card-img-1.jpg"
+        ],
         "introduction": "這是一場深入彰化在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索彰化最具代表性的自然與人文景觀",
@@ -492,10 +562,17 @@
     {
         "title": "墾丁珊瑚礁浮潛體驗",
         "location": "屏東縣",
+        "price": "1,650",
         "duration": "半天",
         "category": "戶外冒險",
         "ratingStars": "★★★★☆",
         "reviewCount": 118,
+        "images": [
+            "./img/card-img-11.jpg",
+            "./img/card-img-12.jpg",
+            "./img/card-img-1.jpg",
+            "./img/card-img-2.jpg"
+        ],
         "introduction": "這是一場深入屏東在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索屏東最具代表性的自然與人文景觀",
@@ -541,10 +618,17 @@
     {
         "title": "台北茶道文化靜心體驗",
         "location": "台北市",
+        "price": "1,200",
         "duration": "2小時",
         "category": "文化歷史",
         "ratingStars": "★★★★☆",
         "reviewCount": 196,
+        "images": [
+            "./img/card-img-12.jpg",
+            "./img/card-img-1.jpg",
+            "./img/card-img-2.jpg",
+            "./img/card-img-3.jpg"
+        ],
         "introduction": "這是一場深入屏東在地生活的難忘體驗。由當地資深嚮導親自帶領，您將突破一般觀光行程的框架，真正感受這片土地的靈魂與韻味。無論您是第一次探索台灣，或是熟悉這座島嶼的旅人，這場體驗都將讓您看見截然不同的風景。",
         "highlights": [
             "深入探索屏東最具代表性的自然與人文景觀",
