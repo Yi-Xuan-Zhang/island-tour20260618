@@ -4,290 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    <title>島嶼旅跡－探索體驗</title>
+    <link rel="stylesheet" href="./css/product-all.css">
 
-        body {
-            margin: 0;
-        }
-
-        button {
-            width: auto;
-            height: auto;
-            padding: 16px 32px;
-            border-radius: 99px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1b2a4a;
-            cursor: pointer;
-            transition: 0.5s;
-
-            &:hover {
-                box-shadow: 0 0 10px 2px #f5efe6;
-                transform: translateY(-4px);
-                transition: 0.5s;
-            }
-        }
-
-        span.highlight {
-            color: #e8613c;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .title {
-            color: #e8613c;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .header {
-            color: #1b2a4a;
-            font-size: 36px;
-            font-weight: 600;
-            margin-bottom: 36px;
-        }
-
-        .section {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .content {
-            width: 80%;
-            padding: 100px 0;
-        }
-
-        .section-product {
-            .content {
-                display: flex;
-                gap: 40px;
-            }
-
-            .content-filter {
-                width: 300px;
-                position: relative;
-                color: #505050;
-
-                .filter-container {
-                    position: sticky;
-                    top: 100px;
-                    padding: 36px 30px;
-                    border-radius: 20px;
-                    box-shadow: 0 0 10px 4px #f5efe6;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 40px;
-
-                    .filter-header {
-                        display: flex;
-                        justify-content: space-between;
-
-                        .header-text {
-                            color: #1b2a4a;
-                            font-size: 18px;
-                            font-weight: 500;
-                        }
-
-                        button#clear-all {
-                            padding: 0;
-                            background-color: transparent;
-                            color: #e8613c;
-                            font-size: 14px;
-                            font-weight: 400;
-
-                            &:hover {
-                                transform: none;
-                                box-shadow: none;
-                            }
-                        }
-                    }
-
-                    #dynamic-filter-groups {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 40px;
-                    }
-
-                    .filter-tag {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 10px;
-
-                        .tag-title {
-                            font-size: 14px;
-                            font-weight: 500;
-                        }
-
-                        .tag-content {
-                            display: flex;
-                            flex-wrap: wrap;
-                            gap: 8px;
-
-                            button.tag {
-                                background-color: transparent;
-                                border: 2px solid #e2e2e2;
-                                padding: 8px 12px;
-                                color: #505050;
-                                font-size: 14px;
-                                font-weight: 400;
-
-                                &:hover {
-                                    border: 2px solid #e8613c;
-                                    color: #e8613c;
-                                    transform: none;
-                                    box-shadow: none;
-                                }
-
-                                &.active {
-                                    border: 2px solid #e8613c;
-                                    background-color: #e8613c;
-                                    color: #FFFFFF;
-                                }
-                            }
-
-                            .price-select {
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                            }
-                        }
-                    }
-                }
-            }
-
-            input {
-                width: 100px;
-                border-radius: 20px;
-                background-color: transparent;
-                border: 2px solid #e2e2e2;
-                padding: 8px 12px;
-                color: #505050;
-                font-size: 14px;
-                font-weight: 400;
-                outline: none;
-            }
-
-            .content-main {
-                width: 75%;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                justify-content: center;
-                gap: 20px;
-
-                .hot-card {
-                    background-color: #FFFFFF;
-                    border-radius: 20px;
-                    box-shadow: 0 0 8px 2px #e2e2e2;
-                    transition: 0.5s;
-
-                    /* 1. 設定固定的總高度，確保每張卡片高矮完全一致 */
-                    height: 420px;
-
-                    /* 2. 讓卡片內部用 flex 佈局，把剩餘空間撐滿 */
-                    display: flex;
-                    flex-direction: column;
-
-                    &:hover {
-                        transform: translateY(-10px);
-                        box-shadow: 0 0 8px 2px #e3c3ae;
-                        transition: 0.5s;
-                    }
-
-                    .card-img {
-                        /* 圖片固定高度（保持不變） */
-                        height: 180px;
-                        background-size: cover;
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        border-top-left-radius: 20px;
-                        border-top-right-radius: 20px;
-                        position: relative;
-                        flex-shrink: 0;
-                        /* 防止圖片被壓縮 */
-
-                        button.like {
-                            padding: 8px 10px;
-                            box-shadow: 0 0 4px 0 #505050;
-                            position: absolute;
-                            right: 12px;
-                            top: 12px;
-
-                            &:hover {
-                                transform: scale(1.1);
-                                box-shadow: 0 0 4px 0 #505050;
-                            }
-                        }
-                    }
-
-                    .card-text {
-                        /* 3. 將原本的 height: auto 改為 flex: 1，自動填滿卡片下半部 */
-                        flex: 1;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        /* 讓內容（如標題和價格）能均勻分佈，更美觀 */
-                        gap: 10px;
-                        padding: 24px;
-
-                        .hashtag {
-                            align-self: flex-start;
-                            background-color: #e8f5e1;
-                            color: #578b39;
-                            font-size: 12px;
-                            font-weight: 600;
-                            border-radius: 99px;
-                            padding: 4px 12px;
-                        }
-
-                        .activity-title {
-                            color: #1b2a4a;
-                            font-size: 20px;
-                            font-weight: 600;
-                            /* 避免標題太長衝出卡片 */
-                            white-space: nowrap;      /* 強制文字不換行，只排成單行 */
-                            overflow: hidden;         /* 超出方框的部分隱藏 */
-                            text-overflow: ellipsis;
-                        }
-
-                        .location-time {
-                            color: #505050;
-                            font-size: 12px;
-                        }
-
-                        .price {
-                            color: #505050;
-                            font-size: 14px;
-
-                            span.highlight {
-                                font-size: 20px;
-                                font-weight: 600;
-                            }
-                        }
-
-                        .rating {
-                            color: #505050;
-                            font-size: 12px;
-
-                            span.star {
-                                color: #ee8366;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -314,10 +33,32 @@
                     </div>
                 </div>
             </div>
-            <div class="content-main" id="hot-card-container"></div>
+
+            <div class="content-right-block">
+                <div class="content-header">
+                    <div class="header-left">
+                        <div class="breadcrumb">
+                            <a href="#">首頁</a><span class="separator">›</span>探索體驗
+                        </div>
+                        <div class="result-count">
+                            共找到<span class="count-num" id="total-count">0</span>個體驗
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <select class="sort-select" id="sort-select">
+                            <option value="default">預設排序</option>
+                            <option value="price-asc">價格由低至高</option>
+                            <option value="price-desc">價格由高至低</option>
+                            <option value="rating-desc">評分最高</option>
+                            <option value="reviews-desc">最多評論</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="content-main" id="hot-card-container"></div>
+            </div>
         </div>
     </div>
-
 
     <script>
         // ========= 1. 定義篩選按鈕的資料陣列 =========
@@ -355,6 +96,9 @@
             { id: 12, imgUrl: './img/card-img-12.jpg', category: '文化歷史', title: '台北茶道文化靜心體驗', location: '台北市', duration: '2小時', price: '1,200', rating: '★★★★☆', reviews: 196 }
         ];
 
+        // 全域變數，用來存放目前通過篩選的資料清單
+        let currentFilteredActivities = [...hotActivities];
+
         // ========= 3. 動態產生 HTML 篩選按鈕 =========
         const filterWrapper = document.getElementById('dynamic-filter-groups');
 
@@ -376,11 +120,15 @@
         });
 
 
-        // ========= 4. 產品卡片渲染功能 =========
+        // ========= 4. 產品卡片渲染功能 (加入綁定數量更新) =========
         const cardContainer = document.getElementById('hot-card-container');
+        const totalCountSpan = document.getElementById('total-count');
 
         function renderCards(activitiesList) {
             cardContainer.innerHTML = '';
+            // 連動更新 header 的計數數值
+            totalCountSpan.textContent = activitiesList.length;
+
             if (activitiesList.length === 0) {
                 cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #505050; padding: 40px;">暫無符合條件的活動</div>`;
                 return;
@@ -404,13 +152,12 @@
             });
         }
 
-        renderCards(hotActivities);
-
 
         // ========= 5. 複選與價格區間篩選核心邏輯 =========
         const allTags = document.querySelectorAll('button.tag');
         const priceMinInput = document.getElementById('price-min');
         const priceMaxInput = document.getElementById('price-max');
+        const sortSelect = document.getElementById('sort-select');
 
         // 監聽按鈕點擊
         allTags.forEach(tagBtn => {
@@ -420,21 +167,23 @@
             });
         });
 
-        // 監聽價格輸入框（當輸入時 input，或離開時 change，立即動態篩選）
+        // 監聽價格輸入框
         [priceMinInput, priceMaxInput].forEach(input => {
             input.addEventListener('input', function () {
-                // 防呆：輸入負數時強制歸零
                 if (this.value < 0) {
                     this.value = 0;
                 }
-                // 執行包含價格的多重篩選
                 executeMultiFilter();
             });
         });
 
-        // 萬能多條件篩選器（同時處理：標籤複選 + 價格區間）
+        // 監聽排序選單變更
+        sortSelect.addEventListener('change', function () {
+            executeSortAndRender();
+        });
+
+        // 萬能多條件篩選器（標籤複選 + 價格區間）
         function executeMultiFilter() {
-            // ---- A. 處理標籤篩選條件 ----
             const activeTags = document.querySelectorAll('button.tag.active');
             const selectedFilters = {};
 
@@ -447,35 +196,54 @@
                 selectedFilters[type].push(value);
             });
 
-            // ---- B. 處理價格篩選條件 ----
-            // 取得輸入框數值，若沒輸入則給予預設值（最小值預設 0，最大值預設無限大）
             const minPrice = priceMinInput.value !== '' ? parseFloat(priceMinInput.value) : 0;
             const maxPrice = priceMaxInput.value !== '' ? parseFloat(priceMaxInput.value) : Infinity;
 
-            // ---- C. 開始過濾資料 ----
-            const filteredActivities = hotActivities.filter(activity => {
-
-                // 1. 檢查標籤條件（地區、分類、時間）
+            currentFilteredActivities = hotActivities.filter(activity => {
                 for (let type in selectedFilters) {
                     const allowedValues = selectedFilters[type];
                     if (!allowedValues.includes(activity[type])) {
-                        return false; // 不符合標籤，淘汰
+                        return false;
                     }
                 }
 
-                // 2. 檢查價格條件
-                // 先把資料裡的千分位逗號拿掉，轉成純數字（例如 "1,800" -> 1800）
                 const activityPrice = parseFloat(activity.price.replace(/,/g, ''));
 
                 if (activityPrice < minPrice || activityPrice > maxPrice) {
-                    return false; // 不在價格區間內，淘汰
+                    return false;
                 }
 
-                return true; // 通過所有關卡，保留！
+                return true;
             });
 
-            // ---- D. 渲染畫面 ----
-            renderCards(filteredActivities);
+            // 篩選完後，套用當前的排序規則並渲染
+            executeSortAndRender();
+        }
+
+        // 排序處理邏輯
+        function executeSortAndRender() {
+            const sortValue = sortSelect.value;
+            let sortedList = [...currentFilteredActivities];
+
+            if (sortValue === 'price-asc') {
+                // 價格由低至高
+                sortedList.sort((a, b) => parseFloat(a.price.replace(/,/g, '')) - parseFloat(b.price.replace(/,/g, '')));
+            } else if (sortValue === 'price-desc') {
+                // 價格由高至低
+                sortedList.sort((a, b) => parseFloat(b.price.replace(/,/g, '')) - parseFloat(a.price.replace(/,/g, '')));
+            } else if (sortValue === 'rating-desc') {
+                // 評分最高（計算實心星號數數量）
+                const getStars = (str) => (str.match(/★/g) || []).length;
+                sortedList.sort((a, b) => getStars(b.rating) - getStars(a.rating));
+            } else if (sortValue === 'reviews-desc') {
+                // 最多評論
+                sortedList.sort((a, b) => b.reviews - a.reviews);
+            } else {
+                // 預設排序（依資料陣列原始 id 排序）
+                sortedList.sort((a, b) => a.id - b.id);
+            }
+
+            renderCards(sortedList);
         }
 
         // 清除全部按鈕
@@ -483,6 +251,8 @@
             allTags.forEach(tag => tag.classList.remove('active'));
             priceMinInput.value = '';
             priceMaxInput.value = '';
+            sortSelect.value = 'default'; // 排序還原預設
+            currentFilteredActivities = [...hotActivities];
             renderCards(hotActivities);
         });
 
@@ -490,10 +260,9 @@
         // ========= 6. 價格輸入框防呆機制 =========
         const priceInputs = document.querySelectorAll('.price-select input');
         priceInputs.forEach(input => {
-            // 當使用者手動輸入或離開輸入框時觸發
             input.addEventListener('input', function () {
                 if (this.value < 0) {
-                    this.value = 0; // 強制歸零
+                    this.value = 0;
                 }
             });
         });
@@ -507,6 +276,9 @@
                 likeBtn.textContent = (likeBtn.textContent === '🤍') ? '❤️' : '🤍';
             }
         });
+
+        // 頁面初始載入渲染
+        renderCards(hotActivities);
     </script>
 </body>
 

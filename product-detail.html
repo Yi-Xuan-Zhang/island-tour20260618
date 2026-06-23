@@ -4,304 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        button {
-            padding: 16px 32px;
-            border-radius: 99px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            box-shadow: 0 0 10px 2px #f5efe6;
-            transform: translateY(-4px);
-        }
-
-        .highlight {
-            color: #e8613c;
-        }
-
-        .header {
-            color: #1b2a4a;
-            font-size: 36px;
-            font-weight: 600;
-            margin-bottom: 36px;
-        }
-
-        .photo-section,
-        .details-section {
-            display: flex;
-            justify-content: center;
-        }
-
-        .content {
-            width: 80%;
-            padding: 40px 0 100px 0;
-        }
-
-        .photo-section .content {
-            padding: 100px 0 0 0;
-        }
-
-        .main-photo {
-            width: 100%;
-            height: 500px;
-            border-radius: 20px;
-            background: url('./img/card-img-1.jpg') center/cover no-repeat;
-        }
-
-        .thumb-group {
-            margin-top: 20px;
-            display: flex;
-            gap: 16px;
-        }
-
-        .thumb-photo {
-            width: 100px;
-            height: 64px;
-            border-radius: 12px;
-            opacity: 0.5;
-            cursor: pointer;
-            border: 3px solid #FFFFFF;
-
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-            transition: 0.5s ease-in-out;
-        }
-
-        .thumb-photo.active {
-            border: 3px solid #e8613c;
-            opacity: 1;
-        }
-
-        .thumb-photo:hover,
-        .thumb-photo.active:hover {
-            border: 3px solid #e8613c;
-            opacity: 1;
-            transition: 0.5s ease-in-out;
-        }
-
-        .details-container {
-            display: flex;
-            gap: 60px;
-        }
-
-        .details-left {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .information {
-            color: #1b2a4a;
-            font-size: 14px;
-            font-weight: 500;
-            margin-top: 12px;
-        }
-
-        .introduction {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .introduction-title {
-            color: #1b2a4a;
-            font-size: 20px;
-            font-weight: 500;
-            padding: 8px 0;
-            border-bottom: 2px solid #f5efe6;
-        }
-
-        .introduction-describe {
-            color: #505050;
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .price-group {
-            display: flex;
-            gap: 20px;
-        }
-
-        .price-card {
-            flex: 1;
-            background-color: #f5efe6;
-            border-radius: 20px;
-            padding: 30px;
-        }
-
-        .price-card-title {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .review {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 20px 0;
-            border-bottom: 1px solid #f5efe6;
-        }
-
-        .review-user {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .user-profile {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: url('./img/user-profile.png') center/cover no-repeat;
-        }
-
-        .user-name {
-            color: #505050;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .post-date {
-            color: #a0a0a0;
-            font-size: 12px;
-        }
-
-        .rating-star {
-            color: #e8613c;
-            letter-spacing: 2px;
-        }
-
-        .details-right {
-            width: 360px;
-            position: relative;
-        }
-
-        .shopping-cart {
-            padding: 36px 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px 4px #f5efe6;
-            display: flex;
-            flex-direction: column;
-
-            position: sticky;
-            top: 100px;
-        }
-
-        .cart-row {
-            padding: 16px 0;
-            border-bottom: 1px solid #f5efe6;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .shopping-cart .price-info {
-            color: #505050;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #f5efe6;
-        }
-
-        .shopping-cart .price-info .highlight {
-            font-size: 36px;
-            font-weight: 600;
-        }
-
-        .cart-title {
-            color: #1b2a4a;
-            font-weight: 500;
-        }
-
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 0;
-        }
-
-        .quantity-selector button {
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            background-color: transparent;
-            border: 2px solid #1b2a4a;
-            color: #1b2a4a;
-            font-size: 20px;
-            font-weight: 500;
-        }
-
-        .quantity-selector button:hover {
-            background-color: #1b2a4a;
-            color: #FFFFFF;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .quantity-selector button:disabled {
-            border-color: #d0d0d0;
-            color: #d0d0d0;
-            cursor: not-allowed;
-            background-color: transparent;
-        }
-
-        .quantity-selector .quantity {
-            width: 50px;
-            color: #1b2a4a;
-            font-size: 20px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .shopping-cart .total-row {
-            border-top: 2px solid #f5efe6;
-            border-bottom: none;
-            margin-bottom: 20px;
-        }
-
-        .shopping-cart .total-row .highlight {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        button#booking {
-            background-color: #e8613c;
-            color: #FFFFFF;
-        }
-
-        button#booking:hover {
-            background-color: #ee8366;
-        }
-
-        .notice {
-            color: #505050;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    <title>清水斷崖獨木舟探險</title>
+    <link rel="stylesheet" href="./css/product-detail.css">
 </head>
 
 
 <body>
     <div class="photo-section">
         <div class="content">
+            <div class="breadcrumb">
+                <a href="#">首頁</a><span class="separator">›</span><a href="#">探索體驗</a><span
+                    class="separator">›</span><span class="current-page" id="page-title-crumb">載入中...</span>
+            </div>
+
             <div class="main-photo" id="mainPhoto"></div>
             <div class="thumb-group" id="thumbGroup">
                 <div class="thumb-photo active"></div>
@@ -427,85 +142,64 @@
 
 
     <script>
+        // ========= 動態讀取網頁 Title 並寫入麵包屑最後一層 =========
+        document.getElementById('page-title-crumb').textContent = document.title;
+
         // ========= photo-section照片切換 =========
-        // 1. 定義圖片路徑陣列（未來要換照片，直接改這裡的網址即可）
         const images = [
-            './img/card-img-1.jpg', // 第一張（預設大圖與第一張縮圖）
-            './img/card-img-2.jpg', // 第二張
-            './img/card-img-3.jpg', // 第三張
-            './img/card-img-4.jpg'  // 第四張
+            './img/card-img-1.jpg',
+            './img/card-img-2.jpg',
+            './img/card-img-3.jpg',
+            './img/card-img-4.jpg'
         ];
 
-        // 2. 選取 DOM 元素
         const mainPhoto = document.getElementById('mainPhoto');
         const thumbs = document.querySelectorAll('#thumbGroup .thumb-photo');
 
-        // 3. 初始化：透過迴圈將圖片網址注入到對應的縮圖上，並設定預設大圖
         images.forEach((url, index) => {
             if (thumbs[index]) {
                 thumbs[index].style.backgroundImage = `url('${url}')`;
             }
         });
-        // 預設大圖顯示陣列的第一張圖片
         mainPhoto.style.backgroundImage = `url('${images[0]}')`;
 
-        // 4. 綁定點擊切換事件
         thumbs.forEach(thumb => {
             thumb.addEventListener('click', function () {
-                // 移除舊的 active 樣式
                 const currentActive = document.querySelector('#thumbGroup .thumb-photo.active');
                 if (currentActive) {
                     currentActive.classList.remove('active');
                 }
-
-                // 為被點擊的縮圖加上 active 樣式
                 this.classList.add('active');
-
-                // 將大圖更換為被點擊縮圖的背景圖片
                 mainPhoto.style.backgroundImage = this.style.backgroundImage;
             });
         });
 
         // ========= shopping-cart的quantity增減、計算總和 =========
-        // 1. 定義初始資料
-        const PRICE_PER_PERSON = 1800; // 單人價格
-        let quantity = 1;              // 預設人數
+        const PRICE_PER_PERSON = 1800;
+        let quantity = 1;
 
-        // 2. 選取 DOM 元素
         const btnMinus = document.getElementById('minus');
         const btnPlus = document.getElementById('plus');
         const txtQuantity = document.querySelector('.quantity');
         const txtTotalPrice = document.getElementById('totalPrice');
 
-        // 3. 更新畫面顯示的函式
         function updateCart() {
-            // 更新人數文字
             txtQuantity.textContent = quantity;
-
-            // 計算總金額並計算成帶有千分位的格式 (例如: 1,800)
             const total = PRICE_PER_PERSON * quantity;
             txtTotalPrice.textContent = `NT$ ${total.toLocaleString()}`;
-
-            // 動態控制減號按鈕的禁用狀態
-            // 當 quantity === 1 時為 true (禁用)，大於 1 時為 false (啟用)
             btnMinus.disabled = (quantity === 1);
         }
 
-        // 初始化呼叫一次，確保一網頁打開、人數為 1 時，減號就是灰色禁用的
         updateCart();
 
-        // 4. 綁定減號 (-) 按鈕點擊事件
         btnMinus.addEventListener('click', () => {
-            // 限制人數最少為 1 人
             if (quantity > 1) {
                 quantity--;
                 updateCart();
             }
         });
 
-        // 5. 綁定加號 (+) 按鈕點擊事件
         btnPlus.addEventListener('click', () => {
-            // 增加人數（可依需求加上上限，例如 quantity < 20）
             quantity++;
             updateCart();
         });
