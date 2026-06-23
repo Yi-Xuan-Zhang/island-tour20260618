@@ -2,6 +2,9 @@
 nav {
     background: #1b2a4a;
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 nav .container {
@@ -26,6 +29,7 @@ nav .container {
     color: white;
     text-decoration: none;
     transition: .3s;
+    align-content: center;
 }
 
 .menu a:hover {
