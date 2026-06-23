@@ -360,9 +360,20 @@
             }
         }
 
-        /* ============
-   NAV & FOOTER
-   ============ */
+        /* ============ RWD ============ */
+        @media (max-width:950px) {
+            
+        }
+
+        @media (max-width:768px) {
+            
+        }
+
+        @media (max-width:375px) {
+            
+        }
+
+        /* ============ NAV & FOOTER ============ */
         .home-nav-wrapper {
             line-height: 1.8;
             position: sticky;
@@ -497,9 +508,7 @@
             }
         }
 
-        /* ==========================================
-   NAV & FOOTER 的 RWD 媒體查詢 (精確套用首頁封裝)
-   ========================================== */
+        /* ============ NAV & FOOTER 的 RWD 媒體查詢 (精確套用首頁封裝) ============ */
         @media screen and (max-width: 1440px) {
             .home-footer-wrapper {
                 .footer-top {

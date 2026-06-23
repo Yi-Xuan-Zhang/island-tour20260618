@@ -315,15 +315,32 @@
                     renderCards(hotActivities);
                 });
 
-                // 初次渲染畫面
-                renderCards(hotActivities);
+                // 🌟【新增：接住首頁傳過來的縣市參數並點亮按鈕】
+                const urlParams = new URLSearchParams(window.location.search);
+                const locationParam = urlParams.get('location');
+
+                // 如果有傳遞 location 參數，且不是 'all' 
+                if (locationParam && locationParam !== 'all') {
+                    // 在畫面上所有標籤中，找到 data-type="location" 且 value 相符的按鈕
+                    const targetTag = Array.from(allTags).find(tag => 
+                        tag.dataset.type === 'location' && tag.dataset.value === locationParam
+                    );
+                    
+                    // 找到按鈕後，幫它加上 active 樣式類別
+                    if (targetTag) {
+                        targetTag.classList.add('active');
+                    }
+                }
+
+                // 🌟【修改：初次畫面渲染】
+                // 不直接渲染全部，而是執行萬能篩選器。它會去抓剛剛被我們點亮的 active 標籤！
+                executeMultiFilter();
 
             } catch (error) {
                 console.error('初始化失敗:', error);
                 cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: red; padding: 40px;">活動資料加載失敗</div>`;
             }
         }
-
 
         // ========= 7. 愛心收藏功能 =========
         const contentMain = document.querySelector('.content-main');

@@ -253,21 +253,17 @@
         }
 
         // ========= 2. 條件搜尋篩選功能 =========
-        const selectLocation = document.getElementById('select-location');
-        const selectCategory = document.getElementById('select-category');
+        const selectLocation = document.getElementById('select-destination');
         const btnSearch = document.getElementById('btn-search');
 
-        btnSearch.addEventListener('click', function() {
+        btnSearch.addEventListener('click', function () {
             const locValue = selectLocation.value;
-            const catValue = selectCategory.value;
 
-            const filtered = hotActivities.filter(activity => {
-                const matchLocation = (locValue === 'all' || activity.location === locValue);
-                const matchCategory = (catValue === 'all' || activity.category === catValue);
-                return matchLocation && matchCategory;
-            });
+            // 如果使用者沒有選擇任何有效的縣市，可以做個防呆或預設帶 all
+            const targetLocation = locValue ? locValue : 'all';
 
-            renderHomeCards(filtered);
+            // 帶領使用者跳轉到列表頁，並在網址後面加上 ?location=縣市名稱
+            window.location.href = `./product-all.html?location=${encodeURIComponent(targetLocation)}`;
         });
 
         // ========= 3. 非同步從 JSON 讀取資料並初始化頁面 =========
@@ -286,7 +282,19 @@
                     };
                 });
 
-                // 首頁通常展示前 8 筆熱門體驗，你可以自由調整 slice 的數量
+                // 🌟【新增：動態生成下拉選單選項】
+                const selectDestination = document.getElementById('select-destination');
+
+                // 1. 利用 Set 篩選出 JSON 中所有不重複的縣市名稱
+                const locations = [...new Set(hotActivities.map(activity => activity.location))];
+
+                // 2. 清空原本的選單，並加入「全部目的地」與動態縣市
+                selectDestination.innerHTML = `<option value="all" selected>選擇目的地</option>`;
+                locations.forEach(loc => {
+                    selectDestination.innerHTML += `<option value="${loc}">${loc}</option>`;
+                });
+
+                // 首頁通常展示前 8 筆熱門體驗
                 const homeDisplayList = hotActivities.slice(0, 8);
 
                 // 渲染卡片到畫面上
@@ -294,7 +302,7 @@
 
             } catch (error) {
                 console.error('首頁資料初始化失敗:', error);
-                container.innerHTML = `<div style=\"grid-column: span 4; text-align: center; color: red; padding: 40px;\">熱門活動資料加載失敗</div>`;
+                container.innerHTML = `<div style="grid-column: span 4; text-align: center; color: red; padding: 40px;">熱門活動資料加載失敗</div>`;
             }
         }
 
@@ -306,7 +314,7 @@
                 // 防止點擊愛心時觸發外層 <a> 標籤的頁面跳轉
                 event.preventDefault();
                 event.stopPropagation();
-                
+
                 if (likeBtn.textContent === '🤍') {
                     likeBtn.textContent = '❤️';
                 } else {
@@ -316,7 +324,7 @@
         });
 
         // 「查看全部」按鈕的跳轉功能
-        document.getElementById('btn-see-all').addEventListener('click', function() {
+        document.getElementById('btn-see-all').addEventListener('click', function () {
             window.location.href = './product-all.html';
         });
 

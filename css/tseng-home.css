@@ -60,14 +60,12 @@ a {
     padding: 100px 0;
 }
 
-/* ==========================================
-   SECTION BANNER
-   ========================================== */
+/* =========== SECTION BANNER =========== */
 .section-banner {
     height: 100vh;
     background-image: url('../img/banner-taipei.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: right;
     background-attachment: fixed;
     position: relative;
 
@@ -145,9 +143,7 @@ a {
     }
 }
 
-/* ==========================================
-   SECTION HIGHLIGHT
-   ========================================== */
+/* =========== SECTION HIGHLIGHT =========== */
 .section-highlight {
     background: #f5efe6;
 
@@ -179,9 +175,7 @@ a {
     }
 }
 
-/* ==========================================
-   SECTION EXPLORE
-   ========================================== */
+/* =========== SECTION EXPLORE =========== */
 .section-explore {
     background-color: #FFFFFF;
 
@@ -261,9 +255,7 @@ a {
     }
 }
 
-/* ==========================================
-   SECTION HOT
-   ========================================== */
+/* =========== SECTION HOT =========== */
 .section-hot {
     background-color: #f5efe6;
 
@@ -378,9 +370,7 @@ a {
     }
 }
 
-/* ==========================================
-   SECTION APPLY
-   ========================================== */
+/* =========== SECTION APPLY =========== */
 .section-apply {
     background-color: #1b2a4a;
     display: flex;
@@ -416,9 +406,7 @@ a {
     }
 }
 
-/* ==========================================
-   SECTION REVIEW
-   ========================================== */
+/* =========== SECTION REVIEW =========== */
 .section-review {
     background-color: #FFFFFF;
 
@@ -477,9 +465,61 @@ a {
     }
 }
 
-/* ============
-   NAV & FOOTER
-   ============ */
+
+/* ============ RWD ============ */
+@media (max-width:950px) {
+    .section-hot .content-main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .section-apply .content {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .section-apply .content .text-zone {
+        width: 80%;
+    }
+}
+
+@media (max-width:768px) {
+    .section-banner .content .header {
+        font-size: 54px;
+    }
+
+    .section-banner .content .describe {
+        width: 100%;
+    }
+    
+    .section-banner .content .select-bar {
+        width: 100%;
+    }
+
+    .section-hot .content-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-apply .content .text-zone {
+        width: 100%;
+    }
+
+    .section-review .review-all {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width:375px) {
+    .section-hot .content-main {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .section-apply .content .btn-zone {
+        flex-direction: column;
+    }
+    
+}
+
+/* ============ NAV & FOOTER ============ */
 .home-nav-wrapper {
     line-height: 1.8;
     position: sticky;
@@ -615,9 +655,7 @@ a {
     }
 }
 
-/* ==========================================
-   NAV & FOOTER 的 RWD 媒體查詢 (精確套用首頁封裝)
-   ========================================== */
+/* ============ NAV & FOOTER 的 RWD 媒體查詢 (精確套用首頁封裝) ============ */
 @media screen and (max-width: 1440px) {
     .home-footer-wrapper {
         .footer-top {
