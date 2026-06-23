@@ -12,8 +12,8 @@
     <!-- ========== NAV ========== -->
     <nav>
         <div class="container">
-            <div class="logo">島嶼旅跡
-                <span class="orange">·</span>
+            <div class="logo"><a href="./tseng-home.html">島嶼旅跡
+                    <span class="orange">·</span></a>
             </div>
             <div class="menu">
                 <a href="./product-all.html">探索體驗</a>
@@ -24,7 +24,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- ========== MAIN ========== -->
     <main class="profile-container">
 
@@ -107,81 +107,84 @@
                 </div>
             </div>
             <div id="content-favorites" class="tab-content" style="display: none;">
-        <h2 class="content-title">我的收藏</h2>
-        
-        <div class="empty-state-wrapper">
-            <div class="empty-heart-icon">💔</div>
-            <h3 class="empty-title">收藏清單是空的</h3>
-            <p class="empty-desc">在體驗列表頁點選愛心圖示，即可加入收藏</p>
-            <a href="#" class="btn-explore">去探索體驗</a>
-        </div>
-    </div>
-    <div id="content-profile" class="tab-content" style="display: none;">
-    <h2 class="content-title">個人資料</h2>
-   
-    
-    <div class="profile-info-card">
-        <form class="profile-info-form">
-            
-            <div class="form-flex-row">
-                <div class="info-input-group">
-                    <label for="profile-name">姓名</label>
-                    <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字" required>
-                </div>
-                <div class="info-input-group">
-                    <label for="profile-phone">手機號碼</label>
-                    <input type="tel" id="profile-phone" value="09XX-XXXXXX" placeholder="09XX-XXXXXX" required>
+                <h2 class="content-title">我的收藏</h2>
+
+                <div class="empty-state-wrapper">
+                    <div class="empty-heart-icon">💔</div>
+                    <h3 class="empty-title">收藏清單是空的</h3>
+                    <p class="empty-desc">在體驗列表頁點選愛心圖示，即可加入收藏</p>
+                    <a href="#" class="btn-explore">去探索體驗</a>
                 </div>
             </div>
+            <div id="content-profile" class="tab-content" style="display: none;">
+                <h2 class="content-title">個人資料</h2>
 
-            <div class="form-flex-row">
-                <div class="info-input-group">
-                    <label for="profile-email">電子信箱</label>
-                    <input type="email" id="profile-email" value="demo@islandtrace.tw" placeholder="your@email.com" required>
-                </div>
-                <div class="info-input-group">
-                    <label for="profile-birthday">出生日期</label>
-                    <input type="date" id="profile-birthday" required>
+
+                <div class="profile-info-card">
+                    <form class="profile-info-form">
+
+                        <div class="form-flex-row">
+                            <div class="info-input-group">
+                                <label for="profile-name">姓名</label>
+                                <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字" required>
+                            </div>
+                            <div class="info-input-group">
+                                <label for="profile-phone">手機號碼</label>
+                                <input type="tel" id="profile-phone" value="09XX-XXXXXX" placeholder="09XX-XXXXXX"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="form-flex-row">
+                            <div class="info-input-group">
+                                <label for="profile-email">電子信箱</label>
+                                <input type="email" id="profile-email" value="demo@islandtrace.tw"
+                                    placeholder="your@email.com" required>
+                            </div>
+                            <div class="info-input-group">
+                                <label for="profile-birthday">出生日期</label>
+                                <input type="date" id="profile-birthday" required>
+                            </div>
+                        </div>
+
+                        <div class="info-input-group">
+                            <label class="preference-label">旅遊偏好</label>
+                            <div class="preference-tags-container">
+
+                                <label class="pref-tag">
+                                    <input type="checkbox" name="preference" value="outdoor" checked>
+                                    <span>📸 戶外冒險</span>
+                                </label>
+
+                                <label class="pref-tag">
+                                    <input type="checkbox" name="preference" value="craft" checked>
+                                    <span>🎨 手作工藝</span>
+                                </label>
+
+                                <label class="pref-tag">
+                                    <input type="checkbox" name="preference" value="food" checked>
+                                    <span>🍜 美食料理</span>
+                                </label>
+
+                                <label class="pref-tag">
+                                    <input type="checkbox" name="preference" value="history" checked>
+                                    <span>🏛️ 文化歷史</span>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-save-profile">儲存更改</button>
+
+                    </form>
                 </div>
             </div>
-
-            <div class="info-input-group">
-                <label class="preference-label">旅遊偏好</label>
-                <div class="preference-tags-container">
-                    
-                    <label class="pref-tag">
-                        <input type="checkbox" name="preference" value="outdoor" checked>
-                        <span>📸 戶外冒險</span>
-                    </label>
-                    
-                    <label class="pref-tag">
-                        <input type="checkbox" name="preference" value="craft" checked>
-                        <span>🎨 手作工藝</span>
-                    </label>
-                    
-                    <label class="pref-tag">
-                        <input type="checkbox" name="preference" value="food" checked>
-                        <span>🍜 美食料理</span>
-                    </label>
-                    
-                    <label class="pref-tag">
-                        <input type="checkbox" name="preference" value="history" checked>
-                        <span>🏛️ 文化歷史</span>
-                    </label>
-                    
-                </div>
-            </div>
-
-            <button type="submit" class="btn-save-profile">儲存更改</button>
-            
-        </form>
-    </div> </div>
         </section>
 
     </main>
 
     <!-- ========== FOOTER ========== -->
-     <footer>
+    <footer>
         <!-- 上半部 -->
         <div class="footer-top">
             <!-- 品牌 -->
@@ -231,44 +234,44 @@
         </div>
     </footer>
 
-<script>
-    // 1. 抓取左側所有選單按鈕
-    const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
-    
-    // 2. 抓取右側三個內容區塊
-    const orderContent = document.getElementById('content-orders');
-    const favoriteContent = document.getElementById('content-favorites');
-    const profileContent = document.getElementById('content-profile'); // 💡 新增個人資料區塊
+    <script>
+        // 1. 抓取左側所有選單按鈕
+        const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            // 如果點擊的是登出，就讓它執行原本的超連結（不攔截）
-            if (item.classList.contains('logout')) return;
-            
-            // 阻擋 <a> 標籤預設的跳頁行為
-            e.preventDefault();
+        // 2. 抓取右側三個內容區塊
+        const orderContent = document.getElementById('content-orders');
+        const favoriteContent = document.getElementById('content-favorites');
+        const profileContent = document.getElementById('content-profile'); // 💡 新增個人資料區塊
 
-            // 1. 切換左側選單高亮樣式 (移除所有 active，並幫目前點擊的加上 active)
-            menuItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // 如果點擊的是登出，就讓它執行原本的超連結（不攔截）
+                if (item.classList.contains('logout')) return;
 
-            // 2. 判斷點擊哪一個選單，並切換右側內容的顯示 (block) 與隱藏 (none)
-            if (item.innerText.includes('訂單紀錄')) {
-                orderContent.style.display = 'block';
-                favoriteContent.style.display = 'none';
-                profileContent.style.display = 'none';
-            } else if (item.innerText.includes('我的收藏')) {
-                orderContent.style.display = 'none';
-                favoriteContent.style.display = 'block';
-                profileContent.style.display = 'none';
-            } else if (item.innerText.includes('個人資料')) { // 💡 新增個人資料切換邏輯
-                orderContent.style.display = 'none';
-                favoriteContent.style.display = 'none';
-                profileContent.style.display = 'block';
-            }
+                // 阻擋 <a> 標籤預設的跳頁行為
+                e.preventDefault();
+
+                // 1. 切換左側選單高亮樣式 (移除所有 active，並幫目前點擊的加上 active)
+                menuItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // 2. 判斷點擊哪一個選單，並切換右側內容的顯示 (block) 與隱藏 (none)
+                if (item.innerText.includes('訂單紀錄')) {
+                    orderContent.style.display = 'block';
+                    favoriteContent.style.display = 'none';
+                    profileContent.style.display = 'none';
+                } else if (item.innerText.includes('我的收藏')) {
+                    orderContent.style.display = 'none';
+                    favoriteContent.style.display = 'block';
+                    profileContent.style.display = 'none';
+                } else if (item.innerText.includes('個人資料')) { // 💡 新增個人資料切換邏輯
+                    orderContent.style.display = 'none';
+                    favoriteContent.style.display = 'none';
+                    profileContent.style.display = 'block';
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>

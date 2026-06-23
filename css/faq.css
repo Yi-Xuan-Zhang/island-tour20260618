@@ -296,6 +296,11 @@ body nav .container {
     align-items: center;
 }
 
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .logo {
     font-size: 28px;
     font-weight: bold;
