@@ -32,8 +32,9 @@
     <div class="photo-section">
         <div class="content">
             <div class="breadcrumb">
-                <a href="./tseng-home.html">首頁</a><span class="separator">›</span><a href="./product-all.html">探索體驗</a><span
-                    class="separator">›</span><span class="current-page" id="page-title-crumb">載入中...</span>
+                <a href="./tseng-home.html">首頁</a><span class="separator">›</span><a
+                    href="./product-all.html">探索體驗</a><span class="separator">›</span><span class="current-page"
+                    id="page-title-crumb">載入中...</span>
             </div>
 
             <div class="main-photo" id="mainPhoto"></div>
@@ -194,8 +195,8 @@
             try {
                 // 1. 獲取網址上的 id 參數 (例如: ?id=2)
                 const urlParams = new URLSearchParams(window.location.search);
-                const productId = urlParams.get('id'); 
-                
+                const productId = urlParams.get('id');
+
                 // 2. 讀取總商品 JSON 檔案
                 const response = await fetch('./product-detail.json');
                 if (!response.ok) {
@@ -204,7 +205,7 @@
                 const productsArray = await response.json();
 
                 // 3. 根據 id 尋找對應的資料
-                let data = productsArray[0]; 
+                let data = productsArray[0];
                 if (productId) {
                     const index = parseInt(productId) - 1;
                     if (index >= 0 && index < productsArray.length) {
@@ -262,12 +263,12 @@
                 // 7. 動態綁定右側購物車價格與評分欄位（修正跑掉的問題）
                 // 【修正點】將 "1,800" 轉為數字 1800，避免計算時產生非數值錯誤
                 const rawPrice = data.price || "1800";
-                const currentPrice = typeof rawPrice === 'string' ? parseInt(rawPrice.replace(/,/g, ''), 10) : rawPrice; 
-                window.PRICE_PER_PERSON = currentPrice; 
+                const currentPrice = typeof rawPrice === 'string' ? parseInt(rawPrice.replace(/,/g, ''), 10) : rawPrice;
+                window.PRICE_PER_PERSON = currentPrice;
 
                 // 渲染購物車內顯示的單價
                 document.querySelector('.shopping-cart .price-info .highlight').textContent = `NT$ ${currentPrice.toLocaleString()}`;
-                
+
                 // 【修正】精準獲取第一個 .cart-row（即評分列），只修改它內部的星星與評論數，不碰觸到人數與總金額結構
                 const ratingRow = document.querySelector('.shopping-cart .cart-row');
                 if (ratingRow) {
@@ -275,7 +276,7 @@
                 }
 
                 // 立即觸發一次計算，更新 Total Price 總金額
-                updateCart(); 
+                updateCart();
 
                 // 8. 綁定體驗介紹
                 document.getElementById('activityIntro').textContent = data.introduction;
@@ -317,6 +318,15 @@
 
         // 執行載入
         fetchProductDetails();
+
+        //點擊後跳轉到你的 step-1.html（選擇日期頁）
+        const bookingBtn = document.getElementById("booking");
+
+        bookingBtn.addEventListener("click", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            window.location.href = `./step-1.html?id=${productId}`;
+        });
     </script>
 </body>
 
