@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>島嶼旅跡－探索體驗</title>
+    <link rel="stylesheet" href="./css/product-all.css">
+
+</head>
+
+<body>
+    <div class="home-nav-wrapper">
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <a href="./測試-tseng-home.html">島嶼旅跡<span class="orange">・</span></a>
+                </div>
+                <div class="menu">
+                    <a href="./測試-product-all.html">探索體驗</a>
+                    <a href="./about.html">關於我們</a>
+                    <a href="./faq.html">常見問題</a>
+                    <a href="./測試-profile.html">我的訂單</a>
+                    <a href="./login.html" class="login-btn">登入 / 註冊</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <div class="section section-product">
+        <div class="content">
+            <div class="content-filter">
+                <div class="filter-container">
+                    <div class="filter-header">
+                        <div class="header-text">篩選條件</div>
+                        <button id="clear-all" type="button">清除全部</button>
+                    </div>
+
+                    <div id="dynamic-filter-groups"></div>
+
+                    <div class="filter-tag">
+                        <div class="tag-title">價格區間 (NT$)</div>
+                        <div class="tag-content">
+                            <div class="price-select">
+                                <input type="number" id="price-min" min="0" placeholder="最低">
+                                <span>-</span>
+                                <input type="number" id="price-max" min="0" placeholder="最高">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-right-block">
+                <div class="content-header">
+                    <div class="header-left">
+                        <div class="breadcrumb">
+                            <a href="./測試-tseng-home.html">首頁</a><span class="separator">›</span>探索體驗
+                        </div>
+                        <div class="result-count">
+                            共找到<span class="count-num" id="total-count">0</span>個體驗
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <select class="sort-select" id="sort-select">
+                            <option value="default">預設排序</option>
+                            <option value="price-asc">價格由低至高</option>
+                            <option value="price-desc">價格由高至低</option>
+                            <option value="rating-desc">評分最高</option>
+                            <option value="reviews-desc">最多評論</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="content-main" id="hot-card-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-footer-wrapper">
+        <footer>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>島嶼旅跡 <span class="orange">·</span></h2>
+                    <p>
+                        深入台灣每一條小徑，<br>
+                        遇見最在地的感動體驗。<br>
+                        我們相信，旅行不只是到達目的地，<br>
+                        而是與這片土地真實相遇。
+                    </p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-menu">
+                        <h3>探索</h3>
+                        <a href="./測試-product-all.html">所有體驗</a>
+                        <a href="">戶外冒險</a>
+                        <a href="">手作工藝</a>
+                        <a href="">美食料理</a>
+                        <a href="">文化歷史</a>
+                    </div>
+                    <div class="footer-menu">
+                        <h3>公司</h3>
+                        <a href="./about.html">關於我們</a>
+                        <a href="./faq.html">常見問題</a>
+                        <a href="">旅遊嚮導招募</a>
+                        <a href="">媒體合作</a>
+                    </div>
+                    <div class="footer-menu">
+                        <h3>支援</h3>
+                        <a href="./faq.html">退款政策</a>
+                        <a href="./faq.html">隱私政策</a>
+                        <a href="./faq.html">服務條款</a>
+                        <a href="./測試-profile.html">查看訂單</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line"></div>
+            <div class="footer-bottom">
+                <div>© 2025 島嶼旅跡 IslandTrace. All rights reserved.</div>
+                <div>用心丈量台灣每一寸土地</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+    const filterGroupsData = [
+        {
+            title: '地區',
+            type: 'location',
+            tags: ['台北市', '新北市', '桃園市', '台中市', '彰化縣', '嘉義縣', '台南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣']
+        },
+        {
+            title: '主題分類',
+            type: 'category',
+            tags: ['戶外冒險', '手作工藝', '美食料理', '文化歷史', '水上活動', '自然探索', '傳統藝術', '攝影旅拍']
+        },
+        {
+            title: '時間',
+            type: 'duration',
+            tags: ['全天', '半天', '4小時', '3小時', '2小時']
+        }
+    ];
+
+    let hotActivities = [];
+    let currentFilteredActivities = [];
+
+    const filterWrapper = document.getElementById('dynamic-filter-groups');
+
+    filterGroupsData.forEach(group => {
+        let tagsHTML = '';
+        group.tags.forEach(tag => {
+            tagsHTML += `<button class="tag" data-type="${group.type}" data-value="${tag}" type="button">${tag}</button>`;
+        });
+
+        const groupHTML = `
+            <div class="filter-tag">
+                <div class="tag-title">${group.title}</div>
+                <div class="tag-content">
+                    ${tagsHTML}
+                </div>
+            </div>
+        `;
+        filterWrapper.innerHTML += groupHTML;
+    });
+
+    const cardContainer = document.getElementById('hot-card-container');
+    const totalCountSpan = document.getElementById('total-count');
+
+    function renderCards(activitiesList) {
+        cardContainer.innerHTML = '';
+        totalCountSpan.textContent = activitiesList.length;
+
+        if (activitiesList.length === 0) {
+            cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #505050; padding: 40px;">暫無符合條件的活動</div>`;
+            return;
+        }
+
+        const savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
+        activitiesList.forEach(activity => {
+            const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
+            const reviewCount = activity.reviewCount !== undefined ? activity.reviewCount : 0;
+
+            const isFavorite = savedFavorites.some(fav => fav.id === activity.id);
+            const heartIcon = isFavorite ? '❤️' : '🤍';
+
+            const cardHTML = `
+                <a href="./product-detail.html?id=${activity.id}" class="hot-card" data-id="${activity.id}" style="text-decoration: none; color: inherit;">
+                    <div class="card-img" style="background-image: url('${displayImg}')">
+                        <button class="like" type="button">${heartIcon}</button>
+                    </div>
+                    <div class="card-text">
+                        <div class="hashtag">${activity.category}</div>
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="location-time">📍 ${activity.location} ． 🕑 ${activity.duration}</div>
+                        <div class="price"><span class="highlight">NT$ ${activity.price}</span> 起 / 人</div>
+                        <div class="rating"><span class="star">${activity.ratingStars}</span> (${reviewCount})</div>
+                    </div>
+                </a>
+            `;
+            cardContainer.innerHTML += cardHTML;
+        });
+    }
+
+    const priceMinInput = document.getElementById('price-min');
+    const priceMaxInput = document.getElementById('price-max');
+    const sortSelect = document.getElementById('sort-select');
+
+    function executeMultiFilter() {
+        const activeTags = document.querySelectorAll('button.tag.active');
+        const selectedFilters = {};
+
+        activeTags.forEach(tag => {
+            const type = tag.dataset.type;
+            const value = tag.dataset.value;
+            if (!selectedFilters[type]) {
+                selectedFilters[type] = [];
+            }
+            selectedFilters[type].push(value);
+        });
+
+        const minPrice = priceMinInput.value !== '' ? parseFloat(priceMinInput.value) : 0;
+        const maxPrice = priceMaxInput.value !== '' ? parseFloat(priceMaxInput.value) : Infinity;
+
+        currentFilteredActivities = hotActivities.filter(activity => {
+            for (let type in selectedFilters) {
+                const allowedValues = selectedFilters[type];
+                if (!allowedValues.includes(activity[type])) {
+                    return false;
+                }
+            }
+
+            const activityPrice = parseFloat(activity.price.replace(/,/g, ''));
+
+            if (activityPrice < minPrice || activityPrice > maxPrice) {
+                return false;
+            }
+
+            return true;
+        });
+
+        executeSortAndRender();
+    }
+
+    function executeSortAndRender() {
+        const sortValue = sortSelect.value;
+        let sortedList = [...currentFilteredActivities];
+
+        if (sortValue === 'price-asc') {
+            sortedList.sort((a, b) => parseFloat(a.price.replace(/,/g, '')) - parseFloat(b.price.replace(/,/g, '')));
+        } else if (sortValue === 'price-desc') {
+            sortedList.sort((a, b) => parseFloat(b.price.replace(/,/g, '')) - parseFloat(a.price.replace(/,/g, '')));
+        } else if (sortValue === 'rating-desc') {
+            const getStars = (str) => (str.match(/★/g) || []).length;
+            sortedList.sort((a, b) => getStars(b.ratingStars) - getStars(a.ratingStars));
+        } else if (sortValue === 'reviews-desc') {
+            sortedList.sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
+        } else {
+            sortedList.sort((a, b) => a.id - b.id);
+        }
+
+        renderCards(sortedList);
+    }
+
+    async function initProductAll() {
+        try {
+            const response = await fetch('./product-detail.json');
+            if (!response.ok) throw new Error('無法讀取 JSON 資料');
+            const rawData = await response.json();
+
+            hotActivities = rawData.map((item, index) => {
+                return {
+                    ...item,
+                    id: index + 1
+                };
+            });
+
+            currentFilteredActivities = [...hotActivities];
+
+            const allTags = document.querySelectorAll('button.tag');
+            allTags.forEach(tagBtn => {
+                tagBtn.addEventListener('click', function () {
+                    tagBtn.classList.toggle('active');
+                    executeMultiFilter();
+                });
+            });
+
+            [priceMinInput, priceMaxInput].forEach(input => {
+                input.addEventListener('input', function () {
+                    if (this.value < 0) this.value = 0;
+                    executeMultiFilter();
+                });
+            });
+
+            sortSelect.addEventListener('change', executeSortAndRender);
+
+            document.getElementById('clear-all').addEventListener('click', function () {
+                allTags.forEach(tag => tag.classList.remove('active'));
+                priceMinInput.value = '';
+                priceMaxInput.value = '';
+                sortSelect.value = 'default';
+                currentFilteredActivities = [...hotActivities];
+                renderCards(hotActivities);
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const locationParam = urlParams.get('location');
+            const categoryParam = urlParams.get('category'); 
+
+            if (locationParam && locationParam !== 'all') {
+                const targetTag = Array.from(allTags).find(tag => 
+                    tag.dataset.type === 'location' && tag.dataset.value === locationParam
+                );
+                if (targetTag) targetTag.classList.add('active');
+            }
+
+            if (categoryParam) {
+                const targetTag = Array.from(allTags).find(tag => 
+                    tag.dataset.type === 'category' && tag.dataset.value === categoryParam
+                );
+                if (targetTag) targetTag.classList.add('active');
+            }
+
+            executeMultiFilter();
+
+        } catch (error) {
+            console.error('初始化失敗:', error);
+            cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: red; padding: 40px;">活動資料加載失敗</div>`;
+        }
+    }
+
+    const contentMain = document.querySelector('.content-main');
+    contentMain.addEventListener('click', function (event) {
+        const likeBtn = event.target.closest('.like');
+        if (likeBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const cardEl = likeBtn.closest('.hot-card');
+            const activityId = parseInt(cardEl.getAttribute('data-id'));
+            const activityData = hotActivities.find(act => act.id === activityId);
+
+            let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
+            if (likeBtn.textContent === '🤍') {
+                likeBtn.textContent = '❤️';
+                if (activityData && !savedFavorites.some(fav => fav.id === activityId)) {
+                    savedFavorites.push(activityData);
+                }
+            } else {
+                likeBtn.textContent = '🤍';
+                savedFavorites = savedFavorites.filter(fav => fav.id !== activityId);
+            }
+
+            localStorage.setItem('myFavorites', JSON.stringify(savedFavorites));
+        }
+    });
+
+    initProductAll();
+    </script>
+</body>
+
+</html>
