@@ -194,3 +194,33 @@ document.getElementById('next-step-btn').addEventListener('click', function (e) 
     // 真正執行跨網頁跳轉
     window.location.href = 'step-2.html';
 });
+
+/* ==========================================================================
+  【動態連動】載入 localStorage 產品資料並渲染摘要卡片
+  ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const title = localStorage.getItem('booking_title') || '宜蘭稻田生態農遊體驗';
+    const image = localStorage.getItem('booking_image') || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80';
+    const destination = localStorage.getItem('booking_destination') || '宜蘭';
+    const duration = localStorage.getItem('booking_duration') || '半天';
+    const quantity = localStorage.getItem('booking_quantity') || '1';
+    const totalPrice = localStorage.getItem('booking_total_price') || '1100';
+
+    // 取得 DOM 元素
+    const imgEl = document.getElementById('summary-product-img');
+    const titleEl = document.getElementById('summary-activity-title');
+    const destEl = document.getElementById('summary-destination');
+    const durEl = document.getElementById('summary-duration');
+    const qtyEl = document.getElementById('summary-quantity');
+    const priceEl = document.getElementById('summary-total-price');
+
+    // 填入資料
+    if (imgEl) imgEl.src = image;
+    if (titleEl) titleEl.textContent = title;
+    if (destEl) destEl.textContent = destination;
+    if (durEl) durEl.textContent = duration;
+    if (qtyEl) qtyEl.textContent = `${quantity} 人`;
+    if (priceEl) {
+        priceEl.textContent = `NT$ ${parseInt(totalPrice).toLocaleString()}`;
+    }
+});

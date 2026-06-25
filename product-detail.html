@@ -191,6 +191,8 @@
 
 
         // ========= 從網址參數讀取 ID，並從 JSON 篩選綁定所有資料（含圖片） =========
+        let loadedProductData = null;
+
         async function fetchProductDetails() {
             try {
                 // 1. 獲取網址上的 id 參數 (例如: ?id=2)
@@ -212,6 +214,7 @@
                         data = productsArray[index];
                     }
                 }
+                loadedProductData = data;
 
                 // 4. 動態修改瀏覽器分頁標題與麵包屑
                 document.title = data.title;
@@ -323,8 +326,21 @@
         const bookingBtn = document.getElementById("booking");
 
         bookingBtn.addEventListener("click", () => {
+            if (!loadedProductData) return;
+
             const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id');
+            const productId = urlParams.get('id') || '1';
+
+            // 將預訂的產品資料存入 localStorage
+            localStorage.setItem('booking_product_id', productId);
+            localStorage.setItem('booking_title', loadedProductData.title);
+            localStorage.setItem('booking_image', (loadedProductData.images && loadedProductData.images.length > 0) ? loadedProductData.images[0] : './img/card-img-1.jpg');
+            localStorage.setItem('booking_destination', loadedProductData.location);
+            localStorage.setItem('booking_duration', loadedProductData.duration);
+            localStorage.setItem('booking_unit_price', window.PRICE_PER_PERSON);
+            localStorage.setItem('booking_quantity', quantity);
+            localStorage.setItem('booking_total_price', window.PRICE_PER_PERSON * quantity);
+
             window.location.href = `./step-1.html?id=${productId}`;
         });
     </script>
