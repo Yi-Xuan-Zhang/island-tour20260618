@@ -126,7 +126,8 @@
                         <div class="form-flex-row">
                             <div class="info-input-group">
                                 <label for="profile-name">姓名</label>
-                                <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字" required>
+                                <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字">
+                                <small class="error-message" id="name-error"></small>
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-avatar">更換頭像</label>
@@ -134,8 +135,9 @@
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-phone">手機號碼</label>
-                                <input type="tel" id="profile-phone" value="09XX-XXXXXX" placeholder="09XX-XXXXXX"
+                                <input type="tel" id="profile-phone" value="0912345678" placeholder="0912345678"
                                     required>
+                                <small class="error-message" id="phone-error"></small>
                             </div>
                         </div>
 
@@ -144,10 +146,12 @@
                                 <label for="profile-email">電子信箱</label>
                                 <input type="email" id="profile-email" value="demo@islandtrace.tw"
                                     placeholder="your@email.com" required>
+                                <small class="error-message" id="email-error"></small>
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-birthday">出生日期</label>
                                 <input type="date" id="profile-birthday" required>
+                                <small class="error-message" id="birthday-error"></small>
                             </div>
                         </div>
 
@@ -174,10 +178,8 @@
                                     <input type="checkbox" name="preference" value="history" checked>
                                     <span>🏛️ 文化歷史</span>
                                 </label>
-
                             </div>
                         </div>
-
                         <button type="submit" class="btn-save-profile">儲存更改</button>
 
                     </form>
@@ -275,25 +277,107 @@
                 }
             });
         });
-        //修改個人資料
+
+        // ========= 防呆 =========
+
         const profileForm = document.querySelector(".profile-info-form");
 
+        const nameInput = document.getElementById("profile-name");
+        const phoneInput = document.getElementById("profile-phone");
+        const emailInput = document.getElementById("profile-email");
+        const birthdayInput = document.getElementById("profile-birthday");
+        //手機只能輸入數字
+        phoneInput.addEventListener("input", () => {
+            phoneInput.value = phoneInput.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+        });
+        // 限制生日
+        birthdayInput.max =
+            new Date().toISOString().split("T")[0];
+        //姓名即時驗證
+        nameInput.addEventListener("input", () => {
+            const error = document.getElementById("name-error");
+
+            if (nameInput.value.trim() === "") {
+                error.textContent = "姓名不能空白";
+                nameInput.classList.add("input-error");
+            } else {
+                error.textContent = "";
+                nameInput.classList.remove("input-error");
+            }
+        });
+        //手機即時驗證
+        phoneInput.addEventListener("input", () => {
+            const error = document.getElementById("phone-error");
+
+            const phoneRule = /^09\d{8}$/;
+
+            if (!phoneRule.test(phoneInput.value)) {
+                error.textContent = "請輸入09開頭的10碼手機";
+                phoneInput.classList.add("input-error");
+            } else {
+                error.textContent = "";
+                phoneInput.classList.remove("input-error");
+            }
+        });
+        //Email 即時驗證
+        emailInput.addEventListener("input", () => {
+            const error = document.getElementById("email-error");
+
+            const emailRule =
+                /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+            if (!emailRule.test(emailInput.value)) {
+                error.textContent = "Email格式不正確";
+                emailInput.classList.add("input-error");
+            } else {
+                error.textContent = "";
+                emailInput.classList.remove("input-error");
+            }
+        });
+        //生日即時驗證
+        birthdayInput.addEventListener("change", () => {
+            const error =
+                document.getElementById("birthday-error");
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const birthDate =
+                new Date(birthdayInput.value);
+
+            if (birthDate > today) {
+                error.textContent = "出生日期不能大於今天";
+                birthdayInput.classList.add("input-error");
+            } else {
+                error.textContent = "";
+                birthdayInput.classList.remove("input-error");
+            }
+        });
+        //最後送出
         profileForm.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            // 取得輸入資料
-            const name = document.getElementById("profile-name").value;
-            const email = document.getElementById("profile-email").value;
+            if (
+                document.querySelectorAll(".input-error")
+                    .length > 0
+            ) {
+                return;
+            }
 
-            // 更新左側姓名與信箱
-            document.querySelector(".username").textContent = name;
-            document.querySelector(".email").textContent = email;
+            document.querySelector(".username").textContent =
+                nameInput.value;
 
-            // 更新頭像
-            const avatarInput = document.getElementById("profile-avatar");
+            document.querySelector(".email").textContent =
+                emailInput.value;
+
+            const avatarInput =
+                document.getElementById("profile-avatar");
 
             if (avatarInput.files.length > 0) {
                 const file = avatarInput.files[0];
+
                 const reader = new FileReader();
 
                 reader.onload = function (event) {
@@ -306,6 +390,7 @@
 
             alert("個人資料已更新！");
         });
+
     </script>
 </body>
 
