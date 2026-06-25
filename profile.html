@@ -298,6 +298,8 @@
             });
         }
 
+
+
         // 頁面分頁切換
         menuItems.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -445,42 +447,119 @@
             localStorage.setItem("birthday", birthdayInput.value);
             alert("個人資料已更新！");
         });
-        // =========取消訂單功能=============
-        // 1. 綁定畫面上所有的取消訂單按鈕
-document.querySelectorAll('.btn-cancel').forEach(button => {
-    button.addEventListener('click', function() {
-        // 取得當前點擊的體驗名稱（例如：清水斷崖獨木舟探險）
-        const orderName = this.getAttribute('data-order-name') || '此體驗';
+        // =========取消訂單功能 (使用事件代理，支援動態產生的項目)=============
+        const orderListContainer = document.querySelector('.order-list');
+        if (orderListContainer) {
+            orderListContainer.addEventListener('click', function(e) {
+                const btn = e.target.closest('.btn-cancel:not(.remove-favorite-btn)');
+                if (!btn) return;
 
-        // 2. 觸發 SweetAlert2 美化版確認視窗
-        Swal.fire({
-            title: '確定要取消訂單嗎？',
-            text: `您即將取消「${orderName}」的行程，取消後將無法復原！`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#ff4d4f', // 配合你畫面按鈕的珊瑚橘/紅色調
-            cancelButtonColor: '#6c757d',  // 灰色取消按鈕
-            confirmButtonText: '確定取消',
-            cancelButtonText: '留著訂單',
-            reverseButtons: true            // 將「確定」放在右邊，符合一般網頁操作習慣
-        }).then((result) => {
-            // 3. 使用者點擊「確定取消」後的處理邏輯
-            if (result.isConfirmed) {
-                
-                // 【步驟 A】這裡執行發送 API 給後端刪除資料的動作 (例如使用 fetch)
-                // 這裡先以網頁前端即時移除畫面作為範例：
-                const orderItem = this.closest('.order-item') || this.parentElement; 
-                if (orderItem) {
-                    orderItem.remove(); // 從畫面上移除該筆訂單
-                }
+                const orderItem = btn.closest('.order-item');
+                const orderName = btn.getAttribute('data-order-name') || (orderItem ? orderItem.querySelector('.item-name').innerText : '此體驗');
 
-                // 【步驟 B】跳出成功取消的提示
                 Swal.fire({
-                    title: '已成功取消！',
-                    text: '該筆訂單已從您的紀錄中移除。',
-                    icon: 'success',
-                    confirmButtonColor: '#2b3a55' // 配合你們網站深藍色的主色調
+                    title: '確定要取消訂單嗎？',
+                    text: `您即將取消「${orderName}」的行程，取消後將無法復原！`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ff4d4f',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '確定取消',
+                    cancelButtonText: '留著訂單',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // 從畫面上移除該筆訂單
+                        if (orderItem) {
+                            orderItem.remove();
+                        }
+
+                        // 如果取消的是剛剛預訂的訂單，清除 localStorage 中的完成狀態，避免重新整理後又跑出來
+                        const currentBookingTitle = localStorage.getItem('booking_title');
+                        if (currentBookingTitle === orderName) {
+                            localStorage.setItem('booking_completed', 'false');
+                        }
+
+                        Swal.fire({
+                            title: '已成功取消！',
+                            text: '該筆訂單已從您的紀錄中移除。',
+                            icon: 'success',
+                            confirmButtonColor: '#2b3a55'
+                        });
+                    }
                 });
+            });
+        }
+
+        // 頁面載入時，把資料讀回來
+        window.addEventListener("DOMContentLoaded", () => {
+            const username = localStorage.getItem("username");
+            const phone = localStorage.getItem("phone");
+            const email = localStorage.getItem("email");
+            const birthday = localStorage.getItem("birthday");
+            const avatar = localStorage.getItem("avatar");
+
+            if (username) {
+                document.querySelector(".username").textContent = username;
+                document.getElementById("profile-name").value = username;
+            }
+
+            if (phone) {
+                document.getElementById("profile-phone").value = phone;
+            }
+
+            if (email) {
+                document.querySelector(".email").textContent = email;
+                document.getElementById("profile-email").value = email;
+            }
+
+            if (birthday) {
+                document.getElementById("profile-birthday").value = birthday;
+            }
+
+            if (avatar) {
+                document.getElementById("avatar-img").src = avatar;
+            }
+
+            // 🌟 載入 localStorage 中的最新訂單並渲染
+            const isBookingCompleted = localStorage.getItem('booking_completed') === 'true';
+            if (isBookingCompleted) {
+                const title = localStorage.getItem('booking_title') || '清水斷崖獨木舟探險';
+                const image = localStorage.getItem('booking_image') || './img/card-img-1.jpg';
+                const destination = localStorage.getItem('booking_destination') || '花蓮';
+                const date = localStorage.getItem('booking_date') || '2026-06-17';
+                const session = localStorage.getItem('booking_session') || '上午場 09:00';
+                const totalPrice = localStorage.getItem('booking_total_price') || '1800';
+
+                // 建立動態訂單的 HTML
+                const newOrderItemHTML = `
+                    <div class="order-item">
+                        <div class="col-info">
+                            <img src="${image}" style="width:50px; height:50px; object-fit:cover; border-radius:8px; margin-right:12px;" alt="${title}">
+                            <div class="item-details">
+                                <h4 class="item-name">${title}</h4>
+                                <span class="location-tag">📍 ${destination}</span>
+                            </div>
+                        </div>
+                        <div class="col-date">
+                            <p class="date-text">${date.replace(/-/g, '/')}</p>
+                            <p class="time-text">${session}</p>
+                        </div>
+                        <div class="col-price">NT$ ${parseInt(totalPrice).toLocaleString()}</div>
+                        <div class="col-status">
+                            <span class="status-badge status-upcoming">未出發</span>
+                            <button class="btn-cancel" data-order-name="${title}">取消訂單</button>
+                        </div>
+                    </div>
+                `;
+
+                // 將新訂單插入到列表最前方（即標題列下方）
+                const orderHeaderRow = document.querySelector('.order-header-row');
+                if (orderHeaderRow) {
+                    orderHeaderRow.insertAdjacentHTML('afterend', newOrderItemHTML);
+                }
+            }
+        });
             }
         });
     });
