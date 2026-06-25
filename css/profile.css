@@ -513,6 +513,23 @@ body {
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(224, 89, 54, 0.4);
 }
+/* 防呆機制呆機制  */
+.error-message {
+    color: #e53e3e;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+    min-height: 18px;
+}
+
+.input-error {
+    border: 1px solid #e53e3e !important;
+    background: #fff5f5;
+}
+
+.input-success {
+    border: 1px solid #38a169 !important;
+}
 
 /* ==========================================
     RWD 響應式切版
