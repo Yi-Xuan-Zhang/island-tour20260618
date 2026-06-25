@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>島嶼旅跡－探索體驗</title>
     <link rel="stylesheet" href="./css/product-all.css">
-
 </head>
 
 <body>
-    <!--  ========== NAV ========== -->
     <div class="home-nav-wrapper">
         <nav>
             <div class="container">
@@ -28,7 +26,6 @@
         </nav>
     </div>
     
-    <!--  ========== MAIN ========== -->
     <div class="section section-product">
         <div class="content">
             <div class="content-filter">
@@ -43,7 +40,7 @@
                     <div class="filter-tag">
                         <div class="tag-title">價格區間 (NT$)</div>
                         <div class="tag-content">
-                            <div class="price-select"">
+                            <div class="price-select">
                                 <input type="number" id="price-min" min="0" placeholder="最低">
                                 <span>-</span>
                                 <input type="number" id="price-max" min="0" placeholder="最高">
@@ -79,7 +76,6 @@
         </div>
     </div>
 
-    <!--  ========== FOOTER ========== -->
     <div class="home-footer-wrapper">
         <footer>
             <div class="footer-top">
@@ -145,7 +141,6 @@
             }
         ];
 
-        // 全域變數，用來存放從 JSON 讀取的原始資料與過濾後的資料
         let hotActivities = [];
         let currentFilteredActivities = [];
 
@@ -170,7 +165,7 @@
         });
 
 
-        // ========= 4. 產品卡片渲染功能 (配合 JSON 結構調整) =========
+        // ========= 4. 產品卡片渲染功能 (加入愛心連動判斷) =========
         const cardContainer = document.getElementById('hot-card-container');
         const totalCountSpan = document.getElementById('total-count');
 
@@ -182,17 +177,23 @@
                 cardContainer.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #505050; padding: 40px;">暫無符合條件的活動</div>`;
                 return;
             }
+
+            // 💡 讀取目前的收藏清單，用來核對愛心狀態
+            const savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
             activitiesList.forEach(activity => {
-                // 防呆處理：取圖片陣列的第一張，若無則放預設圖
                 const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
-                
-                // 🌟 直接抓取 JSON 內的 reviewCount 欄位，若無則預設為 0
                 const reviewCount = activity.reviewCount !== undefined ? activity.reviewCount : 0;
 
+                // 💡 判斷此卡片是否在收藏清單中
+                const isFavorite = savedFavorites.some(fav => fav.id === activity.id);
+                const heartIcon = isFavorite ? '❤️' : '🤍';
+
+                // 外層加上 data-id 以供愛心事件識別
                 const cardHTML = `
-                    <a href="./product-detail.html?id=${activity.id}" class="hot-card" style="text-decoration: none; color: inherit;">
+                    <a href="./product-detail.html?id=${activity.id}" class="hot-card" data-id="${activity.id}" style="text-decoration: none; color: inherit;">
                         <div class="card-img" style="background-image: url('${displayImg}')">
-                            <button class="like" type="button">🤍</button>
+                            <button class="like" type="button">${heartIcon}</button>
                         </div>
                         <div class="card-text">
                             <div class="hashtag">${activity.category}</div>
@@ -208,7 +209,7 @@
         }
 
 
-        // ========= 5. 萬能多條件篩選器（標籤複選 + 價格區間） =========
+        // ========= 5. 萬能多條件篩選器 =========
         const priceMinInput = document.getElementById('price-min');
         const priceMaxInput = document.getElementById('price-max');
         const sortSelect = document.getElementById('sort-select');
@@ -237,7 +238,6 @@
                     }
                 }
 
-                // 處理 JSON 內帶有逗號的價格字串（如 "1,800" -> 1800）
                 const activityPrice = parseFloat(activity.price.replace(/,/g, ''));
 
                 if (activityPrice < minPrice || activityPrice > maxPrice) {
@@ -263,7 +263,6 @@
                 const getStars = (str) => (str.match(/★/g) || []).length;
                 sortedList.sort((a, b) => getStars(b.ratingStars) - getStars(a.ratingStars));
             } else if (sortValue === 'reviews-desc') {
-                // 🌟 依 JSON 內 reviewCount 數字欄位大小進行排序
                 sortedList.sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
             } else {
                 sortedList.sort((a, b) => a.id - b.id);
@@ -275,12 +274,10 @@
         // ========= 6. 非同步讀取 JSON 資料與初始化監聽器 =========
         async function initProductAll() {
             try {
-                // 讀取外部 JSON
                 const response = await fetch('./product-detail.json');
                 if (!response.ok) throw new Error('無法讀取 JSON 資料');
                 const rawData = await response.json();
 
-                // 加工資料：補上 id 欄位 (index + 1) 以利與內頁動態連動
                 hotActivities = rawData.map((item, index) => {
                     return {
                         ...item,
@@ -288,10 +285,8 @@
                     };
                 });
 
-                // 初始化狀態
                 currentFilteredActivities = [...hotActivities];
 
-                // 綁定事件監聽（確保資料載入後才加強防呆）
                 const allTags = document.querySelectorAll('button.tag');
                 allTags.forEach(tagBtn => {
                     tagBtn.addEventListener('click', function () {
@@ -309,7 +304,6 @@
 
                 sortSelect.addEventListener('change', executeSortAndRender);
 
-                // 清除全部按鈕事件
                 document.getElementById('clear-all').addEventListener('click', function () {
                     allTags.forEach(tag => tag.classList.remove('active'));
                     priceMinInput.value = '';
@@ -319,25 +313,18 @@
                     renderCards(hotActivities);
                 });
 
-                // 🌟【新增：接住首頁傳過來的縣市參數並點亮按鈕】
                 const urlParams = new URLSearchParams(window.location.search);
                 const locationParam = urlParams.get('location');
 
-                // 如果有傳遞 location 參數，且不是 'all' 
                 if (locationParam && locationParam !== 'all') {
-                    // 在畫面上所有標籤中，找到 data-type="location" 且 value 相符的按鈕
                     const targetTag = Array.from(allTags).find(tag => 
                         tag.dataset.type === 'location' && tag.dataset.value === locationParam
                     );
-                    
-                    // 找到按鈕後，幫它加上 active 樣式類別
                     if (targetTag) {
                         targetTag.classList.add('active');
                     }
                 }
 
-                // 🌟【修改：初次畫面渲染】
-                // 不直接渲染全部，而是執行萬能篩選器。它會去抓剛剛被我們點亮的 active 標籤！
                 executeMultiFilter();
 
             } catch (error) {
@@ -346,18 +333,38 @@
             }
         }
 
-        // ========= 7. 愛心收藏功能 =========
+        // ========= 7. 💡 修正：串聯 localStorage 的愛心收藏功能 =========
         const contentMain = document.querySelector('.content-main');
         contentMain.addEventListener('click', function (event) {
             const likeBtn = event.target.closest('.like');
             if (likeBtn) {
                 event.preventDefault();
                 event.stopPropagation();
-                likeBtn.textContent = (likeBtn.textContent === '🤍') ? '❤️' : '🤍';
+
+                // 透過外層卡片拿到點擊活動的 id 與資料
+                const cardEl = likeBtn.closest('.hot-card');
+                const activityId = parseInt(cardEl.getAttribute('data-id'));
+                const activityData = hotActivities.find(act => act.id === activityId);
+
+                let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
+                if (likeBtn.textContent === '🤍') {
+                    likeBtn.textContent = '❤️';
+                    // 如果原本沒在陣列裡，就將整筆活動物件塞進去
+                    if (activityData && !savedFavorites.some(fav => fav.id === activityId)) {
+                        savedFavorites.push(activityData);
+                    }
+                } else {
+                    likeBtn.textContent = '🤍';
+                    // 移除收藏
+                    savedFavorites = savedFavorites.filter(fav => fav.id !== activityId);
+                }
+
+                // 存回 localStorage，與首頁、訂單頁共用
+                localStorage.setItem('myFavorites', JSON.stringify(savedFavorites));
             }
         });
 
-        // 啟動程式
         initProductAll();
     </script>
 </body>

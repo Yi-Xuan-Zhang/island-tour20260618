@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>島嶼旅跡 - 我的訂單</title>
     <link rel="stylesheet" href="./css/profile.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+    <!-- ========== NAV ========== -->
     <nav>
         <div class="container">
             <div class="logo"><a href="./tseng-home.html">島嶼旅跡
@@ -25,13 +25,14 @@
         </div>
     </nav>
 
+    <!-- ========== MAIN ========== -->
     <main class="profile-container">
 
         <aside class="sidebar">
             <div class="user-card">
                 <div class="avatar-wrapper">
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200" alt="會員頭像"
-                        class="avatar" id="avatar-img">
+                        class="avatar">
                 </div>
                 <h3 class="username">旅遊達人</h3>
                 <p class="email">demo@islandtrace.tw</p>
@@ -82,7 +83,7 @@
                         <div class="col-price">NT$ 1,800</div>
                         <div class="col-status">
                             <span class="status-badge status-upcoming">未出發</span>
-                            <button class="btn-cancel" data-order-id="12345" data-order-name="清水斷崖獨木舟探險">取消訂單</button>
+                            <button class="btn-cancel">取消訂單</button>
                         </div>
                     </div>
 
@@ -105,12 +106,13 @@
                     </div>
                 </div>
             </div>
-
             <div id="content-favorites" class="tab-content" style="display: none;">
                 <h2 class="content-title">我的收藏</h2>
 
+                <!-- 💡 新增：用來動態產生收藏卡片的容器 -->
                 <div id="favorite-list-container" class="order-list"></div>
 
+                <!-- 原本的查無資料提示，預設隱藏，若沒收藏才顯示 -->
                 <div class="empty-state-wrapper" id="favorite-empty-state" style="display: none;">
                     <div class="empty-heart-icon">💔</div>
                     <h3 class="empty-title">收藏清單是空的</h3>
@@ -118,27 +120,22 @@
                     <a href="./product-all.html" class="btn-explore">去探索體驗</a>
                 </div>
             </div>
-
             <div id="content-profile" class="tab-content" style="display: none;">
                 <h2 class="content-title">個人資料</h2>
 
+
                 <div class="profile-info-card">
                     <form class="profile-info-form">
+
                         <div class="form-flex-row">
                             <div class="info-input-group">
                                 <label for="profile-name">姓名</label>
-                                <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字">
-                                <small class="error-message" id="name-error"></small>
-                            </div>
-                            <div class="info-input-group">
-                                <label for="profile-avatar">更換頭像</label>
-                                <input type="file" id="profile-avatar" accept="image/*">
+                                <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字" required>
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-phone">手機號碼</label>
-                                <input type="tel" id="profile-phone" value="0912345678" placeholder="0912345678"
+                                <input type="tel" id="profile-phone" value="09XX-XXXXXX" placeholder="09XX-XXXXXX"
                                     required>
-                                <small class="error-message" id="phone-error"></small>
                             </div>
                         </div>
 
@@ -147,37 +144,42 @@
                                 <label for="profile-email">電子信箱</label>
                                 <input type="email" id="profile-email" value="demo@islandtrace.tw"
                                     placeholder="your@email.com" required>
-                                <small class="error-message" id="email-error"></small>
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-birthday">出生日期</label>
                                 <input type="date" id="profile-birthday" required>
-                                <small class="error-message" id="birthday-error"></small>
                             </div>
                         </div>
 
                         <div class="info-input-group">
                             <label class="preference-label">旅遊偏好</label>
                             <div class="preference-tags-container">
+
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="outdoor" checked>
                                     <span>📸 戶外冒險</span>
                                 </label>
+
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="craft" checked>
                                     <span>🎨 手作工藝</span>
                                 </label>
+
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="food" checked>
                                     <span>🍜 美食料理</span>
                                 </label>
+
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="history" checked>
                                     <span>🏛️ 文化歷史</span>
                                 </label>
+
                             </div>
                         </div>
+
                         <button type="submit" class="btn-save-profile">儲存更改</button>
+
                     </form>
                 </div>
             </div>
@@ -185,8 +187,11 @@
 
     </main>
 
+    <!-- ========== FOOTER ========== -->
     <footer>
+        <!-- 上半部 -->
         <div class="footer-top">
+            <!-- 品牌 -->
             <div class="footer-brand">
                 <h2>島嶼旅跡 <span class="orange">·</span></h2>
                 <p>
@@ -196,6 +201,7 @@
                     而是與這片土地真實相遇。
                 </p>
             </div>
+            <!-- 右邊 -->
             <div class="footer-right">
                 <div class="footer-menu">
                     <h3>探索</h3>
@@ -205,6 +211,7 @@
                     <a href="">美食料理</a>
                     <a href="">文化歷史</a>
                 </div>
+                <!-- 公司 -->
                 <div class="footer-menu">
                     <h3>公司</h3>
                     <a href="./about.html">關於我們</a>
@@ -212,6 +219,7 @@
                     <a href="./faq.html">旅遊嚮導招募</a>
                     <a href="">媒體合作</a>
                 </div>
+                <!-- 支援 -->
                 <div class="footer-menu">
                     <h3>支援</h3>
                     <a href="./faq.html">退款政策</a>
@@ -221,7 +229,9 @@
                 </div>
             </div>
         </div>
+        <!-- 分隔線 -->
         <div class="footer-line"></div>
+        <!-- 下半部 -->
         <div class="footer-bottom">
             <div>© 2025 島嶼旅跡 IslandTrace. All rights reserved.</div>
             <div>用心丈量台灣每一寸土地</div>
@@ -229,63 +239,72 @@
     </footer>
 
     <script>
+        // 1. 抓取左側所有選單按鈕
         const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
+
+        // 2. 抓取右側三個內容區塊
         const orderContent = document.getElementById('content-orders');
         const favoriteContent = document.getElementById('content-favorites');
         const profileContent = document.getElementById('content-profile');
 
+        // 抓取收藏專用的 DOM 元素
         const favoriteContainer = document.getElementById('favorite-list-container');
         const favoriteEmptyState = document.getElementById('favorite-empty-state');
 
-        // 核心功能：動態渲染收藏清單
+        // 核心功能：渲染我的收藏清單
         function renderFavorites() {
+            // 從 localStorage 取得目前的收藏清單（對應 product-all 與 tseng-home 使用的 'myFavorites'）
             let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
 
+            // 如果沒有任何收藏，顯示提示畫面並清空容器
             if (savedFavorites.length === 0) {
                 if (favoriteContainer) favoriteContainer.innerHTML = '';
                 if (favoriteEmptyState) favoriteEmptyState.style.display = 'block';
                 return;
             }
 
+            // 隱藏提示畫面
             if (favoriteEmptyState) favoriteEmptyState.style.display = 'none';
             if (favoriteContainer) {
                 favoriteContainer.innerHTML = '';
 
+                // 遍歷所有收藏活動，生成 HTML 結構 (沿用 profile 的樣式排版)
                 savedFavorites.forEach(activity => {
                     const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
 
                     const cardHTML = `
-                        <div class="order-item" data-id="${activity.id}">
-                            <div class="col-info">
-                                <img src="${displayImg}" style="width:50px; height:50px; object-fit:cover; border-radius:8px; margin-right:12px;" alt="${activity.title}">
-                                <div class="item-details">
-                                    <h4 class="item-name">
-                                        <a href="./product-detail.html?id=${activity.id}" style="text-decoration:none; color:inherit;">${activity.title}</a>
-                                    </h4>
-                                    <span class="location-tag">📍 ${activity.location} ． 🕑 ${activity.duration}</span>
-                                </div>
-                            </div>
-                            <div class="col-date">
-                                <p class="date-text" style="color: #ff6b35; font-weight: bold;">${activity.category}</p>
-                            </div>
-                            <div class="col-price">NT$ ${activity.price}</div>
-                            <div class="col-status">
-                                <button class="btn-cancel remove-favorite-btn" type="button" style="background-color: #fff; border: 1px solid #ddd; color: #ff4d4f;">❤️ 移除</button>
-                            </div>
+                <div class="order-item" data-id="${activity.id}">
+                    <div class="col-info">
+                        <img src="${displayImg}" style="width:50px; height:50px; object-fit:cover; border-radius:8px; margin-right:12px;" alt="${activity.title}">
+                        <div class="item-details">
+                            <h4 class="item-name">
+                                <a href="./product-detail.html?id=${activity.id}" style="text-decoration:none; color:inherit;">${activity.title}</a>
+                            </h4>
+                            <span class="location-tag">📍 ${activity.location} ． 🕑 ${activity.duration}</span>
                         </div>
-                    `;
+                    </div>
+                    <div class="col-date">
+                        <p class="date-text" style="color: #ff6b35; font-weight: bold;">${activity.category}</p>
+                    </div>
+                    <div class="col-price">NT$ ${activity.price}</div>
+                    <div class="col-status">
+                        <button class="btn-cancel remove-favorite-btn" type="button" style="background-color: #fff; border: 1px solid #ddd; color: #ff4d4f;">❤️ 移除</button>
+                    </div>
+                </div>
+            `;
                     favoriteContainer.innerHTML += cardHTML;
                 });
 
+                // 綁定移除收藏按鈕的事件
                 bindRemoveEvent();
             }
         }
 
-        // 移除收藏事件
+        // 點擊「移除」按鈕時同步更新 localStorage 並重新渲染
         function bindRemoveEvent() {
             const removeBtns = document.querySelectorAll('.remove-favorite-btn');
             removeBtns.forEach(btn => {
-                btn.addEventListener('click', function () {
+                btn.addEventListener('click', function (e) {
                     const orderItem = btn.closest('.order-item');
                     const activityId = parseInt(orderItem.getAttribute('data-id'));
 
@@ -298,31 +317,7 @@
             });
         }
 
-        // 取消訂單彈出確認視窗
-        const cancelOrderBtns = document.querySelectorAll('.btn-cancel:not(.remove-favorite-btn)');
-        cancelOrderBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const orderItem = btn.closest('.order-item');
-                const itemName = orderItem.querySelector('.item-name').innerText;
-
-                const isConfirmed = window.confirm(`您確定要取消「${itemName}」的訂單嗎？`);
-                
-                if (isConfirmed) {
-                    alert('訂單已成功取消！系統將於 1-3 個工作天內處理退款。');
-                    
-                    const statusBadge = orderItem.querySelector('.status-badge');
-                    if (statusBadge) {
-                        statusBadge.innerText = '已取消';
-                        statusBadge.className = 'status-badge';
-                        statusBadge.style.backgroundColor = '#999';
-                        statusBadge.style.color = '#fff';
-                    }
-                    btn.style.display = 'none';
-                }
-            });
-        });
-
-        // 頁面分頁切換
+        // 頁面選單切換邏輯
         menuItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 if (item.classList.contains('logout')) return;
@@ -332,14 +327,17 @@
                 menuItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
+                // 💡 修正後的分頁切換邏輯
                 if (item.innerText.includes('訂單紀錄')) {
-                    orderContent.style.display = 'block';
+                    orderContent.style.display = 'block'; // 修正處：移除了多餘的 .style
                     favoriteContent.style.display = 'none';
                     profileContent.style.display = 'none';
                 } else if (item.innerText.includes('我的收藏')) {
                     orderContent.style.display = 'none';
                     favoriteContent.style.display = 'block';
                     profileContent.style.display = 'none';
+
+                    // 當切換到「我的收藏」分頁時，執行渲染功能
                     renderFavorites();
                 } else if (item.innerText.includes('個人資料')) {
                     orderContent.style.display = 'none';
@@ -349,196 +347,8 @@
             });
         });
 
+        // 頁面初次載入時，先執行一次檢查（確保收藏資料與狀態正確）
         renderFavorites();
-        // ========= 防呆 =========
-
-        const profileForm = document.querySelector(".profile-info-form");
-
-        const nameInput = document.getElementById("profile-name");
-        const phoneInput = document.getElementById("profile-phone");
-        const emailInput = document.getElementById("profile-email");
-        const birthdayInput = document.getElementById("profile-birthday");
-        //手機只能輸入數字
-        phoneInput.addEventListener("input", () => {
-            phoneInput.value = phoneInput.value
-                .replace(/\D/g, "")
-                .slice(0, 10);
-        });
-        // 限制生日
-        birthdayInput.max =
-            new Date().toISOString().split("T")[0];
-        //姓名即時驗證
-        nameInput.addEventListener("input", () => {
-            const error = document.getElementById("name-error");
-
-            if (nameInput.value.trim() === "") {
-                error.textContent = "姓名不能空白";
-                nameInput.classList.add("input-error");
-            } else {
-                error.textContent = "";
-                nameInput.classList.remove("input-error");
-            }
-        });
-        //手機即時驗證
-        phoneInput.addEventListener("input", () => {
-            const error = document.getElementById("phone-error");
-
-            const phoneRule = /^09\d{8}$/;
-
-            if (!phoneRule.test(phoneInput.value)) {
-                error.textContent = "請輸入09開頭的10碼手機";
-                phoneInput.classList.add("input-error");
-            } else {
-                error.textContent = "";
-                phoneInput.classList.remove("input-error");
-            }
-        });
-        //Email 即時驗證
-        emailInput.addEventListener("input", () => {
-            const error = document.getElementById("email-error");
-
-            const emailRule =
-                /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
-            if (!emailRule.test(emailInput.value)) {
-                error.textContent = "Email格式不正確";
-                emailInput.classList.add("input-error");
-            } else {
-                error.textContent = "";
-                emailInput.classList.remove("input-error");
-            }
-        });
-        //生日即時驗證
-        birthdayInput.addEventListener("change", () => {
-            const error =
-                document.getElementById("birthday-error");
-
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            const birthDate =
-                new Date(birthdayInput.value);
-
-            if (birthDate > today) {
-                error.textContent = "出生日期不能大於今天";
-                birthdayInput.classList.add("input-error");
-            } else {
-                error.textContent = "";
-                birthdayInput.classList.remove("input-error");
-            }
-        });
-        //最後送出
-        profileForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            if (
-                document.querySelectorAll(".input-error")
-                    .length > 0
-            ) {
-                return;
-            }
-
-            document.querySelector(".username").textContent =
-                nameInput.value;
-
-            document.querySelector(".email").textContent =
-                emailInput.value;
-
-            const avatarInput =
-                document.getElementById("profile-avatar");
-
-            if (avatarInput.files.length > 0) {
-                const file = avatarInput.files[0];
-
-                const reader = new FileReader();
-
-                reader.onload = function (event) {
-                    const img = event.target.result;
-
-                    document.getElementById("avatar-img").src = img;
-
-                    localStorage.setItem("avatar", img);
-                };
-
-                reader.readAsDataURL(file);
-            }
-            //儲存資料
-            localStorage.setItem("username", nameInput.value);
-            localStorage.setItem("phone", phoneInput.value);
-            localStorage.setItem("email", emailInput.value);
-            localStorage.setItem("birthday", birthdayInput.value);
-            alert("個人資料已更新！");
-        });
-        // =========取消訂單功能=============
-        // 1. 綁定畫面上所有的取消訂單按鈕
-document.querySelectorAll('.btn-cancel').forEach(button => {
-    button.addEventListener('click', function() {
-        // 取得當前點擊的體驗名稱（例如：清水斷崖獨木舟探險）
-        const orderName = this.getAttribute('data-order-name') || '此體驗';
-
-        // 2. 觸發 SweetAlert2 美化版確認視窗
-        Swal.fire({
-            title: '確定要取消訂單嗎？',
-            text: `您即將取消「${orderName}」的行程，取消後將無法復原！`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#ff4d4f', // 配合你畫面按鈕的珊瑚橘/紅色調
-            cancelButtonColor: '#6c757d',  // 灰色取消按鈕
-            confirmButtonText: '確定取消',
-            cancelButtonText: '留著訂單',
-            reverseButtons: true            // 將「確定」放在右邊，符合一般網頁操作習慣
-        }).then((result) => {
-            // 3. 使用者點擊「確定取消」後的處理邏輯
-            if (result.isConfirmed) {
-                
-                // 【步驟 A】這裡執行發送 API 給後端刪除資料的動作 (例如使用 fetch)
-                // 這裡先以網頁前端即時移除畫面作為範例：
-                const orderItem = this.closest('.order-item') || this.parentElement; 
-                if (orderItem) {
-                    orderItem.remove(); // 從畫面上移除該筆訂單
-                }
-
-                // 【步驟 B】跳出成功取消的提示
-                Swal.fire({
-                    title: '已成功取消！',
-                    text: '該筆訂單已從您的紀錄中移除。',
-                    icon: 'success',
-                    confirmButtonColor: '#2b3a55' // 配合你們網站深藍色的主色調
-                });
-            }
-        });
-    });
-});
-        // 頁面載入時，把資料讀回來
-        window.addEventListener("DOMContentLoaded", () => {
-            const username = localStorage.getItem("username");
-            const phone = localStorage.getItem("phone");
-            const email = localStorage.getItem("email");
-            const birthday = localStorage.getItem("birthday");
-            const avatar = localStorage.getItem("avatar");
-
-            if (username) {
-                document.querySelector(".username").textContent = username;
-                document.getElementById("profile-name").value = username;
-            }
-
-            if (phone) {
-                document.getElementById("profile-phone").value = phone;
-            }
-
-            if (email) {
-                document.querySelector(".email").textContent = email;
-                document.getElementById("profile-email").value = email;
-            }
-
-            if (birthday) {
-                document.getElementById("profile-birthday").value = birthday;
-            }
-
-            if (avatar) {
-                document.getElementById("avatar-img").src = avatar;
-            }
-        });
     </script>
 </body>
 
