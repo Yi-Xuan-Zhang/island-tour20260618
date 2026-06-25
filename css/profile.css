@@ -509,7 +509,8 @@ body {
 }
 
 .btn-save-profile:hover {
-    background-color: var(--primary-hover);
+    background-color: #FFFFFF;
+    color: #e05936;
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(224, 89, 54, 0.4);
 }
