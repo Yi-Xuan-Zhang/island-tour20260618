@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>島嶼旅跡 - 我的訂單</title>
     <link rel="stylesheet" href="./css/profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -83,7 +84,7 @@
                         <div class="col-price">NT$ 1,800</div>
                         <div class="col-status">
                             <span class="status-badge status-upcoming">未出發</span>
-                            <button class="btn-cancel">取消訂單</button>
+                            <button class="btn-cancel" data-order-id="12345" data-order-name="清水斷崖獨木舟探險">取消訂單</button>
                         </div>
                     </div>
 
@@ -394,7 +395,46 @@
             localStorage.setItem("birthday", birthdayInput.value);
             alert("個人資料已更新！");
         });
+        // =========取消訂單功能=============
+        // 1. 綁定畫面上所有的取消訂單按鈕
+document.querySelectorAll('.btn-cancel').forEach(button => {
+    button.addEventListener('click', function() {
+        // 取得當前點擊的體驗名稱（例如：清水斷崖獨木舟探險）
+        const orderName = this.getAttribute('data-order-name') || '此體驗';
 
+        // 2. 觸發 SweetAlert2 美化版確認視窗
+        Swal.fire({
+            title: '確定要取消訂單嗎？',
+            text: `您即將取消「${orderName}」的行程，取消後將無法復原！`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ff4d4f', // 配合你畫面按鈕的珊瑚橘/紅色調
+            cancelButtonColor: '#6c757d',  // 灰色取消按鈕
+            confirmButtonText: '確定取消',
+            cancelButtonText: '留著訂單',
+            reverseButtons: true            // 將「確定」放在右邊，符合一般網頁操作習慣
+        }).then((result) => {
+            // 3. 使用者點擊「確定取消」後的處理邏輯
+            if (result.isConfirmed) {
+                
+                // 【步驟 A】這裡執行發送 API 給後端刪除資料的動作 (例如使用 fetch)
+                // 這裡先以網頁前端即時移除畫面作為範例：
+                const orderItem = this.closest('.order-item') || this.parentElement; 
+                if (orderItem) {
+                    orderItem.remove(); // 從畫面上移除該筆訂單
+                }
+
+                // 【步驟 B】跳出成功取消的提示
+                Swal.fire({
+                    title: '已成功取消！',
+                    text: '該筆訂單已從您的紀錄中移除。',
+                    icon: 'success',
+                    confirmButtonColor: '#2b3a55' // 配合你們網站深藍色的主色調
+                });
+            }
+        });
+    });
+});
     </script>
 </body>
 
