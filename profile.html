@@ -382,8 +382,11 @@
                 const reader = new FileReader();
 
                 reader.onload = function (event) {
-                    document.getElementById("avatar-img").src =
-                        event.target.result;
+                    const img = event.target.result;
+
+                    document.getElementById("avatar-img").src = img;
+
+                    localStorage.setItem("avatar", img);
                 };
 
                 reader.readAsDataURL(file);
@@ -435,6 +438,36 @@ document.querySelectorAll('.btn-cancel').forEach(button => {
         });
     });
 });
+        // 頁面載入時，把資料讀回來
+        window.addEventListener("DOMContentLoaded", () => {
+            const username = localStorage.getItem("username");
+            const phone = localStorage.getItem("phone");
+            const email = localStorage.getItem("email");
+            const birthday = localStorage.getItem("birthday");
+            const avatar = localStorage.getItem("avatar");
+
+            if (username) {
+                document.querySelector(".username").textContent = username;
+                document.getElementById("profile-name").value = username;
+            }
+
+            if (phone) {
+                document.getElementById("profile-phone").value = phone;
+            }
+
+            if (email) {
+                document.querySelector(".email").textContent = email;
+                document.getElementById("profile-email").value = email;
+            }
+
+            if (birthday) {
+                document.getElementById("profile-birthday").value = birthday;
+            }
+
+            if (avatar) {
+                document.getElementById("avatar-img").src = avatar;
+            }
+        });
     </script>
 </body>
 
