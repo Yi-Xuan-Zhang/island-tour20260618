@@ -298,30 +298,6 @@
             });
         }
 
-        // 取消訂單彈出確認視窗
-        const cancelOrderBtns = document.querySelectorAll('.btn-cancel:not(.remove-favorite-btn)');
-        cancelOrderBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const orderItem = btn.closest('.order-item');
-                const itemName = orderItem.querySelector('.item-name').innerText;
-
-                const isConfirmed = window.confirm(`您確定要取消「${itemName}」的訂單嗎？`);
-                
-                if (isConfirmed) {
-                    alert('訂單已成功取消！系統將於 1-3 個工作天內處理退款。');
-                    
-                    const statusBadge = orderItem.querySelector('.status-badge');
-                    if (statusBadge) {
-                        statusBadge.innerText = '已取消';
-                        statusBadge.className = 'status-badge';
-                        statusBadge.style.backgroundColor = '#999';
-                        statusBadge.style.color = '#fff';
-                    }
-                    btn.style.display = 'none';
-                }
-            });
-        });
-
         // 頁面分頁切換
         menuItems.forEach(item => {
             item.addEventListener('click', (e) => {
