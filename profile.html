@@ -387,7 +387,11 @@
 
                 reader.readAsDataURL(file);
             }
-
+            //儲存資料
+            localStorage.setItem("username", nameInput.value);
+            localStorage.setItem("phone", phoneInput.value);
+            localStorage.setItem("email", emailInput.value);
+            localStorage.setItem("birthday", birthdayInput.value);
             alert("個人資料已更新！");
         });
 
