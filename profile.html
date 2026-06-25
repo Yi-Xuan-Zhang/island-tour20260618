@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- ========== NAV ========== -->
     <nav>
         <div class="container">
             <div class="logo"><a href="./tseng-home.html">島嶼旅跡
@@ -25,7 +24,6 @@
         </div>
     </nav>
 
-    <!-- ========== MAIN ========== -->
     <main class="profile-container">
 
         <aside class="sidebar">
@@ -106,23 +104,25 @@
                     </div>
                 </div>
             </div>
+
             <div id="content-favorites" class="tab-content" style="display: none;">
                 <h2 class="content-title">我的收藏</h2>
 
-                <div class="empty-state-wrapper">
+                <div id="favorite-list-container" class="order-list"></div>
+
+                <div class="empty-state-wrapper" id="favorite-empty-state" style="display: none;">
                     <div class="empty-heart-icon">💔</div>
                     <h3 class="empty-title">收藏清單是空的</h3>
                     <p class="empty-desc">在體驗列表頁點選愛心圖示，即可加入收藏</p>
-                    <a href="#" class="btn-explore">去探索體驗</a>
+                    <a href="./product-all.html" class="btn-explore">去探索體驗</a>
                 </div>
             </div>
+
             <div id="content-profile" class="tab-content" style="display: none;">
                 <h2 class="content-title">個人資料</h2>
 
-
                 <div class="profile-info-card">
                     <form class="profile-info-form">
-
                         <div class="form-flex-row">
                             <div class="info-input-group">
                                 <label for="profile-name">姓名</label>
@@ -130,16 +130,14 @@
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-phone">手機號碼</label>
-                                <input type="tel" id="profile-phone" value="09XX-XXXXXX" placeholder="09XX-XXXXXX"
-                                    required>
+                                <input type="tel" id="profile-phone" value="09XX-XXXXXX" placeholder="09XX-XXXXXX" required>
                             </div>
                         </div>
 
                         <div class="form-flex-row">
                             <div class="info-input-group">
                                 <label for="profile-email">電子信箱</label>
-                                <input type="email" id="profile-email" value="demo@islandtrace.tw"
-                                    placeholder="your@email.com" required>
+                                <input type="email" id="profile-email" value="demo@islandtrace.tw" placeholder="your@email.com" required>
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-birthday">出生日期</label>
@@ -150,32 +148,26 @@
                         <div class="info-input-group">
                             <label class="preference-label">旅遊偏好</label>
                             <div class="preference-tags-container">
-
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="outdoor" checked>
                                     <span>📸 戶外冒險</span>
                                 </label>
-
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="craft" checked>
                                     <span>🎨 手作工藝</span>
                                 </label>
-
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="food" checked>
                                     <span>🍜 美食料理</span>
                                 </label>
-
                                 <label class="pref-tag">
                                     <input type="checkbox" name="preference" value="history" checked>
                                     <span>🏛️ 文化歷史</span>
                                 </label>
-
                             </div>
                         </div>
 
                         <button type="submit" class="btn-save-profile">儲存更改</button>
-
                     </form>
                 </div>
             </div>
@@ -183,11 +175,8 @@
 
     </main>
 
-    <!-- ========== FOOTER ========== -->
     <footer>
-        <!-- 上半部 -->
         <div class="footer-top">
-            <!-- 品牌 -->
             <div class="footer-brand">
                 <h2>島嶼旅跡 <span class="orange">·</span></h2>
                 <p>
@@ -197,7 +186,6 @@
                     而是與這片土地真實相遇。
                 </p>
             </div>
-            <!-- 右邊 -->
             <div class="footer-right">
                 <div class="footer-menu">
                     <h3>探索</h3>
@@ -207,7 +195,6 @@
                     <a href="">美食料理</a>
                     <a href="">文化歷史</a>
                 </div>
-                <!-- 公司 -->
                 <div class="footer-menu">
                     <h3>公司</h3>
                     <a href="./about.html">關於我們</a>
@@ -215,7 +202,6 @@
                     <a href="./faq.html">旅遊嚮導招募</a>
                     <a href="">媒體合作</a>
                 </div>
-                <!-- 支援 -->
                 <div class="footer-menu">
                     <h3>支援</h3>
                     <a href="./faq.html">退款政策</a>
@@ -225,9 +211,7 @@
                 </div>
             </div>
         </div>
-        <!-- 分隔線 -->
         <div class="footer-line"></div>
-        <!-- 下半部 -->
         <div class="footer-bottom">
             <div>© 2025 島嶼旅跡 IslandTrace. All rights reserved.</div>
             <div>用心丈量台灣每一寸土地</div>
@@ -235,27 +219,109 @@
     </footer>
 
     <script>
-        // 1. 抓取左側所有選單按鈕
         const menuItems = document.querySelectorAll('.sidebar-menu .menu-item');
-
-        // 2. 抓取右側三個內容區塊
         const orderContent = document.getElementById('content-orders');
         const favoriteContent = document.getElementById('content-favorites');
-        const profileContent = document.getElementById('content-profile'); // 💡 新增個人資料區塊
+        const profileContent = document.getElementById('content-profile');
 
+        const favoriteContainer = document.getElementById('favorite-list-container');
+        const favoriteEmptyState = document.getElementById('favorite-empty-state');
+
+        // 核心功能：動態渲染收藏清單
+        function renderFavorites() {
+            let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
+            if (savedFavorites.length === 0) {
+                if (favoriteContainer) favoriteContainer.innerHTML = '';
+                if (favoriteEmptyState) favoriteEmptyState.style.display = 'block';
+                return;
+            }
+
+            if (favoriteEmptyState) favoriteEmptyState.style.display = 'none';
+            if (favoriteContainer) {
+                favoriteContainer.innerHTML = '';
+
+                savedFavorites.forEach(activity => {
+                    const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
+
+                    const cardHTML = `
+                        <div class="order-item" data-id="${activity.id}">
+                            <div class="col-info">
+                                <img src="${displayImg}" style="width:50px; height:50px; object-fit:cover; border-radius:8px; margin-right:12px;" alt="${activity.title}">
+                                <div class="item-details">
+                                    <h4 class="item-name">
+                                        <a href="./product-detail.html?id=${activity.id}" style="text-decoration:none; color:inherit;">${activity.title}</a>
+                                    </h4>
+                                    <span class="location-tag">📍 ${activity.location} ． 🕑 ${activity.duration}</span>
+                                </div>
+                            </div>
+                            <div class="col-date">
+                                <p class="date-text" style="color: #ff6b35; font-weight: bold;">${activity.category}</p>
+                            </div>
+                            <div class="col-price">NT$ ${activity.price}</div>
+                            <div class="col-status">
+                                <button class="btn-cancel remove-favorite-btn" type="button" style="background-color: #fff; border: 1px solid #ddd; color: #ff4d4f;">❤️ 移除</button>
+                            </div>
+                        </div>
+                    `;
+                    favoriteContainer.innerHTML += cardHTML;
+                });
+
+                bindRemoveEvent();
+            }
+        }
+
+        // 移除收藏事件
+        function bindRemoveEvent() {
+            const removeBtns = document.querySelectorAll('.remove-favorite-btn');
+            removeBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const orderItem = btn.closest('.order-item');
+                    const activityId = parseInt(orderItem.getAttribute('data-id'));
+
+                    let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+                    savedFavorites = savedFavorites.filter(fav => fav.id !== activityId);
+
+                    localStorage.setItem('myFavorites', JSON.stringify(savedFavorites));
+                    renderFavorites();
+                });
+            });
+        }
+
+        // 取消訂單彈出確認視窗
+        const cancelOrderBtns = document.querySelectorAll('.btn-cancel:not(.remove-favorite-btn)');
+        cancelOrderBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderItem = btn.closest('.order-item');
+                const itemName = orderItem.querySelector('.item-name').innerText;
+
+                const isConfirmed = window.confirm(`您確定要取消「${itemName}」的訂單嗎？`);
+                
+                if (isConfirmed) {
+                    alert('訂單已成功取消！系統將於 1-3 個工作天內處理退款。');
+                    
+                    const statusBadge = orderItem.querySelector('.status-badge');
+                    if (statusBadge) {
+                        statusBadge.innerText = '已取消';
+                        statusBadge.className = 'status-badge';
+                        statusBadge.style.backgroundColor = '#999';
+                        statusBadge.style.color = '#fff';
+                    }
+                    btn.style.display = 'none';
+                }
+            });
+        });
+
+        // 頁面分頁切換
         menuItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                // 如果點擊的是登出，就讓它執行原本的超連結（不攔截）
                 if (item.classList.contains('logout')) return;
 
-                // 阻擋 <a> 標籤預設的跳頁行為
                 e.preventDefault();
 
-                // 1. 切換左側選單高亮樣式 (移除所有 active，並幫目前點擊的加上 active)
                 menuItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
-                // 2. 判斷點擊哪一個選單，並切換右側內容的顯示 (block) 與隱藏 (none)
                 if (item.innerText.includes('訂單紀錄')) {
                     orderContent.style.display = 'block';
                     favoriteContent.style.display = 'none';
@@ -264,13 +330,16 @@
                     orderContent.style.display = 'none';
                     favoriteContent.style.display = 'block';
                     profileContent.style.display = 'none';
-                } else if (item.innerText.includes('個人資料')) { // 💡 新增個人資料切換邏輯
+                    renderFavorites();
+                } else if (item.innerText.includes('個人資料')) {
                     orderContent.style.display = 'none';
                     favoriteContent.style.display = 'none';
                     profileContent.style.display = 'block';
                 }
             });
         });
+
+        renderFavorites();
     </script>
 </body>
 
