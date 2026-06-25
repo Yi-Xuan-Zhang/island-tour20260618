@@ -101,14 +101,15 @@
             <aside class="sidebar-summary">
                 <div class="card summary-card">
                     <h3>預訂摘要</h3>
-                    <img class="product-img"
-                        src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
-                        alt="宜蘭稻田生態農遊體驗">
-                    <div class="activity-title">宜蘭稻田生態農遊體驗</div>
+                    <img class="product-img" id="summary-product-img"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        alt="產品圖片">
+                    <div class="activity-title" id="summary-activity-title">載入中...</div>
 
                     <ul class="summary-details">
-                        <li><span>目的地</span><span>宜蘭</span></li>
-                        <li><span>時間長度</span><span>半天</span></li>
+                        <li><span>目的地</span><span id="summary-destination">宜蘭</span></li>
+                        <li><span>時間長度</span><span id="summary-duration">半天</span></li>
+                        <li><span>人數</span><span id="summary-quantity" style="font-weight: bold; color: var(--text-dark);">1 人</span></li>
                         <li><span>選擇日期</span><span class="highlighting" id="summary-date">尚未選擇</span></li>
                         <li><span>選擇場次</span><span class="highlighting" id="summary-session">尚未選擇</span></li>
                     </ul>
@@ -116,8 +117,8 @@
                     <hr>
 
                     <div class="total-price">
-                        <span>價格</span>
-                        <span class="price">NT$ 1,100 <small>/ 人</small></span>
+                        <span>總金額</span>
+                        <span class="price" id="summary-total-price">NT$ 1,100</span>
                     </div>
                 </div>
             </aside>

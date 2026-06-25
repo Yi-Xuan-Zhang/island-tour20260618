@@ -51,3 +51,36 @@ function handleFormSubmit(event) {
         event.preventDefault();
     }
 }
+
+/* ==========================================================================
+  【動態連動】載入 localStorage 產品與前頁選擇資料並渲染摘要卡片
+  ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const title = localStorage.getItem('booking_title') || '清水斷崖獨木舟探險';
+    const image = localStorage.getItem('booking_image') || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80';
+    const destination = localStorage.getItem('booking_destination') || '花蓮';
+    const quantity = localStorage.getItem('booking_quantity') || '1';
+    const totalPrice = localStorage.getItem('booking_total_price') || '1800';
+    const date = localStorage.getItem('booking_date') || '尚未選擇';
+    const session = localStorage.getItem('booking_session') || '尚未選擇';
+
+    // 取得 DOM 元素
+    const imgEl = document.getElementById('summary-product-img');
+    const titleEl = document.getElementById('summary-activity-title');
+    const destEl = document.getElementById('summary-destination');
+    const qtyEl = document.getElementById('summary-quantity');
+    const priceEl = document.getElementById('summary-total-price');
+    const dateEl = document.getElementById('summary-date');
+    const sessionEl = document.getElementById('summary-session');
+
+    // 填入資料
+    if (imgEl) imgEl.src = image;
+    if (titleEl) titleEl.textContent = title;
+    if (destEl) destEl.textContent = destination;
+    if (qtyEl) qtyEl.textContent = `${quantity} 人`;
+    if (priceEl) {
+        priceEl.textContent = `NT$ ${parseInt(totalPrice).toLocaleString()}`;
+    }
+    if (dateEl) dateEl.textContent = date;
+    if (sessionEl) sessionEl.textContent = session;
+});
