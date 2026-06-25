@@ -25,7 +25,7 @@
             </div>
         </nav>
     </div>
-    
+
     <div class="section section-product">
         <div class="content">
             <div class="content-filter">
@@ -315,9 +315,11 @@
 
                 const urlParams = new URLSearchParams(window.location.search);
                 const locationParam = urlParams.get('location');
+                const categoryParam = urlParams.get('category'); // 1. 新增讀取 category 參數
 
+                // 2. 處理地區篩選
                 if (locationParam && locationParam !== 'all') {
-                    const targetTag = Array.from(allTags).find(tag => 
+                    const targetTag = Array.from(allTags).find(tag =>
                         tag.dataset.type === 'location' && tag.dataset.value === locationParam
                     );
                     if (targetTag) {
@@ -325,7 +327,17 @@
                     }
                 }
 
-                executeMultiFilter();
+                // 3. 處理主題分類篩選（對應首頁的 explore 卡片點擊）
+                if (categoryParam) {
+                    const targetTag = Array.from(allTags).find(tag =>
+                        tag.dataset.type === 'category' && tag.dataset.value === categoryParam
+                    );
+                    if (targetTag) {
+                        targetTag.classList.add('active'); // 讓對應的分類按鈕變成 active 狀態
+                    }
+                }
+
+                executeMultiFilter(); // 4. 最後執行萬能篩選器，卡片貨櫃就會同步更新
 
             } catch (error) {
                 console.error('初始化失敗:', error);

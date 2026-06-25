@@ -119,66 +119,137 @@
 
     <script>
         // 1. 抓取 DOM 元素
-        const tabs = document.querySelectorAll('.tab-btn');
-        const authBoxes = document.querySelectorAll('.auth-box');
-        const goRegister = document.getElementById('go-register');
-        const goLogin = document.getElementById('go-login');
+const tabs = document.querySelectorAll('.tab-btn');
+const authBoxes = document.querySelectorAll('.auth-box');
+const goRegister = document.getElementById('go-register');
+const goLogin = document.getElementById('go-login');
 
-        // 公用切換函式
-        function switchTab(targetId) {
-            // 切換下方內容顯示/隱藏
-            authBoxes.forEach(box => {
-                if (box.id === targetId) {
-                    box.style.display = 'block';
-                } else {
-                    box.style.display = 'none';
-                }
-            });
+// 公用切換函式
+function switchTab(targetId) {
+    // 切換下方內容顯示/隱藏
+    authBoxes.forEach(box => {
+        if (box.id === targetId) {
+            box.style.display = 'block';
+        } else {
+            box.style.display = 'none';
+        }
+    });
 
-            // 同步切換上方 Tab 按鈕的 active 樣式
-            tabs.forEach(tab => {
-                if (tab.getAttribute('data-target') === targetId) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
+    // 同步切換上方 Tab 按鈕的 active 樣式
+    tabs.forEach(tab => {
+        if (tab.getAttribute('data-target') === targetId) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+}
+
+// 2. 綁定 Tab 按鈕點擊事件
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-target');
+        switchTab(targetId);
+    });
+});
+
+// 3. 綁定底部文字超連結點擊事件 (連動切換)
+if (goRegister) {
+    goRegister.addEventListener('click', (e) => {
+        e.preventDefault(); // 防止網頁重整
+        switchTab('register-box');
+    });
+}
+
+if (goLogin) {
+    goLogin.addEventListener('click', (e) => {
+        e.preventDefault(); // 防止網頁重整
+        switchTab('login-box');
+    });
+}
+
+// 4. 密碼眼睛「顯示 / 隱藏」切換
+const toggleEyes = document.querySelectorAll('.toggle-eye');
+toggleEyes.forEach(eye => {
+    eye.addEventListener('click', () => {
+        const passwordInput = eye.parentElement.querySelector('input');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eye.textContent = '🔒'; 
+        } else {
+            passwordInput.type = 'password';
+            eye.textContent = '👁️';
+        }
+    });
+});
+
+// 5. 修正後的登入按鈕點擊事件（精準綁定登入區塊的 Form 與 Input）
+const loginForm = document.querySelector('#login-box .login-form');
+
+if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // 用 submit 事件攔截，可以同時享有 HTML5 的 required 內建防呆
+
+        // 【修正選取器】改用精準的 ID 來抓取登入框數值
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value.trim();
+
+        if (email && password) {
+            // 將登入的 Email 儲存到瀏覽器快取中（供 profile.html 同步使用）
+            localStorage.setItem('userEmail', email);
+            
+            // 可清除原本個人資料內舊的名字快取，強迫 profile 頁面重新渲染新使用者的預設狀態（可選）
+            // localStorage.removeItem('username'); 
+
+            // 核心跳轉邏輯
+            if (document.referrer && document.referrer !== window.location.href) {
+                window.location.href = document.referrer;
+            } else {
+                window.location.href = 'profile.html'; // 配合你 HTML 裡的導覽列首頁網址
+            }
+        } else {
+            alert('請輸入電子信箱與密碼！');
+        }
+    });
+}
+// ====== 新增：註冊（建立帳號）按鈕點擊後的處理邏輯 ======
+const registerForm = document.querySelector('#register-box .login-form');
+
+if (registerForm) {
+    registerForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // 攔截表單預設送出行為，保留 HTML5 的 required 提示
+
+        // 1. 抓取註冊區塊中，使用者輸入的欄位資料
+        const name = document.getElementById('reg-name').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value.trim();
+
+        // 2. 基本前端資料驗證
+        if (password.length < 8) {
+            alert('密碼長度至少需要 8 個字元！');
+            return;
         }
 
-        // 2. 綁定 Tab 按鈕點擊事件
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetId = tab.getAttribute('data-target');
-                switchTab(targetId);
-            });
-        });
+        if (name && phone && email && password) {
+            // 3. 將註冊的資料存入 localStorage 瀏覽器快取中
+            // 這樣 profile.html 就能同步更新左側欄位與個人資料表單！
+            localStorage.setItem('username', name);
+            localStorage.setItem('phone', phone);
+            localStorage.setItem('userEmail', email); // 同步給 profile 頁面優先讀取的登入帳號 key
+            localStorage.setItem('email', email);
 
-        // 3. 綁定底部文字超連結點擊事件 (連動切換)
-        goRegister.addEventListener('click', (e) => {
-            e.preventDefault(); // 防止網頁重整
-            switchTab('register-box');
-        });
-
-        goLogin.addEventListener('click', (e) => {
-            e.preventDefault(); // 防止網頁重整
-            switchTab('login-box');
-        });
-
-        // 4. 加碼功能：密碼眼睛「顯示 / 隱藏」切換
-        const toggleEyes = document.querySelectorAll('.toggle-eye');
-        toggleEyes.forEach(eye => {
-            eye.addEventListener('click', () => {
-                // 找到同層的 input 欄位
-                const passwordInput = eye.parentElement.querySelector('input');
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    eye.textContent = '🔒'; // 變成鎖頭或開眼符號，可依喜好調整
-                } else {
-                    passwordInput.type = 'password';
-                    eye.textContent = '👁️';
-                }
-            });
-        });
+            // 4. 核心跳轉邏輯（跟登入相同：從哪來就回哪去）
+            if (document.referrer && document.referrer !== window.location.href) {
+                window.location.href = document.referrer;
+            } else {
+                window.location.href = 'profile.html'; // 預設回首頁
+            }
+        } else {
+            alert('請完整填寫所有註冊欄位！');
+        }
+    });
+}
     </script>
 
 </body>
