@@ -485,36 +485,44 @@ document.querySelectorAll('.btn-cancel').forEach(button => {
         });
     });
 });
-        // 頁面載入時，把資料讀回來
-        window.addEventListener("DOMContentLoaded", () => {
-            const username = localStorage.getItem("username");
-            const phone = localStorage.getItem("phone");
-            const email = localStorage.getItem("email");
-            const birthday = localStorage.getItem("birthday");
-            const avatar = localStorage.getItem("avatar");
+       // ========= 網頁初始化載入資料（整合登入 Email 更新） =========
+window.addEventListener("DOMContentLoaded", () => {
+    // 1. 取出快取資料
+    const username = localStorage.getItem("username");
+    const phone = localStorage.getItem("phone");
+    const birthday = localStorage.getItem("birthday");
+    const avatar = localStorage.getItem("avatar");
+    
+    // 優先讀取登入頁存進來的 userEmail，若沒有才讀取個人資料存的 email
+    const savedEmail = localStorage.getItem('userEmail') || localStorage.getItem("email");
 
-            if (username) {
-                document.querySelector(".username").textContent = username;
-                document.getElementById("profile-name").value = username;
-            }
+    // 2. 渲染左側欄位與個人資料表單
+    if (username) {
+        document.querySelector(".username").textContent = username;
+        document.getElementById("profile-name").value = username;
+    }
+    if (phone) {
+        document.getElementById("profile-phone").value = phone;
+    }
+    if (savedEmail) {
+        // 【修正選取器】 精準選取側邊欄 class="email" 的欄位
+        const sidebarEmail = document.querySelector(".sidebar .email");
+        if (sidebarEmail) sidebarEmail.textContent = savedEmail;
+        
+        // 同步更新個人資料表單裡的 Email 輸入框
+        const formEmailInput = document.getElementById("profile-email");
+        if (formEmailInput) formEmailInput.value = savedEmail;
+    }
+    if (birthday) {
+        document.getElementById("profile-birthday").value = birthday;
+    }
+    if (avatar) {
+        document.getElementById("avatar-img").src = avatar;
+    }
 
-            if (phone) {
-                document.getElementById("profile-phone").value = phone;
-            }
-
-            if (email) {
-                document.querySelector(".email").textContent = email;
-                document.getElementById("profile-email").value = email;
-            }
-
-            if (birthday) {
-                document.getElementById("profile-birthday").value = birthday;
-            }
-
-            if (avatar) {
-                document.getElementById("avatar-img").src = avatar;
-            }
-        });
+    // 3. 初始綁定取消訂單按鈕
+    bindCancelOrderEvents();
+});
     </script>
 </body>
 
