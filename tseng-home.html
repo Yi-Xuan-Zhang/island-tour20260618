@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>島嶼旅跡</title>
+    <title>島嶼旅跡－首頁</title>
+    <!-- 沿用原本的 CSS 引入，維持您的版面設計 -->
     <link rel="stylesheet" href="./css/tseng-home.css">
 </head>
 
@@ -70,35 +71,35 @@
             <div class="title"> — EXPLORE BY THEME </div>
             <div class="header"> 找到你的體驗類型 </div>
             <div class="card-zone">
-                <a href="#" class="card" id="outdoor">
+                <a href="./product-all.html?category=戶外冒險" class="card" id="outdoor">
                     <div class="card-icon outdoor"></div>
                     <div class="card-text">戶外冒險</div>
                 </a>
-                <a href="#" class="card" id="art">
+                <a href="./product-all.html?category=手作工藝" class="card" id="art">
                     <div class="card-icon art"></div>
                     <div class="card-text">手作工藝</div>
                 </a>
-                <a href="#" class="card" id="food">
+                <a href="./product-all.html?category=美食料理" class="card" id="food">
                     <div class="card-icon food"></div>
                     <div class="card-text">美食料理</div>
                 </a>
-                <a href="#" class="card" id="history">
+                <a href="./product-all.html?category=文化歷史" class="card" id="history">
                     <div class="card-icon history"></div>
                     <div class="card-text">文化歷史</div>
                 </a>
-                <a href="#" class="card" id="water">
+                <a href="./product-all.html?category=水上活動" class="card" id="water">
                     <div class="card-icon water"></div>
                     <div class="card-text">水上活動</div>
                 </a>
-                <a href="#" class="card" id="nature">
+                <a href="./product-all.html?category=自然探索" class="card" id="nature">
                     <div class="card-icon nature"></div>
                     <div class="card-text">自然探索</div>
                 </a>
-                <a href="#" class="card" id="trandition">
+                <a href="./product-all.html?category=傳統藝術" class="card" id="trandition">
                     <div class="card-icon trandition"></div>
                     <div class="card-text">傳統藝術</div>
                 </a>
-                <a href="#" class="card" id="photography">
+                <a href="./product-all.html?category=攝影旅拍" class="card" id="photography">
                     <div class="card-icon photography"></div>
                     <div class="card-text">攝影旅拍</div>
                 </a>
@@ -176,7 +177,7 @@
         </div>
     </div>
 
-    <!--  ========== FOOTER ========== -->
+    <!-- ========== FOOTER ========== -->
     <div class="home-footer-wrapper">
         <footer>
             <div class="footer-top">
@@ -193,7 +194,7 @@
                     <div class="footer-menu">
                         <h3>探索</h3>
                         <a href="./product-all.html">所有體驗</a>
-                        <a href="./product-all.html">戶外冒險</a>
+                        <a href="">戶外冒險</a>
                         <a href="">手作工藝</a>
                         <a href="">美食料理</a>
                         <a href="">文化歷史</a>
@@ -221,7 +222,7 @@
             </div>
         </footer>
     </div>
-    
+
     <script>
         const container = document.getElementById('hot-card-container');
         let hotActivities = [];
@@ -230,17 +231,23 @@
         function renderHomeCards(activitiesList) {
             container.innerHTML = '';
 
+            // 從 localStorage 取得目前的收藏清單 id 陣列
+            const savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
             activitiesList.forEach(activity => {
                 const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
-
-                // 【核心修改】動態抓取 JSON 內的 ratingStars 與 reviewCount，並設定預設防呆值
                 const ratingStars = activity.ratingStars || '★★★★★';
                 const reviewCount = activity.reviewCount || 0;
 
+                // 檢查此卡片是否已在收藏清單中
+                const isFavorite = savedFavorites.some(fav => fav.id === activity.id);
+                const heartIcon = isFavorite ? '❤️' : '🤍';
+
+                // 在外層 <a> 加上 data-id 屬性，以便點擊愛心時尋找對應資料
                 const cardHTML = `
-                    <a href="./product-detail.html?id=${activity.id}" class="hot-card" style="text-decoration: none; color: inherit;">
+                    <a href="./product-detail.html?id=${activity.id}" class="hot-card" data-id="${activity.id}" style="text-decoration: none; color: inherit;">
                         <div class="card-img" style="background-image: url('${displayImg}')">
-                            <button class="like" type="button">🤍</button>
+                            <button class="like" type="button">${heartIcon}</button>
                         </div>
                         <div class="card-text">
                             <div class="hashtag">${activity.category}</div>
@@ -261,23 +268,17 @@
 
         btnSearch.addEventListener('click', function () {
             const locValue = selectLocation.value;
-
-            // 如果使用者沒有選擇任何有效的縣市，可以做個防呆或預設帶 all
             const targetLocation = locValue ? locValue : 'all';
-
-            // 帶領使用者跳轉到列表頁，並在網址後面加上 ?location=縣市名稱
             window.location.href = `./product-all.html?location=${encodeURIComponent(targetLocation)}`;
         });
 
         // ========= 3. 非同步從 JSON 讀取資料並初始化頁面 =========
         async function initHomeProducts() {
             try {
-                // 讀取外部 JSON
                 const response = await fetch('./product-detail.json');
                 if (!response.ok) throw new Error('無法讀取 JSON 資料');
                 const rawData = await response.json();
 
-                // 加工資料：補上 id 欄位 (index + 1) 以利與內頁正確連動
                 hotActivities = rawData.map((item, index) => {
                     return {
                         ...item,
@@ -285,22 +286,15 @@
                     };
                 });
 
-                // 🌟【新增：動態生成下拉選單選項】
                 const selectDestination = document.getElementById('select-destination');
-
-                // 1. 利用 Set 篩選出 JSON 中所有不重複的縣市名稱
                 const locations = [...new Set(hotActivities.map(activity => activity.location))];
 
-                // 2. 清空原本的選單，並加入「全部目的地」與動態縣市
                 selectDestination.innerHTML = `<option value="all" selected>選擇目的地</option>`;
                 locations.forEach(loc => {
                     selectDestination.innerHTML += `<option value="${loc}">${loc}</option>`;
                 });
 
-                // 首頁通常展示前 8 筆熱門體驗
                 const homeDisplayList = hotActivities.slice(0, 8);
-
-                // 渲染卡片到畫面上
                 renderHomeCards(homeDisplayList);
 
             } catch (error) {
@@ -309,29 +303,38 @@
             }
         }
 
-        // ========= 4. 點擊 hot-card 內的 like-btn 會變換顏色 =========
+        // ========= 4. 點擊愛心串聯 localStorage 收藏功能 =========
         const contentMain = document.querySelector('.content-main');
         contentMain.addEventListener('click', function (event) {
             const likeBtn = event.target.closest('.like');
             if (likeBtn) {
-                // 防止點擊愛心時觸發外層 <a> 標籤的頁面跳轉
                 event.preventDefault();
                 event.stopPropagation();
 
+                const cardEl = likeBtn.closest('.hot-card');
+                const activityId = parseInt(cardEl.getAttribute('data-id'));
+                const activityData = hotActivities.find(act => act.id === activityId);
+
+                let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
                 if (likeBtn.textContent === '🤍') {
                     likeBtn.textContent = '❤️';
+                    if (activityData && !savedFavorites.some(fav => fav.id === activityId)) {
+                        savedFavorites.push(activityData);
+                    }
                 } else {
                     likeBtn.textContent = '🤍';
+                    savedFavorites = savedFavorites.filter(fav => fav.id !== activityId);
                 }
+
+                localStorage.setItem('myFavorites', JSON.stringify(savedFavorites));
             }
         });
 
-        // 「查看全部」按鈕的跳轉功能
         document.getElementById('btn-see-all').addEventListener('click', function () {
             window.location.href = './product-all.html';
         });
 
-        // 啟動程式
         initHomeProducts();
     </script>
 </body>
