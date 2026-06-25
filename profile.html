@@ -32,7 +32,7 @@
             <div class="user-card">
                 <div class="avatar-wrapper">
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200" alt="會員頭像"
-                        class="avatar">
+                        class="avatar" id="avatar-img">
                 </div>
                 <h3 class="username">旅遊達人</h3>
                 <p class="email">demo@islandtrace.tw</p>
@@ -127,6 +127,10 @@
                             <div class="info-input-group">
                                 <label for="profile-name">姓名</label>
                                 <input type="text" id="profile-name" value="旅遊達人" placeholder="您的名字" required>
+                            </div>
+                            <div class="info-input-group">
+                                <label for="profile-avatar">更換頭像</label>
+                                <input type="file" id="profile-avatar" accept="image/*">
                             </div>
                             <div class="info-input-group">
                                 <label for="profile-phone">手機號碼</label>
@@ -270,6 +274,37 @@
                     profileContent.style.display = 'block';
                 }
             });
+        });
+        //修改個人資料
+        const profileForm = document.querySelector(".profile-info-form");
+
+        profileForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // 取得輸入資料
+            const name = document.getElementById("profile-name").value;
+            const email = document.getElementById("profile-email").value;
+
+            // 更新左側姓名與信箱
+            document.querySelector(".username").textContent = name;
+            document.querySelector(".email").textContent = email;
+
+            // 更新頭像
+            const avatarInput = document.getElementById("profile-avatar");
+
+            if (avatarInput.files.length > 0) {
+                const file = avatarInput.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    document.getElementById("avatar-img").src =
+                        event.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            alert("個人資料已更新！");
         });
     </script>
 </body>
