@@ -490,7 +490,7 @@ a {
     .section-banner .content .describe {
         width: 100%;
     }
-    
+
     .section-banner .content .select-bar {
         width: 100%;
     }
@@ -542,7 +542,7 @@ a {
         gap: 16px;
         align-items: start;
     }
-    
+
 }
 
 /* ============ NAV & FOOTER ============ */
@@ -602,6 +602,10 @@ a {
         color: white;
         padding: 8px 20px;
         border-radius: 30px;
+    }
+
+    .login-btn:hover {
+        background: #f5efe6;
     }
 }
 

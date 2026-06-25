@@ -715,6 +715,10 @@ nav a {
     border-radius: 30px;
 }
 
+.login-btn:hover {
+    background: #f5efe6;
+}
+
 /* ======================footer====================== */
 footer {
     background: #1b2a4a;
