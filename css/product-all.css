@@ -153,6 +153,7 @@
                             }
 
                             .price-select {
+                                width: 100%;
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
@@ -174,7 +175,6 @@
                 outline: none;
             }
 
-            /* 右側整體區塊調整：改垂直排列以容納新增的 header */
             .content-right-block {
                 width: 70%;
                 display: flex;
@@ -182,7 +182,6 @@
                 gap: 24px;
             }
 
-            /* 新增的卡片區上方 header 樣式 */
             .content-header {
                 display: flex;
                 justify-content: space-between;
@@ -256,7 +255,6 @@
 
             .content-main {
                 width: 100%;
-                /* 改由外部包裹區塊控制寬度 */
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 align-items: start;

@@ -43,7 +43,7 @@
                     <div class="filter-tag">
                         <div class="tag-title">價格區間 (NT$)</div>
                         <div class="tag-content">
-                            <div class="price-select" style="width: 100%;">
+                            <div class="price-select"">
                                 <input type="number" id="price-min" min="0" placeholder="最低">
                                 <span>-</span>
                                 <input type="number" id="price-max" min="0" placeholder="最高">
@@ -185,8 +185,9 @@
             activitiesList.forEach(activity => {
                 // 防呆處理：取圖片陣列的第一張，若無則放預設圖
                 const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
-                // 計算評論則數：JSON 內是陣列，取其長度
-                const reviewCount = activity.reviews ? activity.reviews.length : 0;
+                
+                // 🌟 直接抓取 JSON 內的 reviewCount 欄位，若無則預設為 0
+                const reviewCount = activity.reviewCount !== undefined ? activity.reviewCount : 0;
 
                 const cardHTML = `
                     <a href="./product-detail.html?id=${activity.id}" class="hot-card" style="text-decoration: none; color: inherit;">
@@ -262,8 +263,8 @@
                 const getStars = (str) => (str.match(/★/g) || []).length;
                 sortedList.sort((a, b) => getStars(b.ratingStars) - getStars(a.ratingStars));
             } else if (sortValue === 'reviews-desc') {
-                // 依 JSON 內 reviews 陣列長度排序
-                sortedList.sort((a, b) => (b.reviews ? b.reviews.length : 0) - (a.reviews ? a.reviews.length : 0));
+                // 🌟 依 JSON 內 reviewCount 數字欄位大小進行排序
+                sortedList.sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0));
             } else {
                 sortedList.sort((a, b) => a.id - b.id);
             }
