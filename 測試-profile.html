@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- ========== NAV ========== -->
     <nav>
         <div class="container">
             <div class="logo"><a href="./tseng-home.html">島嶼旅跡
@@ -25,7 +24,6 @@
         </div>
     </nav>
 
-    <!-- ========== MAIN ========== -->
     <main class="profile-container">
 
         <aside class="sidebar">
@@ -68,51 +66,16 @@
                         <div class="col-status">狀態</div>
                     </div>
 
-                    <div class="order-item">
-                        <div class="col-info">
-                            <div class="item-img-placeholder">🛶</div>
-                            <div class="item-details">
-                                <h4 class="item-name">清水斷崖獨木舟探險</h4>
-                                <span class="location-tag">📍 花蓮</span>
-                            </div>
-                        </div>
-                        <div class="col-date">
-                            <p class="date-text">2025/7/15</p>
-                            <p class="time-text">上午場 09:00</p>
-                        </div>
-                        <div class="col-price">NT$ 1,800</div>
-                        <div class="col-status">
-                            <span class="status-badge status-upcoming">未出發</span>
-                            <button class="btn-cancel">取消訂單</button>
-                        </div>
-                    </div>
+                    <div id="order-list-container"></div>
 
-                    <div class="order-item">
-                        <div class="col-info">
-                            <div class="item-img-placeholder">🎨</div>
-                            <div class="item-details">
-                                <h4 class="item-name">淡水老街藍染拼布工作坊</h4>
-                                <span class="location-tag">📍 新北</span>
-                            </div>
-                        </div>
-                        <div class="col-date">
-                            <p class="date-text">2025/5/20</p>
-                            <p class="time-text">下午場 14:00</p>
-                        </div>
-                        <div class="col-price">NT$ 1,200</div>
-                        <div class="col-status">
-                            <span class="status-badge status-completed">已完成</span>
-                        </div>
-                    </div>
                 </div>
             </div>
+
             <div id="content-favorites" class="tab-content" style="display: none;">
                 <h2 class="content-title">我的收藏</h2>
 
-                <!-- 💡 新增：用來動態產生收藏卡片的容器 -->
                 <div id="favorite-list-container" class="order-list"></div>
 
-                <!-- 原本的查無資料提示，預設隱藏，若沒收藏才顯示 -->
                 <div class="empty-state-wrapper" id="favorite-empty-state" style="display: none;">
                     <div class="empty-heart-icon">💔</div>
                     <h3 class="empty-title">收藏清單是空的</h3>
@@ -120,9 +83,9 @@
                     <a href="./product-all.html" class="btn-explore">去探索體驗</a>
                 </div>
             </div>
+
             <div id="content-profile" class="tab-content" style="display: none;">
                 <h2 class="content-title">個人資料</h2>
-
 
                 <div class="profile-info-card">
                     <form class="profile-info-form">
@@ -187,11 +150,8 @@
 
     </main>
 
-    <!-- ========== FOOTER ========== -->
     <footer>
-        <!-- 上半部 -->
         <div class="footer-top">
-            <!-- 品牌 -->
             <div class="footer-brand">
                 <h2>島嶼旅跡 <span class="orange">·</span></h2>
                 <p>
@@ -201,7 +161,6 @@
                     而是與這片土地真實相遇。
                 </p>
             </div>
-            <!-- 右邊 -->
             <div class="footer-right">
                 <div class="footer-menu">
                     <h3>探索</h3>
@@ -211,7 +170,6 @@
                     <a href="">美食料理</a>
                     <a href="">文化歷史</a>
                 </div>
-                <!-- 公司 -->
                 <div class="footer-menu">
                     <h3>公司</h3>
                     <a href="./about.html">關於我們</a>
@@ -219,7 +177,6 @@
                     <a href="./faq.html">旅遊嚮導招募</a>
                     <a href="">媒體合作</a>
                 </div>
-                <!-- 支援 -->
                 <div class="footer-menu">
                     <h3>支援</h3>
                     <a href="./faq.html">退款政策</a>
@@ -229,9 +186,7 @@
                 </div>
             </div>
         </div>
-        <!-- 分隔線 -->
         <div class="footer-line"></div>
-        <!-- 下半部 -->
         <div class="footer-bottom">
             <div>© 2025 島嶼旅跡 IslandTrace. All rights reserved.</div>
             <div>用心丈量台灣每一寸土地</div>
@@ -247,28 +202,122 @@
         const favoriteContent = document.getElementById('content-favorites');
         const profileContent = document.getElementById('content-profile');
 
-        // 抓取收藏專用的 DOM 元素
+        // 抓取收藏、訂單專用的 DOM 容器
+        const orderContainer = document.getElementById('order-list-container');
         const favoriteContainer = document.getElementById('favorite-list-container');
         const favoriteEmptyState = document.getElementById('favorite-empty-state');
 
+        // 💡 預設原始靜態的測試訂單資料（當 myOrders 是空的時候當作預設值顯示）
+        const defaultOrders = [
+            {
+                id: "STATIC_01",
+                title: "清水斷崖獨木舟探險",
+                location: "花蓮",
+                date: "2025/7/15",
+                session: "上午場 09:00",
+                price: "1,800",
+                status: "upcoming",
+                icon: "🛶"
+            },
+            {
+                id: "STATIC_02",
+                title: "淡水老街藍染拼布工作坊",
+                location: "新北",
+                date: "2025/5/20",
+                session: "下午場 14:00",
+                price: "1,200",
+                status: "completed",
+                icon: "🎨"
+            }
+        ];
+
+        // 💡 核心功能：動態渲染訂單紀錄清單
+        function renderOrders() {
+            if (!orderContainer) return;
+
+            // 從 localStorage 取得訂單，若沒有，就使用 defaultOrders 顯示預設測試資料
+            let savedOrders = JSON.parse(localStorage.getItem('myOrders'));
+            if (!savedOrders || savedOrders.length === 0) {
+                savedOrders = defaultOrders;
+            }
+
+            orderContainer.innerHTML = '';
+
+            savedOrders.forEach(order => {
+                // 根據活動名稱給予對應的 Emoji
+                let emoji = order.icon || "🛶";
+                if (order.title.includes('藍染') || order.title.includes('拼布')) emoji = "🎨";
+                if (order.title.includes('廚藝') || order.title.includes('料理')) emoji = "🍳";
+
+                // 根據狀態產出不同的 Badge
+                let statusBadge = '';
+                if (order.status === 'upcoming') {
+                    statusBadge = `<span class="status-badge status-upcoming">未出發</span><button class="btn-cancel delete-order-btn">取消訂單</button>`;
+                } else {
+                    statusBadge = `<span class="status-badge status-completed">已完成</span>`;
+                }
+
+                const orderHTML = `
+                    <div class="order-item" data-id="${order.id}">
+                        <div class="col-info">
+                            <div class="item-img-placeholder">${emoji}</div>
+                            <div class="item-details">
+                                <h4 class="item-name">${order.title}</h4>
+                                <span class="location-tag">📍 ${order.location}</span>
+                                <small style="display:block; color:#999; margin-top:2px;">訂單號：${order.id}</small>
+                            </div>
+                        </div>
+                        <div class="col-date">
+                            <p class="date-text">${order.date}</p>
+                            <p class="time-text">${order.session}</p>
+                        </div>
+                        <div class="col-price">NT$ ${order.price}</div>
+                        <div class="col-status">
+                            ${statusBadge}
+                        </div>
+                    </div>
+                `;
+                orderContainer.innerHTML += orderHTML;
+            });
+
+            // 綁定取消訂單事件
+            bindCancelOrderEvent();
+        }
+
+        // 💡 點擊「取消訂單」按鈕時同步更新並重新渲染
+        function bindCancelOrderEvent() {
+            const cancelBtns = document.querySelectorAll('.delete-order-btn');
+            cancelBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    if (confirm('確定要取消這筆預訂嗎？')) {
+                        const orderItem = btn.closest('.order-item');
+                        const orderId = orderItem.getAttribute('data-id');
+
+                        let savedOrders = JSON.parse(localStorage.getItem('myOrders')) || defaultOrders;
+                        // 過濾掉該筆被取消的訂單
+                        savedOrders = savedOrders.filter(order => order.id !== orderId);
+
+                        localStorage.setItem('myOrders', JSON.stringify(savedOrders));
+                        renderOrders();
+                    }
+                });
+            });
+        }
+
         // 核心功能：渲染我的收藏清單
         function renderFavorites() {
-            // 從 localStorage 取得目前的收藏清單（對應 product-all 與 tseng-home 使用的 'myFavorites'）
             let savedFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
 
-            // 如果沒有任何收藏，顯示提示畫面並清空容器
             if (savedFavorites.length === 0) {
                 if (favoriteContainer) favoriteContainer.innerHTML = '';
                 if (favoriteEmptyState) favoriteEmptyState.style.display = 'block';
                 return;
             }
 
-            // 隱藏提示畫面
             if (favoriteEmptyState) favoriteEmptyState.style.display = 'none';
             if (favoriteContainer) {
                 favoriteContainer.innerHTML = '';
 
-                // 遍歷所有收藏活動，生成 HTML 結構 (沿用 profile 的樣式排版)
                 savedFavorites.forEach(activity => {
                     const displayImg = (activity.images && activity.images.length > 0) ? activity.images[0] : './img/card-img-1.jpg';
 
@@ -295,7 +344,6 @@
                     favoriteContainer.innerHTML += cardHTML;
                 });
 
-                // 綁定移除收藏按鈕的事件
                 bindRemoveEvent();
             }
         }
@@ -327,17 +375,15 @@
                 menuItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
-                // 💡 修正後的分頁切換邏輯
                 if (item.innerText.includes('訂單紀錄')) {
-                    orderContent.style.display = 'block'; // 修正處：移除了多餘的 .style
+                    orderContent.style.display = 'block';
                     favoriteContent.style.display = 'none';
                     profileContent.style.display = 'none';
+                    renderOrders(); // 切換時重新渲染訂單
                 } else if (item.innerText.includes('我的收藏')) {
                     orderContent.style.display = 'none';
                     favoriteContent.style.display = 'block';
                     profileContent.style.display = 'none';
-
-                    // 當切換到「我的收藏」分頁時，執行渲染功能
                     renderFavorites();
                 } else if (item.innerText.includes('個人資料')) {
                     orderContent.style.display = 'none';
@@ -347,7 +393,8 @@
             });
         });
 
-        // 頁面初次載入時，先執行一次檢查（確保收藏資料與狀態正確）
+        // 頁面初次載入時，執行檢查與初始渲染
+        renderOrders();
         renderFavorites();
     </script>
 </body>

@@ -44,6 +44,7 @@ function handleFormSubmit(event) {
 
         // 存入暫存，讓第三頁可以抓取這個名字顯示
         localStorage.setItem('booking_name', contactName);
+        localStorage.setItem('booking_completed', 'true');
 
         // 成功跳轉到第三頁
         location.href = 'step-3.html';
