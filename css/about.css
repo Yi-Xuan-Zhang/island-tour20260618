@@ -28,7 +28,7 @@
      position: sticky;
      top: 0;
      z-index: 1000;
-     
+
  }
 
  nav .container {
@@ -39,6 +39,11 @@
      align-items: center;
  }
 
+ nav a {
+     color: #ffffff;
+     text-decoration: none;
+ }
+
  .logo {
      font-size: 28px;
      font-weight: bold;
@@ -47,6 +52,10 @@
  .menu {
      display: flex;
      gap: 40px;
+ }
+
+ .orange {
+     color: #e8613c;
  }
 
  .menu a {
@@ -65,6 +74,10 @@
      color: white;
      padding: 8px 20px;
      border-radius: 30px;
+ }
+
+ .login-btn:hover {
+     background: #f5efe6;
  }
 
  /* ======================hero======================== */
@@ -351,6 +364,7 @@
      color: rgba(255, 255, 255, .8);
      font-size: 14px;
      white-space: nowrap;
+     text-decoration: none;
      /* 禁止文字換行 */
  }
 
